@@ -3,12 +3,14 @@ import { Header } from "./Header";
 import { List } from "../common/List";
 import { ProductItem } from "./ProductItem";
 import { getProducts } from "../lib/api";
-import { productState, ProductsReducer, setIsLoading, setProducts } from "../lib/store/ProductReducer";
+import { setIsLoading, setProducts } from "../lib/store/ProductReducer";
 import { Preloader } from "../common/Preloder";
+import { useAppDispatch, useAppState } from "../lib/store/hooks";
 
 export const Main = () => {
 
-  const [state, dispatch] = React.useReducer(ProductsReducer, productState);
+  const state = useAppState();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     dispatch(setIsLoading(true));
