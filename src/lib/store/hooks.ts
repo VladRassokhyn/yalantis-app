@@ -1,18 +1,18 @@
-import React from "react"
-import { AppDispatchContext, AppStateContext } from "./context"
+import React from "react";
+import { AppDispatchContext, AppStateContext } from "./context";
 
 export const useAppState = () => {
-  const context = React.useContext(AppStateContext)
+  const context = React.useContext(AppStateContext);
   if (context === undefined) {
-    throw new Error('useCountState must be used within a CountProvider')
+    throw new Error("State error");
   }
-  return context
-}
+  return context;
+};
 
 export const useAppDispatch = () => {
-  const context = React.useContext(AppDispatchContext)
+  const context = React.useContext(AppDispatchContext);
   if (context === undefined) {
-    throw new Error('useCountDispatch must be used within a CountProvider')
+    throw new Error("Dispatch error");
   }
-  return context
-}
+  return context;
+};

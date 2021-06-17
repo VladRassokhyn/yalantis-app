@@ -13,7 +13,6 @@ code {
     monospace;
 }
 
-
 .main-header {
   height: 75px;
   width: 100%;
@@ -25,6 +24,7 @@ code {
   flex-wrap: wrap;
   justify-content: center;
 }
+
 @media (max-width: 790px) {
   .list-wrapper {
     display: flex;
@@ -60,6 +60,7 @@ code {
   font-family: Arial, "sans-serif";
   font-weight: 500;
   transition: 0.3s linear;
+
 }
 
 .product-item-wrapper h1:hover {
@@ -100,4 +101,47 @@ code {
 
 .add-to-basket-button:hover{
   background: #f6481c;
+}
+
+.paginator-wrapper {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paginator-page {
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 10px;
+  font: 20px/1 Arial;
+  color: #484748;
+  width: 40px;
+  height: 40px;
+  transition: 0.3s;
+  margin-left: 5px;
+}
+
+.paginator-page:hover {
+  cursor: pointer;
+  color: #f6731c;
+  border: 1px solid #f6731c;
+}
+
+.paginator-active-page {
+  background-color: #f6731c;
+  color: #fff !important;
+}
+
+.paginator-next, .paginator-back{
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+}
+
+.paginator-back {
+  transform: rotate(180deg);
 }
