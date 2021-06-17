@@ -3,7 +3,7 @@ import { IProduct } from "../lib/types";
 
 type P = {
   listArray: IProduct[],
-  ItemComponent: React.FC<{item: IProduct}>
+  ItemComponent: any // React.FC<{item: IProduct | IBasket}>
 }
 
 export const List: React.FC<P> = ({ listArray, ItemComponent }) => {
