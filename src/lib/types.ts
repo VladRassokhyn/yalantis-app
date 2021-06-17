@@ -18,14 +18,11 @@ export type TProductState = {
   basketItems: TProduct[],
 }
 
-export type TBasketState = {
-  items: TProduct[]
-}
-
 // eslint-disable-next-line no-unused-vars
 export type TDispatch = (action: Actions) => void
 
 export type ResponseGetProducts = {data: {items: TProduct[], totalItems: number}}
+export type ResponseGetProduct = {data: TProduct}
 
 export enum ActionTypes {
   // eslint-disable-next-line no-unused-vars
@@ -46,3 +43,4 @@ export type TSetProducts = { type: ActionTypes.SET_PRODUCTS, items: TProduct[], 
 export type TSetCurrentPage = { type: ActionTypes.SET_CURRENT_PAGE, page: number };
 export type TSetIsLoading = { type: ActionTypes.SET_IS_LOADING, isLoading: boolean };
 export type TAddProductToBasket = { type: ActionTypes.ADD_PRODUCT_TO_BASKET, product: TProduct }
+

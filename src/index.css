@@ -13,6 +13,12 @@ code {
     monospace;
 }
 
+a {
+  text-decoration: none;
+  outline: none;
+  color: black;
+}
+
 .main-header {
   height: 75px;
   width: 100%;
@@ -52,6 +58,7 @@ code {
 
 .product-item-wrapper:hover {
   background-color: #f5f5f5;
+  cursor: pointer;
 }
 
 .product-item-wrapper h1 {
@@ -123,6 +130,7 @@ code {
   height: 40px;
   transition: 0.3s;
   margin-left: 5px;
+  background-color: white;
 }
 
 .paginator-page:hover {
