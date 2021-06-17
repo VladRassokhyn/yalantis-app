@@ -22,11 +22,13 @@ a {
 
 .main-header {
   height: 75px;
-  width: 100%;
+  width: 91vw;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color: #3f4e5d;
+  padding-left: 4vw;
+  padding-right: 5vw;
 }
 
 .list-wrapper {
@@ -116,6 +118,8 @@ a {
   border-radius: 10px;
   font-size: 14pt;
   transition: 0.3s linear;
+  position: relative;
+  z-index: 999;
 }
 
 .add-to-basket-button:hover{
@@ -225,13 +229,24 @@ a {
 
 .nav-button {
   width: 150px;
-  height: 30px;
-  border-radius: 10px;
-  background-color: white;
+  height: 75px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.3s linear;
+}
+
+.nav-button:hover {
+  background-color: #313e49;
+}
+
+.nav-button h1 {
+  color: white;
   font-family: Arial, "sans-serif";
+}
+
+.nav-button img {
+  width: 40px;
 }
 
 .product-price-container {
@@ -239,4 +254,8 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.basket-item-wrapper {
+  
 }

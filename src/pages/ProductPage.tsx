@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../lib/api";
-import { TProduct } from "../lib/types";
+import { IProduct } from "../lib/types";
 import { format } from "date-fns";
 import { Product } from "../components/Product";
 import { ProductPrototype } from "../common/ProductPrototype";
@@ -19,7 +19,7 @@ const initialState = {
 
 export const ProductPage = () => {
 
-  const [product, setProduct] = React.useState<TProduct>(initialState);
+  const [product, setProduct] = React.useState<IProduct>(initialState);
   const [isLoading, setIsLoading] = React.useState(true);
 
   const params = useParams<{ productId: string }>();

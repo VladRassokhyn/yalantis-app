@@ -1,9 +1,9 @@
 import React from "react";
-import { TProduct } from "../lib/types";
+import { IProduct } from "../lib/types";
 
 type P = {
-  listArray: TProduct[],
-  ItemComponent: React.FC<{item: TProduct}>
+  listArray: IProduct[],
+  ItemComponent: React.FC<{item: IProduct}>
 }
 
 export const List: React.FC<P> = ({ listArray, ItemComponent }) => {

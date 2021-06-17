@@ -1,16 +1,14 @@
 import React from "react";
-import { TProduct } from "../lib/types";
+import { IProduct } from "../lib/types";
 import { addProductToBasket} from "../lib/store/ProductReducer";
-import { useAppDispatch, useAppState } from "../lib/store/hooks";
+import { useAppDispatch } from "../lib/store/hooks";
 
-export const AddToBasketButton: React.FC<{product: TProduct}> = ({ product }) => {
+export const AddToBasketButton: React.FC<{product: IProduct}> = ({ product }) => {
 
-  const state = useAppState();
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
     dispatch(addProductToBasket(product))
-    console.log(state.basketItems)
   };
 
   return <button

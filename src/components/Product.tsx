@@ -1,10 +1,10 @@
 import React from "react";
 import defaultProductPhoto from "../static/defaultProductPhoto.svg";
-import { AddToBasketButton } from "../common/AddToBasketButton";
-import { TProduct } from "../lib/types";
+import { AddToBasketButton } from "./AddToBasketButton";
+import { IProduct } from "../lib/types";
 
 type P = {
-  product: TProduct
+  product: IProduct
   createdAt: string
   updatedAt: string
 }

@@ -1,4 +1,4 @@
-export type TProduct = {
+export interface IProduct {
   isEditable: boolean,
   id: string,
   name: string,
@@ -9,20 +9,24 @@ export type TProduct = {
   photo?: string
 }
 
+export interface IBasket extends IProduct{
+  count: number
+}
+
 export type TProductState = {
   isLoading: boolean
   page: number,
   perPage: number,
-  items: TProduct[],
+  items: IProduct[],
   totalItems: number,
-  basketItems: TProduct[],
+  basketItems: IBasket[],
 }
 
 // eslint-disable-next-line no-unused-vars
 export type TDispatch = (action: Actions) => void
 
-export type ResponseGetProducts = {data: {items: TProduct[], totalItems: number}}
-export type ResponseGetProduct = {data: TProduct}
+export type ResponseGetProducts = {data: {items: IProduct[], totalItems: number}}
+export type ResponseGetProduct = {data: IProduct}
 
 export enum ActionTypes {
   // eslint-disable-next-line no-unused-vars
@@ -39,8 +43,8 @@ export enum ActionTypes {
 
 export type Actions = TSetCurrentPage | TSetProducts | TSetIsLoading | TAddProductToBasket
 
-export type TSetProducts = { type: ActionTypes.SET_PRODUCTS, items: TProduct[], totalItems: number };
+export type TSetProducts = { type: ActionTypes.SET_PRODUCTS, items: IProduct[], totalItems: number };
 export type TSetCurrentPage = { type: ActionTypes.SET_CURRENT_PAGE, page: number };
 export type TSetIsLoading = { type: ActionTypes.SET_IS_LOADING, isLoading: boolean };
-export type TAddProductToBasket = { type: ActionTypes.ADD_PRODUCT_TO_BASKET, product: TProduct }
+export type TAddProductToBasket = { type: ActionTypes.ADD_PRODUCT_TO_BASKET, product: IProduct }
 

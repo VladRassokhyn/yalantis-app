@@ -3,7 +3,7 @@ import {
   Actions,
   ActionTypes,
   TAddProductToBasket,
-  TProduct,
+  IProduct,
   TProductState,
   TSetCurrentPage,
   TSetIsLoading,
@@ -38,20 +38,33 @@ export const ProductsReducer: Reducer<TProductState, Actions> = (state = product
         isLoading: action.isLoading
       };
     case ActionTypes.ADD_PRODUCT_TO_BASKET:
-      return {
-        ...state, basketItems: [...state.basketItems, action.product]
-      };
+      if (state.basketItems.find(item => item.id === action.product.id)) {
+        return {
+          ...state,
+          basketItems: state.basketItems.map(item => {
+            if (item.id === action.product.id) {
+              return { ...item, count: item.count + 1 }
+            } else {
+              return item
+            }
+          })
+        };
+      } else {
+          return {
+            ...state, basketItems: [...state.basketItems, {...action.product, count: 1}]
+          }
+        }
     default:
       return state;
   }
 };
 
-export const addProductToBasket = (product: TProduct): TAddProductToBasket => ({
+export const addProductToBasket = (product: IProduct): TAddProductToBasket => ({
   type: ActionTypes.ADD_PRODUCT_TO_BASKET,
   product
 });
 
-export const setProducts = (items: TProduct[], totalItems: number): TSetProducts => ({
+export const setProducts = (items: IProduct[], totalItems: number): TSetProducts => ({
   type: ActionTypes.SET_PRODUCTS,
   items,
   totalItems

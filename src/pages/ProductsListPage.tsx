@@ -1,5 +1,5 @@
 import React from "react";
-import { List } from "../common/List";
+import { List } from "../components/List";
 import { ProductListItem } from "../components/ProductListItem";
 import { getProducts } from "../lib/api";
 import { setIsLoading, setProducts } from "../lib/store/ProductReducer";
