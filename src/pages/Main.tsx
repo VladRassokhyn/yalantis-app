@@ -1,11 +1,10 @@
 import React from "react";
-import { Redirect, Switch } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import { Routes, routes } from "../lib/store/routes";
-import { Header } from "./Header";
+import { Header } from "../components/Header";
 
 export const Main = () => {
   return <div>
-    <Redirect to={'/products'}/>
     <Header/>
     <Switch>
       {routes.map((route, i) => (

@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: scroll;
 }
 
 code {
@@ -22,6 +23,9 @@ a {
 .main-header {
   height: 75px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   background-color: #3f4e5d;
 }
 
@@ -29,6 +33,11 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+@keyframes show {
+  from {opacity: 0}
+  to {opacity: 1}
 }
 
 @media (max-width: 790px) {
@@ -54,6 +63,9 @@ a {
   background-color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.07);
   transition: 0.3s linear;
+
+  opacity: 0;
+  animation: show 0.3s forwards;
 }
 
 .product-item-wrapper:hover {
@@ -63,7 +75,7 @@ a {
 
 .product-item-wrapper h1 {
   font-size: 14pt;
-  color: #7e89aa;
+  color: #4d5366;
   font-family: Arial, "sans-serif";
   font-weight: 500;
   transition: 0.3s linear;
@@ -152,4 +164,79 @@ a {
 
 .paginator-back {
   transform: rotate(180deg);
+}
+
+.product-wrapper {
+  width: 80vw;
+  padding: 30px 10vw;
+  opacity: 0;
+  animation: show 0.3s forwards;
+}
+
+.product-container {
+  height: 500px;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 30px 5vw;
+}
+
+.product-container h1 {
+  font: 400 36px/36px Roboto,sans-serif;
+  border-bottom: 1px solid grey;
+}
+
+.product-description-container {
+  width: 100%;
+  height: 65%;
+  padding-top: 10%;
+  padding-bottom: 15%;
+  display: flex;
+  flex-direction: row;
+}
+
+.product-description-container img {
+  width: 50%;
+}
+
+.product-image-wrapper {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-description {
+  margin-left: 20px;
+  width: 50%;
+}
+
+.product-description h2 {
+  font-family: Arial, "sans-serif";
+  margin-top: 20px;
+}
+
+.product-description b {
+  display: block;
+  float: left;
+  font-weight: 700;
+  width: 100px;
+}
+
+.nav-button {
+  width: 150px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, "sans-serif";
+}
+
+.product-price-container {
+  margin-top: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

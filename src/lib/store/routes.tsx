@@ -1,7 +1,7 @@
 import React from "react";
 import { ProductsListPage } from "../../pages/ProductsListPage";
 import { ProductPage } from "../../pages/ProductPage";
-import { Basket } from "../../pages/Basket";
+import { BasketPage } from "../../pages/BasketPage";
 import { Route } from "react-router-dom";
 
 type TRoute = {
@@ -23,7 +23,7 @@ export const routes: TRoute[] = [
   },
   {
     path: '/basket',
-    component: Basket
+    component: BasketPage
   }
 ]
 

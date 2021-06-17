@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Basket = () => {
+export const BasketPage = () => {
   return <div>
     
   </div>

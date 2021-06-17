@@ -1,11 +1,11 @@
 import React from "react";
 import { List } from "../common/List";
-import { ProductListItem } from "./ProductListItem";
+import { ProductListItem } from "../components/ProductListItem";
 import { getProducts } from "../lib/api";
 import { setIsLoading, setProducts } from "../lib/store/ProductReducer";
-import { Preloader } from "../common/Preloder";
 import { useAppDispatch, useAppState } from "../lib/store/hooks";
 import { Paginator } from "../common/Paginator";
+import { ListPrototype } from "../common/ListPrototype";
 
 export const ProductsListPage = () => {
 
@@ -27,7 +27,7 @@ export const ProductsListPage = () => {
       totalItems={state.totalItems}
     />
     {state.isLoading
-      ? <div className={'preloader-wrapper'}><Preloader/></div>
+      ? <ListPrototype/>
       : <List listArray={state.items} ItemComponent={ProductListItem}/>
     }
   </div>;

@@ -2,29 +2,42 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../lib/api";
 import { TProduct } from "../lib/types";
+import { format } from "date-fns";
+import { Product } from "../components/Product";
+import { ProductPrototype } from "../common/ProductPrototype";
 
 const initialState = {
   isEditable: false,
-  id: '',
-  name: '',
+  id: "",
+  name: "",
   price: 0,
-  origin: '',
-  createdAt: '',
-  updatedAt: '',
-  photo: ''
-}
+  origin: "",
+  createdAt: new Date().toDateString(),
+  updatedAt: new Date().toDateString(),
+  photo: ""
+};
 
 export const ProductPage = () => {
 
-  const [state, setState] = React.useState<TProduct>(initialState)
-  const params = useParams<{productId: string}>();
+  const [product, setProduct] = React.useState<TProduct>(initialState);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  const params = useParams<{ productId: string }>();
+
+  const createdAt = format(new Date(product.createdAt), "HH:mm - dd.mm.yyyy");
+  const updatedAt = format(new Date(product.updatedAt), "HH:mm - dd.mm.yyyy");
 
   React.useEffect(() => {
+    setIsLoading(true)
     getProduct(params.productId).then(res => {
-      setState(res.data);
-    })
-  },[params])
-  return <div>
-    <h1>{state.name}</h1>
-  </div>
-}
+      setProduct(res.data);
+      setIsLoading(false)
+    });
+  }, [params]);
+
+  if (isLoading) {
+    return <ProductPrototype/>
+  } else {
+    return <Product product={product} createdAt={createdAt} updatedAt={updatedAt}/>
+  }
+};
