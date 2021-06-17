@@ -20,5 +20,6 @@ export const BasketPage = () => {
       <h1>Total Price: {totalPrice}$</h1>
     </div>
     <List listArray={state.basketItems} ItemComponent={ProductBasketItem}/>
+    {state.basketItems.length < 1 && <h5>Basket is ampty :( </h5>}
   </div>;
 };
