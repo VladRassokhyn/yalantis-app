@@ -346,9 +346,10 @@ h5 {
     text-align: center;
 }
 
-.added-to-basket {
-    font-size: 11pt !important;
-    text-align: center;
+.notification-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     z-index: 999;
     right: 5px;
@@ -359,5 +360,11 @@ h5 {
     opacity: 0;
     animation: show 0.3s forwards;
     border-radius: 10px;
-    padding-top: 15px;
+}
+
+.notification-wrapper h1 {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: 600;
 }

@@ -1,29 +1,24 @@
 import React from "react";
 import { IProduct } from "../lib/types";
 import { addProductToBasket} from "../lib/store/ProductReducer";
-import { useAppDispatch } from "../lib/store/hooks";
+import { useAppDispatch, useNotifiDispatch } from "../lib/store/hooks";
+import { addToBasketNotifiTrigger } from "../lib/store/NotificationReducer";
 
 export const AddToBasketButton: React.FC<{product: IProduct}> = ({ product }) => {
 
+  const dispatchNotifi = useNotifiDispatch();
   const dispatch = useAppDispatch();
-  const [showSuccess, setShowSuccess] = React.useState(false);
+
 
   const handleClick = () => {
+    dispatchNotifi(addToBasketNotifiTrigger(true))
     dispatch(addProductToBasket(product));
-    setShowSuccess(true);
   };
-
-  React.useEffect(() => {
-    if (showSuccess) {
-      setTimeout(() => setShowSuccess(false), 3000)
-    }
-  }, [showSuccess])
 
   return <button
     className={'add-to-basket-button'}
     onClick={handleClick}
   >
     ADD
-    {showSuccess && <div className={'added-to-basket'}>{product.name} - added to basket !</div>}
   </button>
 };

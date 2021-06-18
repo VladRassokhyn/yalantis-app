@@ -13,26 +13,26 @@ type TRoute = {
 
 export const routes: TRoute[] = [
   {
-    path: '/products',
+    path: "/products",
     component: ProductsListPage,
     exact: true
   },
   {
-    path: '/products/:productId',
+    path: "/products/:productId",
     component: ProductPage
   },
   {
-    path: '/basket',
+    path: "/basket",
     component: BasketPage
   }
-]
+];
 
-export const Routes = (route:TRoute) => {
+export const Routes = (route: TRoute) => {
   return <Route
     path={route.path}
     render={
       props => (
         <route.component {...props} routes={route.routes}/>
       )}
-      />
-}
+  />;
+};
