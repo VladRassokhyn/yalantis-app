@@ -2,16 +2,14 @@ import React from "react";
 import { Switch } from "react-router-dom";
 import { Routes, routes } from "../lib/store/routes";
 import { Header } from "../components/Header";
-import { useNotifiState } from "../lib/store/hooks";
-import { Notification } from "../common/Notification";
+import { Notificator } from "../components/Notificator/Notificator";
 
 export const Main = () => {
 
-  const notification = useNotifiState();
 
   return <div>
     <Header/>
-    {notification.addProduct && <Notification />}
+    <Notificator/>
     <Switch>
       {routes.map((route, i) => (
         <Routes key={i} {...route} />

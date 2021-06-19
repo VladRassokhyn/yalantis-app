@@ -1,27 +1,27 @@
 import { Reducer } from "react";
-import {
-  Actions,
-  ActionTypes,
-  TAddToBasketNotifiTrigger,
-  TNotificationState,
-} from "../types";
+import { v4 as uuidv4 } from 'uuid';
+import { Actions, ActionTypes, TAddNotification, TDeleteNotification, TNotification } from "../types";
 
-export const notifiState: TNotificationState = {
-  addProduct: false
-};
+export const notifiState: TNotification[] = []
 
-export const NotificationReducer: Reducer<TNotificationState, Actions> = (state = notifiState, action) => {
+export const NotificationReducer: Reducer<TNotification[], Actions> = (state = notifiState, action) => {
   switch (action.type) {
-    case ActionTypes.SHOW_ADD_TO_BASKET_NOTIFI:
-      return {
+    case ActionTypes.ADD_NOTIFICATION:
+      return [
         ...state,
-        addProduct: action.payload
-      };
-
+        {type: action.nType, isActive: true, id: uuidv4(), label: action.label}
+      ]
+    case ActionTypes.DELETE_NOTIFICATION:
+      return [
+        ...state.filter(notification => notification.id !== action.id)
+      ]
     default:
       return state;
   }
 };
 
-export const addToBasketNotifiTrigger =
-  (payload: boolean): TAddToBasketNotifiTrigger => ({type: ActionTypes.SHOW_ADD_TO_BASKET_NOTIFI, payload})
+export const addNotification =
+  (nType: string, label: string): TAddNotification => ({type: ActionTypes.ADD_NOTIFICATION, nType, label})
+
+export const deleteNotification =
+  (id: string): TDeleteNotification => ({type: ActionTypes.DELETE_NOTIFICATION, id})
