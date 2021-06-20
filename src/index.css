@@ -1,4 +1,5 @@
 body {
+    height: 100vw;
     background-color: #fafafa;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,8 +7,6 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow: scroll;
-    overflow-x: hidden;
 }
 
 code {
@@ -24,13 +23,13 @@ a {
 
 .main-header {
     height: 75px;
-    width: 91vw;
+    width: 91%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #3f4e5d;
-    padding-left: 4vw;
-    padding-right: 5vw;
+    padding-right: 4%;
+    padding-left: 5%;
 }
 
 .list-wrapper {
