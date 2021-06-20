@@ -42,6 +42,8 @@ export const Paginator: React.FC<P> = ({ currentPage, perPage, totalItems }) => 
 
   React.useEffect(() => {
     dispatch(setCurrentPage(pageState));
+    // eslint-disable-next-line no-undef
+    window.scrollTo({behavior: 'smooth', top: 0})
   }, [pageState]);
 
   return <div className={"paginator-wrapper"}>
