@@ -4,11 +4,11 @@ import { useNotifiDispatch } from "../../lib/store/hooks";
 import { deleteNotification } from "../../lib/store/NotificationReducer";
 import ok from '../../static/ok.svg';
 
-export const Notification: React.FC<{ notification: TNotification }> = ({ notification }) => {
+export const Notification:
+  React.FC<{ notification: TNotification}> = ({ notification }) => {
 
   const dispatch = useNotifiDispatch();
   const [willDeleted, setWillDeleted] = React.useState(false);
- // const [timerID, setTimerID] = React.useState()
 
   const handlerClick = () => {
     setWillDeleted(true);
@@ -18,7 +18,7 @@ export const Notification: React.FC<{ notification: TNotification }> = ({ notifi
       const timer = setTimeout(() => {
         setWillDeleted(true)
       }, 3000);
-    return () => clearTimeout(timer)
+      return () => clearTimeout(timer)
   }, []);
 
   React.useEffect(() => {

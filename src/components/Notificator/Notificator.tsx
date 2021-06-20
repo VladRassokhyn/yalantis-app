@@ -8,7 +8,7 @@ export const Notificator = () => {
 
   return <div className={"notificator-wrapper"}>
     {state.map(notification => {
-      return <Notification key={notification.id} notification={notification}/>
+        return <Notification key={notification.id} notification={notification}/>;
       }
     ).reverse()}
   </div>;
