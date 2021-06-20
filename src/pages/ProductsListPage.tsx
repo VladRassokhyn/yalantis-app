@@ -21,14 +21,14 @@ export const ProductsListPage = () => {
   }, [state.page]);
 
   return <div>
-    <Paginator
-      currentPage={state.page}
-      perPage={state.perPage}
-      totalItems={state.totalItems}
-    />
+
     {state.isLoading
       ? <ListPrototype/>
       : <List listArray={state.items} ItemComponent={ProductListItem}/>
-    }
+    }<Paginator
+    currentPage={state.page}
+    perPage={state.perPage}
+    totalItems={state.totalItems}
+  />
   </div>;
 };

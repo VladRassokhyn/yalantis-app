@@ -18,14 +18,14 @@ export const Paginator: React.FC<P> = ({ currentPage, perPage, totalItems }) => 
   const pagesCount: number = Math.ceil(totalItems / perPage);
   const pages: string[] = [];
 
-  if (pagesCount > 10) {
-    if (currentPage > 5) {
-      for (let i = currentPage - 4; i <= currentPage + 5; i++) {
+  if (pagesCount > 5) {
+    if (currentPage > 2) {
+      for (let i = currentPage - 2; i <= currentPage + 2; i++) {
         pages.push(`${i}`);
         if (i == pagesCount) break;
       }
     } else {
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= 5; i++) {
         pages.push(`${i}`);
         if (i == pagesCount) break;
       }

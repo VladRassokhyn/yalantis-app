@@ -1,10 +1,17 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import basket from "../static/basket.svg";
+import { useAppState } from "../lib/store/hooks";
 
 export const Header = () => {
 
   const isBasketPage = useLocation().pathname === "/basket";
+  const state = useAppState();
+  let itemsInBasket= 0
+
+  state.basketItems.forEach(product => {
+    itemsInBasket += product.count
+  })
 
   return <div className={"main-header"}>
     <Link to={"/products"}>
@@ -15,6 +22,7 @@ export const Header = () => {
     {isBasketPage ? <div/> : <Link to={"/basket"}>
       <div className={"nav-button"}>
         <img src={basket} alt={"basket"}/>
+        {itemsInBasket > 0 && <span>{itemsInBasket}</span>}
       </div>
     </Link>
     }
