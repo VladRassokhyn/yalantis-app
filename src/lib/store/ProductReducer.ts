@@ -7,13 +7,14 @@ import {
   TProductState,
   TSetCurrentPage,
   TSetIsLoading,
-  TSetProducts
+  TSetProducts,
+  TSetProductsPerPage
 } from "../types";
 
 export const productState: TProductState = {
   isLoading: false,
   page: 1,
-  perPage: 9,
+  perPage: 10,
   totalItems: 1,
   items: [],
   basketItems: []
@@ -31,6 +32,11 @@ export const ProductsReducer: Reducer<TProductState, Actions> = (state = product
       return {
         ...state,
         page: action.page
+      };
+    case ActionTypes.SET_PRODUCTS_PER_PAGE:
+      return {
+        ...state,
+        perPage: action.perPage
       };
     case ActionTypes.SET_IS_LOADING:
       return {
@@ -71,4 +77,5 @@ export const setProducts = (items: IProduct[], totalItems: number): TSetProducts
 });
 
 export const setCurrentPage = (page: number): TSetCurrentPage => ({ type: ActionTypes.SET_CURRENT_PAGE, page });
+export const stProductPerPage = (perPage: number): TSetProductsPerPage => ({ type: ActionTypes.SET_PRODUCTS_PER_PAGE, perPage });
 export const setIsLoading = (isLoading: boolean): TSetIsLoading => ({ type: ActionTypes.SET_IS_LOADING, isLoading });

@@ -39,6 +39,8 @@ export enum ActionTypes {
   // eslint-disable-next-line no-unused-vars
   SET_PRODUCTS = "products/SET_PRODUCTS",
   // eslint-disable-next-line no-unused-vars
+  SET_PRODUCTS_PER_PAGE = "products/SET_PRODUCTS_PER_PAGE",
+  // eslint-disable-next-line no-unused-vars
   SET_CURRENT_PAGE = "products/SET_CURRENT_PAGE",
   // eslint-disable-next-line no-unused-vars
   SET_IS_LOADING = "products/SET_IS_LOADING",
@@ -57,10 +59,12 @@ export type Actions =
   TSetIsLoading |
   TAddProductToBasket |
   TAddNotification |
-  TDeleteNotification
+  TDeleteNotification |
+  TSetProductsPerPage
 
 export type TSetProducts = { type: ActionTypes.SET_PRODUCTS, items: IProduct[], totalItems: number };
 export type TSetCurrentPage = { type: ActionTypes.SET_CURRENT_PAGE, page: number };
+export type TSetProductsPerPage = { type: ActionTypes.SET_PRODUCTS_PER_PAGE, perPage: number };
 export type TSetIsLoading = { type: ActionTypes.SET_IS_LOADING, isLoading: boolean };
 export type TAddProductToBasket = { type: ActionTypes.ADD_PRODUCT_TO_BASKET, product: IProduct }
 export type TAddNotification = {type: ActionTypes.ADD_NOTIFICATION, nType: string, label: string}

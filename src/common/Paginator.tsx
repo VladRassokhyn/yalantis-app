@@ -2,6 +2,7 @@ import React from "react";
 import paginatorNext from "../static/paginatorNext.svg";
 import { useAppDispatch } from "../lib/store/hooks";
 import { setCurrentPage } from "../lib/store/ProductReducer";
+import { Selector } from "./Selector";
 
 type P = {
   currentPage: number
@@ -43,36 +44,45 @@ export const Paginator: React.FC<P> = ({ currentPage, perPage, totalItems }) => 
   React.useEffect(() => {
     dispatch(setCurrentPage(pageState));
     // eslint-disable-next-line no-undef
-    window.scrollTo({behavior: 'smooth', top: 0})
+    window.scrollTo({ behavior: "smooth", top: 0 });
   }, [pageState]);
 
-  return <div className={"paginator-wrapper"}>
-    {pages.map((page, i) => {
-      if (page === "prev") {
-        return <img
+  return <div className={'pagination-wrapper'}>
+    <div className={"paginator-list"}>
+      {pages.map((page, i) => {
+        if (page === "prev") {
+          return <img
+            key={i}
+            onClick={() => setPageState(p => p - 1)}
+            className={"paginator-page paginator-back"}
+            src={paginatorNext}
+            alt={""}
+          />;
+        }
+        if (page === "next") {
+          return <img
+            key={i}
+            onClick={() => setPageState(p => p + 1)}
+            className={"paginator-page paginator-next"}
+            src={paginatorNext}
+            alt={""}
+          />;
+        }
+        return <span
           key={i}
-          onClick={() => setPageState(p => p - 1)}
-          className={"paginator-page paginator-back"}
-          src={paginatorNext}
-          alt={""}
-        />;
-      }
-      if (page === "next") {
-        return <img
-          key={i}
-          onClick={() => setPageState(p => p + 1)}
-          className={"paginator-page paginator-next"}
-          src={paginatorNext}
-          alt={""}
-        />;
-      }
-      return <span
-        key={i}
-        onClick={() => setPageState(+page)}
-        className={pageState === +page ? "paginator-active-page paginator-page" : "paginator-page"}
-      >
+          onClick={() => setPageState(+page)}
+          className={pageState === +page ? "paginator-active-page paginator-page" : "paginator-page"}
+        >
         {page}
       </span>;
-    })}
+      })}
+    </div>
+    <div className={"pagination-selector-wrapper"}>
+      <h1 className={"paginator-per-page-title"}>Show in page</h1>
+      <Selector
+        current={perPage}
+        arr={[10, 20, 30, 50]}
+      />
+    </div>
   </div>;
 };

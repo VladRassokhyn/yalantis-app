@@ -18,7 +18,7 @@ export const ProductsListPage = () => {
       dispatch(setProducts(res.data.items, res.data.totalItems));
       dispatch(setIsLoading(false));
     });
-  }, [state.page]);
+  }, [state.page, state.perPage]);
 
   return <div>
 

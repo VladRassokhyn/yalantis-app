@@ -1,5 +1,4 @@
 body {
-    height: 100vw;
     background-color: #fafafa;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -56,8 +55,8 @@ a {
 }
 
 .product-item-wrapper {
-    min-width: 25vw;
-    height: 400px;
+    min-width: 13%;
+    height: 360px;
     margin: 1vw;
     border-radius: 10px;
     padding: 2vw;
@@ -77,7 +76,7 @@ a {
 }
 
 .product-item-wrapper h1 {
-    font-size: 14pt;
+    font-size: 12pt;
     color: #4d5366;
     font-family: Arial, "sans-serif";
     font-weight: 500;
@@ -91,7 +90,7 @@ a {
 }
 
 .product-item-photo {
-    margin-top: 50px;
+    margin-top: 20px;
     width: 200px;
     margin-bottom: 50px;
 }
@@ -105,6 +104,7 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     font-size: 18pt;
     font-family: Arial, "sans-serif";
 }
@@ -127,7 +127,14 @@ a {
     background: #f6481c;
 }
 
-.paginator-wrapper {
+.pagination-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.paginator-list {
     width: 100%;
     height: 100px;
     display: flex;
@@ -436,4 +443,55 @@ h5 {
     100% {
         background-position: 0 50%
     }
+}
+
+.pagination-selector-wrapper {
+    display: flex;
+    height: 40px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: -70px;
+    margin-left: 70%;
+}
+
+.paginator-per-page-title {
+    font-size: 14pt;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #484748;
+    transition: 0.3s linear;
+}
+
+.selector-wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.selector-label {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: 10px;
+    font: 14pt Arial;
+    color: #484748;
+    width: 40px;
+    height: 40px;
+    transition: 0.3s;
+    margin-left: 5px;
+    background-color: white;
+}
+
+.selector-label-current {
+    border: 1px solid #f6731c;
+}
+
+.selector-label:hover {
+    cursor: pointer;
+    color: #f6731c;
+    border: 1px solid #f6731c;
 }
