@@ -2,7 +2,7 @@ import React from "react";
 import { List } from "../components/List";
 import { ProductListItem } from "../components/ProductListItem";
 import { getProducts } from "../lib/api";
-import { setIsLoading, setProducts } from "../lib/store/Products";
+import { setCurrentPage, setIsLoading, setProducts } from "../lib/store/Products";
 import { useProductsDispatch, useProductsState } from "../lib/store/Products";
 import { Paginator } from "../common/Paginator";
 import { ListPrototype } from "../common/ListPrototype";
@@ -26,6 +26,7 @@ export const ProductsListPage = () => {
       ? <ListPrototype listLength={state.perPage}/>
       : <List listArray={state.items} ItemComponent={ProductListItem}/>
     }<Paginator
+    changer={(page: number) => dispatch(setCurrentPage(page))}
     currentPage={state.page}
     perPage={state.perPage}
     totalItems={state.totalItems}

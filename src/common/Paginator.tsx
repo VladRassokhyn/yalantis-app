@@ -1,17 +1,16 @@
 import React from "react";
 import paginatorNext from "../static/paginatorNext.svg";
-import { setCurrentPage, useProductsDispatch } from "../lib/store/Products";
 import { Selector } from "./Selector";
 
 type P = {
   currentPage: number
   perPage: number
   totalItems: number
+  // eslint-disable-next-line no-unused-vars
+  changer: (page: number) => void
 }
 
-export const Paginator: React.FC<P> = ({ currentPage, perPage, totalItems }) => {
-
-  const dispatch = useProductsDispatch();
+export const Paginator: React.FC<P> = ({ currentPage, perPage, totalItems, changer }) => {
 
   const [pageState, setPageState] = React.useState(currentPage);
 
@@ -41,7 +40,7 @@ export const Paginator: React.FC<P> = ({ currentPage, perPage, totalItems }) => 
   if (pages[4] > "4") pages.push("next");
 
   React.useEffect(() => {
-    dispatch(setCurrentPage(pageState));
+    changer(pageState)
     // eslint-disable-next-line no-undef
     window.scrollTo({ behavior: "smooth", top: 0 });
   }, [pageState]);
