@@ -1,13 +1,15 @@
 import React from "react";
 import { TNotification } from "../../lib/store/Notificator";
-import { useNotifiDispatch } from "../../lib/store/Notificator";
-import { deleteNotification } from "../../lib/store/Notificator";
 import ok from '../../static/ok.svg';
 
-export const Notification:
-  React.FC<{ notification: TNotification}> = ({ notification }) => {
+type P = {
+  notification: TNotification
+  // eslint-disable-next-line no-unused-vars
+  deleteFn: (id: string) => void
+}
 
-  const dispatch = useNotifiDispatch();
+export const Notification: React.FC<P> = ({ notification, deleteFn }) => {
+
   const [willDeleted, setWillDeleted] = React.useState(false);
 
   const handlerClick = () => {
@@ -24,7 +26,7 @@ export const Notification:
   React.useEffect(() => {
     if (willDeleted) {
       let timer = setTimeout(() => {
-        dispatch(deleteNotification(notification.id));
+        deleteFn(notification.id)
       }, 300);
       return () => clearTimeout(timer)
     }
