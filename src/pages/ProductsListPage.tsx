@@ -24,7 +24,7 @@ export const ProductsListPage = () => {
   return <div>
 
     {state.isLoading
-      ? <ListPrototype listLength={state.perPage}/>
+      ? <ListPrototype />
       : <List listArray={state.items} ItemComponent={ProductListItem}/>
     }
     <Paginator

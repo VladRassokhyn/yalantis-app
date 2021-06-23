@@ -1,9 +1,7 @@
 import React from "react";
 import { IProduct } from "../lib/store/Products";
-import { addProductToBasket } from "../lib/store/Products";
-import { useNotifiDispatch } from "../lib/store/Notificator";
-import { useProductsDispatch } from "../lib/store/Products";
-import { addNotification } from "../lib/store/Notificator";
+import { addProductToBasket,useProductsDispatch } from "../lib/store/Products";
+import { useNotifiDispatch, addNotification } from "../lib/store/Notificator";
 
 export const AddToBasketButton: React.FC<{ product: IProduct }> = ({ product }) => {
 
