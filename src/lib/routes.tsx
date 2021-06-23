@@ -1,7 +1,7 @@
 import React from "react";
-import { ProductsListPage } from "../../pages/ProductsListPage";
-import { ProductPage } from "../../pages/ProductPage";
-import { BasketPage } from "../../pages/BasketPage";
+import { ProductsListPage } from "../pages/ProductsListPage";
+import { ProductPage } from "../pages/ProductPage";
+import { BasketPage } from "../pages/BasketPage";
 import { Route } from "react-router-dom";
 
 type TRoute = {

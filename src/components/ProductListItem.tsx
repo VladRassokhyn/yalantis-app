@@ -1,6 +1,6 @@
 import React from "react";
 import { AddToBasketButton } from "./AddToBasketButton";
-import { IProduct } from "../lib/types";
+import { IProduct } from "../lib/store/Products";
 import defaultProductPhoto from "../static/defaultProductPhoto.svg";
 import { Link } from "react-router-dom";
 

@@ -1,14 +1,14 @@
 import React from "react";
-import { IProduct } from "../lib/types";
-import { addProductToBasket } from "../lib/store/ProductReducer";
+import { IProduct } from "../lib/store/Products";
+import { addProductToBasket } from "../lib/store/Products";
 import { useNotifiDispatch } from "../lib/store/Notificator";
-import { useAppDispatch } from "../lib/store/hooks";
+import { useProductsDispatch } from "../lib/store/Products";
 import { addNotification } from "../lib/store/Notificator";
 
 export const AddToBasketButton: React.FC<{ product: IProduct }> = ({ product }) => {
 
   const dispatchNotifi = useNotifiDispatch();
-  const dispatch = useAppDispatch();
+  const dispatch = useProductsDispatch();
 
   const handleClick = () => {
     dispatch(addProductToBasket(product));

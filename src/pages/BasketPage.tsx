@@ -1,11 +1,11 @@
 import React from "react";
-import { useAppState } from "../lib/store/hooks";
+import { useProductsState } from "../lib/store/Products";
 import { List } from "../components/List";
 import { ProductBasketItem } from "../components/ProductBasketItem";
 
 export const BasketPage = () => {
 
-  const state = useAppState();
+  const state = useProductsState();
   let totalProducts = 0;
   let totalPrice = 0;
 

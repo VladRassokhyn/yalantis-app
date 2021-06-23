@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch } from "react-router-dom";
-import { Routes, routes } from "../lib/store/routes";
+import { Routes, routes } from "../lib/routes";
 import { Header } from "../components/Header";
 import { Notificator } from "../components/Notificator/Notificator";
 

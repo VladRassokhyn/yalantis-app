@@ -1,6 +1,6 @@
 import React from "react";
-import { useAppDispatch } from "../lib/store/hooks";
-import { stProductPerPage } from "../lib/store/ProductReducer";
+import { useProductsDispatch } from "../lib/store/Products";
+import { stProductPerPage } from "../lib/store/Products";
 
 type P = {
   current: number
@@ -9,7 +9,7 @@ type P = {
 
 export const Selector: React.FC<P> = ({ current, arr }) => {
 
-  const dispatch = useAppDispatch();
+  const dispatch = useProductsDispatch();
   const [visible, setVisible] = React.useState(false);
 
   const handleClick = (option: number) => {

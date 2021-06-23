@@ -1,5 +1,5 @@
 import React from "react";
-import { IBasket } from "../lib/types";
+import { IBasket } from "../lib/store/Products";
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { Link } from "react-router-dom";
 

@@ -1,15 +1,9 @@
 import { Reducer } from "react";
 import {
-  Actions,
+  TActions,
   ActionTypes,
-  TAddProductToBasket,
-  IProduct,
   TProductState,
-  TSetCurrentPage,
-  TSetIsLoading,
-  TSetProducts,
-  TSetProductsPerPage
-} from "../types";
+} from "./types";
 
 export const productState: TProductState = {
   isLoading: false,
@@ -20,7 +14,7 @@ export const productState: TProductState = {
   basketItems: []
 };
 
-export const ProductsReducer: Reducer<TProductState, Actions> = (state = productState, action) => {
+export const ProductsReducer: Reducer<TProductState, TActions> = (state = productState, action) => {
   switch (action.type) {
     case ActionTypes.SET_PRODUCTS:
       return {
@@ -65,17 +59,3 @@ export const ProductsReducer: Reducer<TProductState, Actions> = (state = product
   }
 };
 
-export const addProductToBasket = (product: IProduct): TAddProductToBasket => ({
-  type: ActionTypes.ADD_PRODUCT_TO_BASKET,
-  product
-});
-
-export const setProducts = (items: IProduct[], totalItems: number): TSetProducts => ({
-  type: ActionTypes.SET_PRODUCTS,
-  items,
-  totalItems
-});
-
-export const setCurrentPage = (page: number): TSetCurrentPage => ({ type: ActionTypes.SET_CURRENT_PAGE, page });
-export const stProductPerPage = (perPage: number): TSetProductsPerPage => ({ type: ActionTypes.SET_PRODUCTS_PER_PAGE, perPage });
-export const setIsLoading = (isLoading: boolean): TSetIsLoading => ({ type: ActionTypes.SET_IS_LOADING, isLoading });

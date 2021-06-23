@@ -1,5 +1,5 @@
 import React from "react";
-import { IProduct } from "../lib/types";
+import { IProduct } from "../lib/store/Products";
 
 type P = {
   listArray: IProduct[],

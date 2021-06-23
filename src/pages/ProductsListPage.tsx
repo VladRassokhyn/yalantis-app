@@ -2,15 +2,15 @@ import React from "react";
 import { List } from "../components/List";
 import { ProductListItem } from "../components/ProductListItem";
 import { getProducts } from "../lib/api";
-import { setIsLoading, setProducts } from "../lib/store/ProductReducer";
-import { useAppDispatch, useAppState } from "../lib/store/hooks";
+import { setIsLoading, setProducts } from "../lib/store/Products";
+import { useProductsDispatch, useProductsState } from "../lib/store/Products";
 import { Paginator } from "../common/Paginator";
 import { ListPrototype } from "../common/ListPrototype";
 
 export const ProductsListPage = () => {
 
-  const state = useAppState();
-  const dispatch = useAppDispatch();
+  const state = useProductsState();
+  const dispatch = useProductsDispatch();
 
   React.useEffect(() => {
     dispatch(setIsLoading(true));

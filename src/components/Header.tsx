@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import basket from "../static/basket.svg";
-import { useAppState } from "../lib/store/hooks";
+import { useProductsState } from "../lib/store/Products";
 
 export const Header = () => {
 
   const isBasketPage = useLocation().pathname === "/basket";
-  const state = useAppState();
+  const state = useProductsState();
   let itemsInBasket= 0
 
   state.basketItems.forEach(product => {

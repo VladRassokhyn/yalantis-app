@@ -1,7 +1,6 @@
 import React from "react";
 import paginatorNext from "../static/paginatorNext.svg";
-import { useAppDispatch } from "../lib/store/hooks";
-import { setCurrentPage } from "../lib/store/ProductReducer";
+import { setCurrentPage, useProductsDispatch } from "../lib/store/Products";
 import { Selector } from "./Selector";
 
 type P = {
@@ -12,7 +11,7 @@ type P = {
 
 export const Paginator: React.FC<P> = ({ currentPage, perPage, totalItems }) => {
 
-  const dispatch = useAppDispatch();
+  const dispatch = useProductsDispatch();
 
   const [pageState, setPageState] = React.useState(currentPage);
 
