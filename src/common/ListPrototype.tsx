@@ -1,9 +1,11 @@
 import React from "react";
 
-export const ListPrototype = () => {
+export const ListPrototype: React.FC<{listLength: number}> = ({listLength}) => {
+
+  const list: number[] = new Array(listLength);
 
   return <div className={'list-wrapper'}>
-    {[0,1,2,3,4,5,6,7,8].map((arrItem, i) => {
+    {list.map((arrItem, i) => {
       return<div key={i} className={"product-item-wrapper product-proto-animation"}/>
     })}
   </div>;
