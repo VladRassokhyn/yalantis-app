@@ -1,6 +1,5 @@
 import React from "react";
 import paginatorNext from "../static/paginatorNext.svg";
-import { Selector } from "./Selector";
 
 type P = {
   currentPage: number
@@ -74,13 +73,6 @@ export const Paginator: React.FC<P> = ({ currentPage, perPage, totalItems, chang
         {page}
       </span>;
       })}
-    </div>
-    <div className={"pagination-selector-wrapper"}>
-      <h1 className={"paginator-per-page-title"}>Show in page</h1>
-      <Selector
-        current={perPage}
-        arr={[10, 20, 30, 50]}
-      />
     </div>
   </div>;
 };

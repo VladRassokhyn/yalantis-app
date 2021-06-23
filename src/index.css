@@ -466,10 +466,11 @@ h5 {
 .pagination-selector-wrapper {
     display: flex;
     height: 40px;
+    width: 30%;
     justify-content: space-between;
     align-items: flex-end;
     margin-top: -70px;
-    margin-left: 50%;
+    margin-left: 3vw;
 }
 
 .paginator-per-page-title {
