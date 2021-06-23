@@ -1,10 +1,10 @@
 import { Reducer } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { Actions, ActionTypes, TAddNotification, TDeleteNotification, TNotification } from "../types";
+import { TNotification, ActionTypes, TActions } from "./types";
 
 export const notifiState: TNotification[] = []
 
-export const NotificationReducer: Reducer<TNotification[], Actions> = (state = notifiState, action) => {
+export const NotificationReducer: Reducer<TNotification[], TActions> = (state = notifiState, action) => {
   switch (action.type) {
     case ActionTypes.ADD_NOTIFICATION:
       return [
@@ -19,9 +19,3 @@ export const NotificationReducer: Reducer<TNotification[], Actions> = (state = n
       return state;
   }
 };
-
-export const addNotification =
-  (nType: string, label: string): TAddNotification => ({type: ActionTypes.ADD_NOTIFICATION, nType, label})
-
-export const deleteNotification =
-  (id: string): TDeleteNotification => ({type: ActionTypes.DELETE_NOTIFICATION, id})

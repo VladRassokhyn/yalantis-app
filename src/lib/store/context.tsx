@@ -1,13 +1,10 @@
 import React, { ReactNode } from "react";
 import { ProductsReducer, productState } from "./ProductReducer";
-import { TDispatch, TNotification, TProductState } from "../types";
-import { NotificationReducer, notifiState } from "./NotificationReducer";
+import { NotificationReducer, notifiState, NotifiDispatchContext, NotifiStateContext } from "./Notificator";
+import { TDispatch, TProductState } from "../types";
 
 export const AppStateContext = React.createContext<TProductState>(productState);
 export const AppDispatchContext = React.createContext<TDispatch>(() => {
-});
-export const NotifiStateContext = React.createContext<TNotification[]>(notifiState);
-export const NotifiDispatchContext = React.createContext<TDispatch>(() => {
 });
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

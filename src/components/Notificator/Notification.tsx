@@ -1,7 +1,7 @@
 import React from "react";
-import { TNotification } from "../../lib/types";
-import { useNotifiDispatch } from "../../lib/store/hooks";
-import { deleteNotification } from "../../lib/store/NotificationReducer";
+import { TNotification } from "../../lib/store/Notificator";
+import { useNotifiDispatch } from "../../lib/store/Notificator";
+import { deleteNotification } from "../../lib/store/Notificator";
 import ok from '../../static/ok.svg';
 
 export const Notification:

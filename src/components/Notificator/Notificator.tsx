@@ -1,5 +1,5 @@
 import React from "react";
-import { useNotifiState } from "../../lib/store/hooks";
+import { useNotifiState } from "../../lib/store/Notificator";
 import { Notification } from "./Notification";
 
 export const Notificator = () => {
