@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import basket from "../static/basket.svg";
 import { useProductsContext } from "../lib/store/Products";
-import { ROUTE_PATHS } from "../lib/routes";
+import { ROUTE_PATHS } from "../lib/router/routes";
 
 export const Header = () => {
 

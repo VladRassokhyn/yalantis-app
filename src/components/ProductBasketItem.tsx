@@ -2,7 +2,7 @@ import React from "react";
 import { IBasket } from "../lib/store/Products";
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { Link } from "react-router-dom";
-import { ROUTE_PATHS } from "../lib/routes";
+import { ROUTE_PATHS } from "../lib/router/routes";
 
 export const ProductBasketItem: React.FC<{ item: IBasket }> = ({item}) => {
 
