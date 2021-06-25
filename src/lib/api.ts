@@ -1,14 +1,23 @@
 import axios from "axios";
 import { ResponseGetProduct, ResponseGetProducts } from "./types";
+import env from 'react-dotenv';
 
 const axiosInstance = axios.create({
-  baseURL: "https://yalantis-react-school-api.yalantis.com/api/v1/"
+  baseURL: env.BASE_API_URL
 });
 
+
+
+const APP_ENDPOINTS = {
+  PRODUCTS: {
+    GET: '/products',
+  },
+}
+
 export const getProducts = async (page: number, perPage: number): Promise<ResponseGetProducts> => {
-  return await axiosInstance.get(`/products?page=${page}&perPage=${perPage}`);
+  return await axiosInstance.get(`${APP_ENDPOINTS.PRODUCTS.GET}?page=${page}&perPage=${perPage}`);
 };
 
 export const getProduct = async (id: string): Promise<ResponseGetProduct> => {
-  return await axiosInstance.get(`/products/${id}`);
+  return await axiosInstance.get(`${APP_ENDPOINTS.PRODUCTS.GET}/${id}`);
 };

@@ -11,18 +11,47 @@ type TRoute = {
   exact?: boolean
 }
 
+const PARAM_PREFIX = ":";
+
+export const pathMaker = (path: string) => {
+  return (params?: {[key: string]: string}) => {
+    if (params) {
+      return Object.entries(params).reduce(
+        (resultPath, [key, value]) =>
+          resultPath.replace(
+            `${PARAM_PREFIX}${key}`,
+            value
+          ),
+        path
+      );
+    } else {
+      return path
+    }
+  };
+};
+
+export const ROUTE_PATHS = {
+  PRODUCTS: {
+    BASE: pathMaker("/products"),
+    BY_ID: pathMaker("/products/:productId")
+  },
+  BASKET: {
+    BASE: pathMaker("/basket")
+  }
+};
+
 export const routes: TRoute[] = [
   {
-    path: "/products",
+    path: ROUTE_PATHS.PRODUCTS.BASE(),
     component: ProductsListPage,
     exact: true
   },
   {
-    path: "/products/:productId",
+    path: ROUTE_PATHS.PRODUCTS.BY_ID(),
     component: ProductPage
   },
   {
-    path: "/basket",
+    path: ROUTE_PATHS.BASKET.BASE(),
     component: BasketPage
   }
 ];

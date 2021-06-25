@@ -3,13 +3,13 @@ import defaultProductPhoto from "../static/defaultProductPhoto.svg";
 import { AddToBasketButton } from "./AddToBasketButton";
 import { IProduct } from "../lib/store/Products";
 
-type P = {
+type TProps = {
   product: IProduct
   createdAt: string
   updatedAt: string
 }
 
-export const Product: React.FC<P> = ({product, createdAt, updatedAt}) => {
+export const Product: React.FC<TProps> = ({product, createdAt, updatedAt}) => {
 
   return <div className={"product-wrapper"}>
     <div className={"product-container"}>

@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import basket from "../static/basket.svg";
 import { useProductsContext } from "../lib/store/Products";
+import { ROUTE_PATHS } from "../lib/routes";
 
 export const Header = () => {
 
@@ -15,12 +16,12 @@ export const Header = () => {
   })
 
   return <div className={"main-header"}>
-    <Link to={"/products"}>
+    <Link to={ROUTE_PATHS.PRODUCTS.BASE()}>
       <div className={"nav-button"}>
         <h1>PRODUCTS</h1>
       </div>
     </Link>
-    {isBasketPage ? <div/> : <Link to={"/basket"}>
+    {isBasketPage ? <div/> : <Link to={ROUTE_PATHS.BASKET.BASE()}>
       <div className={"nav-button"}>
         <img src={basket} alt={"basket"}/>
         {itemsInBasket > 0 && <span>{itemsInBasket}</span>}

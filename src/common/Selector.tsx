@@ -1,6 +1,6 @@
 import React from "react";
 
-type P = {
+type TProps = {
   current: number
   arr: number[]
   label: string
@@ -8,7 +8,7 @@ type P = {
   changer: (option: number) => void
 }
 
-export const Selector: React.FC<P> = ({ current, arr, changer, label }) => {
+export const Selector: React.FC<TProps> = ({ current, arr, changer, label }) => {
 
   const [visible, setVisible] = React.useState(false);
 

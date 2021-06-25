@@ -1,7 +1,7 @@
 import React from "react";
 import paginatorNext from "../static/paginatorNext.svg";
 
-type P = {
+type TProps = {
   currentPage: number
   perPage: number
   totalItems: number
@@ -9,7 +9,7 @@ type P = {
   changer: (page: number) => void
 }
 
-export const Paginator: React.FC<P> = ({ currentPage, perPage, totalItems, changer }) => {
+export const Paginator: React.FC<TProps> = ({ currentPage, perPage, totalItems, changer }) => {
 
   const [pageState, setPageState] = React.useState(currentPage);
 

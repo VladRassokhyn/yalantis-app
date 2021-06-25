@@ -2,13 +2,13 @@ import React from "react";
 import { TNotification } from "../../lib/store/Notificator";
 import ok from '../../static/ok.svg';
 
-type P = {
+type TProps = {
   notification: TNotification
   // eslint-disable-next-line no-unused-vars
   deleteFn: (id: string) => void
 }
 
-export const Notification: React.FC<P> = ({ notification, deleteFn }) => {
+export const Notification: React.FC<TProps> = ({ notification, deleteFn }) => {
 
   const [willDeleted, setWillDeleted] = React.useState(false);
 
