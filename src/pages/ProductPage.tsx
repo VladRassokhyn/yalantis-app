@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { getProduct } from '../lib/api/api';
+import { clientAPI } from '../lib/api/api';
 import { IProduct } from '../lib/store/Products';
 import { format } from 'date-fns';
 import { Product } from '../components/Product';
@@ -28,7 +28,7 @@ export const ProductPage = () => {
 
   React.useEffect(() => {
     setIsLoading(true);
-    getProduct(params.productId).then((res) => {
+    clientAPI.getProduct(params.productId).then((res) => {
       setProduct(res.data);
       setIsLoading(false);
     });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from '../components/List';
 import { ProductListItem } from '../components/ProductListItem';
-import { getProducts } from '../lib/api/api';
+import { clientAPI } from '../lib/api/api';
 import {
   setCurrentPage,
   setIsLoading,
@@ -12,17 +12,21 @@ import { Paginator } from '../common/Paginator';
 import { ListPrototype } from '../common/ListPrototype';
 import { Selector } from '../common/Selector';
 import { useProductsContext } from '../lib/store/Products';
+import { useSelector } from "react-redux";
 
 export const ProductsListPage = () => {
   const [state, dispatch] = useProductsContext();
 
   React.useEffect(() => {
     dispatch(setIsLoading(true));
-    getProducts(state.page, state.perPage).then((res) => {
+    clientAPI.getProducts(state.page, state.perPage).then((res) => {
       dispatch(setProducts(res.data.items, res.data.totalItems));
       dispatch(setIsLoading(false));
     });
   }, [state.page, state.perPage]);
+
+  const reduxState = useSelector(state => state)
+  console.log(reduxState)
 
   return (
     <div>
