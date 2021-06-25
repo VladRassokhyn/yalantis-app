@@ -3,8 +3,10 @@ import { ResponseGetProduct, ResponseGetProducts } from "../types";
 import env from 'react-dotenv';
 import { APP_ENDPOINTS } from "./endpoints";
 
+const base = env.BASE_API_URL
+
 const axiosInstance = axios.create({
-  baseURL: env.BASE_API_URL
+  baseURL: base
 });
 
 export const getProducts = async (page: number, perPage: number): Promise<ResponseGetProducts> => {

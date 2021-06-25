@@ -8,12 +8,13 @@ export const Header = () => {
 
   const isBasketPage = useLocation().pathname === "/basket";
   // eslint-disable-next-line no-unused-vars
-  const [state, dispatch ] = useProductsContext();
-  let itemsInBasket= 0
+  const [state, dispatch] = useProductsContext();
+  let itemsInBasket = 0;
 
-  state.basketItems.forEach((product: any) => {
-    itemsInBasket += product.count
-  })
+  React.useMemo(() => state.basketItems.forEach(product => {
+    console.log("rerender");
+    itemsInBasket += product.count;
+  }), [state.basketItems]);
 
   return <div className={"main-header"}>
     <Link to={ROUTE_PATHS.PRODUCTS.BASE()}>
