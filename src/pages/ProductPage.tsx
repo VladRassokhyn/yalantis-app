@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { getProduct } from "../lib/api";
+import { getProduct } from "../lib/api/api";
 import { IProduct } from "../lib/store/Products";
 import { format } from "date-fns";
 import { Product } from "../components/Product";

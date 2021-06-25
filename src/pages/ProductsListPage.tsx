@@ -1,7 +1,7 @@
 import React from "react";
 import { List } from "../components/List";
 import { ProductListItem } from "../components/ProductListItem";
-import { getProducts } from "../lib/api";
+import { getProducts } from "../lib/api/api";
 import { setCurrentPage, setIsLoading, setProducts, stProductPerPage } from "../lib/store/Products";
 import { Paginator } from "../common/Paginator";
 import { ListPrototype } from "../common/ListPrototype";
