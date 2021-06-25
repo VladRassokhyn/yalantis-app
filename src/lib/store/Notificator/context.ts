@@ -1,7 +1,7 @@
-import React from "react";
-import { TDispatch, TNotification } from "./types";
-import { notifiState } from "./reducer";
+import React from 'react';
+import { TDispatch, TNotification } from './types';
+import { notifiState } from './reducer';
 
-export const NotifiStateContext = React.createContext<TNotification[]>(notifiState);
-export const NotifiDispatchContext = React.createContext<TDispatch>(() => {
-});
+export const NotifiStateContext =
+  React.createContext<TNotification[]>(notifiState);
+export const NotifiDispatchContext = React.createContext<TDispatch>(() => {});

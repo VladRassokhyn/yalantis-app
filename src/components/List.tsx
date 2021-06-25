@@ -1,16 +1,17 @@
-import React from "react";
-import { IProduct } from "../lib/store/Products";
+import React from 'react';
+import { IProduct, IBasket } from '../lib/store/Products';
 
 type TProps = {
-  listArray: IProduct[],
-  ItemComponent: any // React.FC<{item: IProduct | IBasket}>
-}
+  listArray: IProduct[] | IBasket[];
+  ItemComponent: any; //({ item: IProduct | IBasket }) => JSX.Element
+};
 
 export const List: React.FC<TProps> = ({ listArray, ItemComponent }) => {
-
-  return <div className={'list-wrapper'}>
-    {listArray.map((arrItem, i) => {
-      return <ItemComponent key={i} item={arrItem}/>;
-    })}
-  </div>;
+  return (
+    <div className={'list-wrapper'}>
+      {listArray.map((arrItem, i) => {
+        return <ItemComponent key={i} item={arrItem} />;
+      })}
+    </div>
+  );
 };

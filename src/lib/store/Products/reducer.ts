@@ -1,9 +1,5 @@
-import { Reducer } from "react";
-import {
-  TActions,
-  ActionTypes,
-  TProductState,
-} from "./types";
+import { Reducer } from 'react';
+import { TActions, ActionTypes, TProductState } from './types';
 
 export const productState: TProductState = {
   isLoading: false,
@@ -11,51 +7,54 @@ export const productState: TProductState = {
   perPage: 10,
   totalItems: 1,
   items: [],
-  basketItems: []
+  basketItems: [],
 };
 
-export const ProductsReducer: Reducer<TProductState, TActions> = (state = productState, action) => {
+export const ProductsReducer: Reducer<TProductState, TActions> = (
+  state = productState,
+  action
+) => {
   switch (action.type) {
     case ActionTypes.SET_PRODUCTS:
       return {
         ...state,
         items: [...action.items],
-        totalItems: action.totalItems
+        totalItems: action.totalItems,
       };
     case ActionTypes.SET_CURRENT_PAGE:
       return {
         ...state,
-        page: action.page
+        page: action.page,
       };
     case ActionTypes.SET_PRODUCTS_PER_PAGE:
       return {
         ...state,
-        perPage: action.perPage
+        perPage: action.perPage,
       };
     case ActionTypes.SET_IS_LOADING:
       return {
         ...state,
-        isLoading: action.isLoading
+        isLoading: action.isLoading,
       };
     case ActionTypes.ADD_PRODUCT_TO_BASKET:
-      if (state.basketItems.find(item => item.id === action.product.id)) {
+      if (state.basketItems.find((item) => item.id === action.product.id)) {
         return {
           ...state,
-          basketItems: state.basketItems.map(item => {
+          basketItems: state.basketItems.map((item) => {
             if (item.id === action.product.id) {
-              return { ...item, count: item.count + 1 }
+              return { ...item, count: item.count + 1 };
             } else {
-              return item
+              return item;
             }
-          })
+          }),
         };
       } else {
-          return {
-            ...state, basketItems: [...state.basketItems, {...action.product, count: 1}]
-          }
-        }
+        return {
+          ...state,
+          basketItems: [...state.basketItems, { ...action.product, count: 1 }],
+        };
+      }
     default:
       return state;
   }
 };
-

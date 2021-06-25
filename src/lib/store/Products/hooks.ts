@@ -1,6 +1,6 @@
-import { useAppContext } from "../context";
+import { useAppContext } from '../context';
 
 export const useProductsContext = () => {
   const { state, dispatch } = useAppContext();
-  return [state.ProductsState, dispatch.ProductsDispatch] as const
-}
+  return [state.ProductsState, dispatch.ProductsDispatch] as const;
+};
