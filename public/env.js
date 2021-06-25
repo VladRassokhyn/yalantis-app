@@ -186,7 +186,7 @@ window.env = {
   "npm_package_devDependencies__types_uuid": "^8.3.0",
   "npm_package_eslintConfig_extends_0": "react-app",
   "npm_package_eslintConfig_extends_1": "react-app/jest",
-  "npm_package_gitHead": "893dc5cba809bc78917dac372005f0fbcd931e2d",
+  "npm_package_gitHead": "9ce327d1ce4759b06ef49bc057104ea718c7105b",
   "npm_package_name": "yalantis-app",
   "npm_package_private": "true",
   "npm_package_readmeFilename": "README.md",

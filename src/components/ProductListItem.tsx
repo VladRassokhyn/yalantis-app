@@ -3,7 +3,7 @@ import { AddToBasketButton } from "./AddToBasketButton";
 import { IProduct } from "../lib/store/Products";
 import defaultProductPhoto from "../static/defaultProductPhoto.svg";
 import { Link } from "react-router-dom";
-import { ROUTE_PATHS } from "../lib/router/routes";
+import { ROUTE_PATHS } from "../lib/router/paths";
 
 export const ProductListItem: React.FC<{ item: IProduct }> = ({ item }) => {
 
