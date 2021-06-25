@@ -1,12 +1,9 @@
 import axios from "axios";
 import { ResponseGetProduct, ResponseGetProducts } from "../types";
-import env from 'react-dotenv';
 import { APP_ENDPOINTS } from "./endpoints";
 
-const base = env.BASE_API_URL
-
 const axiosInstance = axios.create({
-  baseURL: base
+  baseURL: process.env.REACT_APP_API_URL
 });
 
 export const getProducts = async (page: number, perPage: number): Promise<ResponseGetProducts> => {
