@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 
 type TProps = {
   current: number
@@ -8,18 +8,18 @@ type TProps = {
   changer: (option: number) => void
 }
 
-export const Selector: React.FC<TProps> = ({ current, arr, changer, label }) => {
+export const Selector: React.FC<TProps> = React.memo(({ current, arr, changer, label }) => {
 
   const [visible, setVisible] = React.useState(false);
 
-  const handleClick = (option: number) => {
+  const handleClick = React.useCallback((option: number) => {
     setVisible(!visible);
     changer(option);
     // eslint-disable-next-line no-undef
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, [changer]);
 
-  const options = arr.map((option: number, i: number) => {
+  const options = React.useMemo(() => arr.map((option: number, i: number) => {
     if (option !== current)
       return <span
         key={i}
@@ -28,7 +28,7 @@ export const Selector: React.FC<TProps> = ({ current, arr, changer, label }) => 
       >
       {option}
     </span>;
-  });
+  }), [arr])
 
   return <div className={"pagination-selector-wrapper"}>
     <h1 className={"paginator-per-page-title"}>{label}</h1>
@@ -44,4 +44,4 @@ export const Selector: React.FC<TProps> = ({ current, arr, changer, label }) => 
       </div>
     </div>
   </div>;
-};
+})

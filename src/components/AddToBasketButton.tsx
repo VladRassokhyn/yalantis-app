@@ -8,12 +8,12 @@ export const AddToBasketButton: React.FC<{ product: IProduct }> = ({ product }) 
   // eslint-disable-next-line no-unused-vars
   const [_ , dispatchNotifi ] = useNotifiContext();
   // eslint-disable-next-line no-unused-vars
-  const [state, dispatch ] = useProductsContext();
+  const [state, dispatchProduct ] = useProductsContext();
 
-  const handleClick = () => {
-    dispatch(addProductToBasket(product));
+  const handleClick = React.useCallback(() => {
+    dispatchProduct(addProductToBasket(product));
     dispatchNotifi(addNotification("notification-success", `${product.name} added to basket !`));
-  };
+  },[product]);
 
   return <button
     className={"add-to-basket-button"}
