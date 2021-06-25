@@ -3,15 +3,14 @@ import { List } from "../components/List";
 import { ProductListItem } from "../components/ProductListItem";
 import { getProducts } from "../lib/api";
 import { setCurrentPage, setIsLoading, setProducts, stProductPerPage } from "../lib/store/Products";
-import { useProductsDispatch, useProductsState } from "../lib/store/Products";
 import { Paginator } from "../common/Paginator";
 import { ListPrototype } from "../common/ListPrototype";
 import { Selector } from "../common/Selector";
+import { useProductsContext } from "../lib/store/Products";
 
 export const ProductsListPage = () => {
 
-  const state = useProductsState();
-  const dispatch = useProductsDispatch();
+  const [state, dispatch] = useProductsContext();
 
   React.useEffect(() => {
     dispatch(setIsLoading(true));

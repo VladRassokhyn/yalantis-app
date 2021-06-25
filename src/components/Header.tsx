@@ -1,15 +1,16 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import basket from "../static/basket.svg";
-import { useProductsState } from "../lib/store/Products";
+import { useProductsContext } from "../lib/store/Products";
 
 export const Header = () => {
 
   const isBasketPage = useLocation().pathname === "/basket";
-  const state = useProductsState();
+  // eslint-disable-next-line no-unused-vars
+  const [state, dispatch ] = useProductsContext();
   let itemsInBasket= 0
 
-  state.basketItems.forEach(product => {
+  state.basketItems.forEach((product: any) => {
     itemsInBasket += product.count
   })
 

@@ -1,22 +1,34 @@
 import React, { ReactNode } from "react";
-import { ProductsReducer, productState, ProductStateContext, ProductDispatchContext } from "./Products";
-import { NotificationReducer, notifiState, NotifiDispatchContext, NotifiStateContext } from "./Notificator";
+import { ProductsReducer, productState } from "./Products";
+import { NotificationReducer, notifiState } from "./Notificator";
+import { TAppContext } from "../types";
 
+const AppContext = React.createContext<TAppContext>({} as TAppContext);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
-  const [state, dispatch] = React.useReducer(ProductsReducer, productState);
+  const [ProductsState, ProductsDispatch] = React.useReducer(ProductsReducer, productState);
   const [NotifiState, NotifiDispatch] = React.useReducer(NotificationReducer, notifiState);
 
+  const store = {
+    state: {
+      ProductsState,
+      NotifiState
+    },
+    dispatch: {
+      ProductsDispatch,
+      NotifiDispatch
+    }
+  };
+
   return (
-    <ProductStateContext.Provider value={state}>
-      <ProductDispatchContext.Provider value={dispatch}>
-        <NotifiStateContext.Provider value={NotifiState}>
-          <NotifiDispatchContext.Provider value={NotifiDispatch}>
-            {children}
-          </NotifiDispatchContext.Provider>
-        </NotifiStateContext.Provider>
-      </ProductDispatchContext.Provider>
-    </ProductStateContext.Provider>
+    <AppContext.Provider value={store}>
+      {children}
+    </AppContext.Provider>
   );
+};
+
+export const useAppContext = () => {
+  const { state, dispatch } = React.useContext(AppContext);
+  return { state, dispatch };
 };

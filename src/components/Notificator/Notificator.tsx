@@ -1,14 +1,13 @@
 import React from "react";
-import { deleteNotification, useNotifiDispatch, useNotifiState } from "../../lib/store/Notificator";
+import { deleteNotification, useNotifiContext } from "../../lib/store/Notificator";
 import { Notification } from "./Notification";
 
 export const Notificator = () => {
 
-  const state = useNotifiState();
-  const dispatch = useNotifiDispatch();
+  const [state, dispatch ]= useNotifiContext()
 
   return <div className={"notificator-wrapper"}>
-    {state.map(notification => {
+    {state.map((notification: any) => {
         return <Notification
           deleteFn={() => dispatch(deleteNotification(notification.id))}
           key={notification.id}
