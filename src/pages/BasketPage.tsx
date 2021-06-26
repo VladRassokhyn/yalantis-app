@@ -1,7 +1,9 @@
 import React from 'react';
 import { useProductsContext } from '../lib/store/Products';
-//import { List } from '../components/List';
-//import { ProductBasketItem } from '../components/ProductBasketItem';
+import { useSelector } from "../lib/store/hooks";
+import { selectIds } from '../lib/store/basketSlice';
+import { List } from '../components/List';
+import { ProductBasketItem } from '../components/ProductBasketItem';
 
 export const BasketPage = () => {
   // eslint-disable-next-line no-unused-vars
@@ -14,6 +16,7 @@ export const BasketPage = () => {
     totalPrice += item.price * item.count;
   });
 
+  const basketItemsIds = useSelector(selectIds);
 
   return (
     <div className={'basket-wrapper'}>
@@ -21,8 +24,7 @@ export const BasketPage = () => {
         <h1>Total Products: {totalProducts}</h1>
         <h1>Total Price: {totalPrice}$</h1>
       </div>
-      {//<List listArray={state.basketItems} ItemComponent={ProductBasketItem} />
-        }
+      <List listArray={basketItemsIds} ItemComponent={ProductBasketItem} />
       {state.basketItems.length < 1 && <h5>Basket is empty :( </h5>}
     </div>
   );

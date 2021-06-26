@@ -27,7 +27,7 @@ export const ProductListItem: React.FC<{ itemId: EntityId }> = ({ itemId }) => {
           </Link>
           <h2>
             {product.price}$
-            <AddToBasketButton product={product}/>
+            <AddToBasketButton productId={product.id}/>
           </h2>
         </div>
       </div>

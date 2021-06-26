@@ -22,6 +22,6 @@ export const basketReducer = basketSlice.reducer;
 
 export const { addedToBasket, deletedFromBasket } = basketSlice.actions;
 
-export const basketSelectors = basketAdapter.getSelectors<RootState>(
+export const { selectIds, selectById } = basketAdapter.getSelectors<RootState>(
   (state) => state.basket
 );

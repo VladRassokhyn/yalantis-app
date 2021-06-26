@@ -37,7 +37,7 @@ export const Product: React.FC<TProps> = ({
             </h2>
             <div className={'product-price-container'}>
               <h1>{product.price}$</h1>
-              <AddToBasketButton product={product}>ADD</AddToBasketButton>
+              <AddToBasketButton productId={product.id}>ADD</AddToBasketButton>
             </div>
           </div>
         </div>

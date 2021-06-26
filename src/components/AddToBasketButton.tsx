@@ -1,28 +1,30 @@
-import React from 'react';
-import { IProduct } from '../lib/store/Products';
-import { addProductToBasket, useProductsContext } from '../lib/store/Products';
-import { useNotifiContext, addNotification } from '../lib/store/Notificator';
+import React from "react";
+import { useNotifiContext, addNotification } from "../lib/store/Notificator";
+import { useSelector } from "../lib/store/hooks";
+import { selectById } from "../lib/store/productsSlice";
+import { useDispatch } from "react-redux";
+import { addedToBasket } from "../lib/store/basketSlice";
 
-export const AddToBasketButton: React.FC<{ product: IProduct }> = ({
-  product,
-}) => {
+export const AddToBasketButton: React.FC<{ productId: string }> = ({ productId }) => {
   // eslint-disable-next-line no-unused-vars
   const [_, dispatchNotifi] = useNotifiContext();
-  // eslint-disable-next-line no-unused-vars
-  const [state, dispatchProduct] = useProductsContext();
+
+  const dispatch = useDispatch();
+
+  const product = useSelector((state) => selectById(state, productId));
 
   const handleClick = React.useCallback(() => {
-    dispatchProduct(addProductToBasket(product));
+    dispatch(addedToBasket(product))
     dispatchNotifi(
       addNotification(
-        'notification-success',
-        `${product.name} added to basket !`
+        "notification-success",
+        `${product && product.name} added to basket !`
       )
     );
-  }, [product]);
+  }, [productId]);
 
   return (
-    <button className={'add-to-basket-button'} onClick={handleClick}>
+    <button className={"add-to-basket-button"} onClick={handleClick}>
       ADD
     </button>
   );

@@ -63,8 +63,6 @@ export const productsReducer = productsSlice.reducer;
 export const { currentPageChanged, currentPerPageChanged } =
   productsSlice.actions;
 
-
-
 export const selectProductsOptions = (state: RootState) => ({
   page: state.products.page,
   perPage: state.products.perPage,
