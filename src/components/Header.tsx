@@ -1,22 +1,15 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import basket from '../static/basket.svg';
-import { useProductsContext } from '../lib/store/Products';
 import { ROUTE_PATHS } from '../lib/router/paths';
+import { useSelector } from "../lib/store/hooks";
+import { selectBasketOptions } from "../lib/store/basketSlice";
 
 export const Header = () => {
-  const isBasketPage = useLocation().pathname === '/basket';
-  // eslint-disable-next-line no-unused-vars
-  const [state, dispatch] = useProductsContext();
-  const [itemsInBasket, setItemsInBasket] = React.useState(0);
 
-  React.useMemo(
-    () =>
-      state.basketItems.forEach((product) => {
-        setItemsInBasket((prevState) => prevState + product.count);
-      }),
-    [state.basketItems.length]
-  );
+  const isBasketPage = useLocation().pathname === ROUTE_PATHS.BASKET.BASE();
+
+  const { totalCount } = useSelector(selectBasketOptions);
 
   return (
     <div className={'main-header'}>
@@ -31,7 +24,7 @@ export const Header = () => {
         <Link to={ROUTE_PATHS.BASKET.BASE()}>
           <div className={'nav-button'}>
             <img src={basket} alt={'basket'} />
-            {itemsInBasket > 0 && <span>{itemsInBasket}</span>}
+            {totalCount > 0 && <span>{totalCount}</span>}
           </div>
         </Link>
       )}

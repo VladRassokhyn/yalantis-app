@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { clientAPI } from '../lib/api/api';
-import { IProduct } from '../lib/store/Products';
+import { IProduct } from '../lib/types';
 import { format } from 'date-fns';
 import { Product } from '../components/Product';
 import { ProductPrototype } from '../common/ProductPrototype';

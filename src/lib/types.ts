@@ -1,28 +1,28 @@
-import { IProduct } from './store/Products';
-import {
-  TActions as TProductActions,
-  TProductState,
-} from './store/Products/types';
-import { TNotification } from './store/Notificator';
-import { Dispatch } from 'react';
-import { TActions as TNotifyActions } from './store/Notificator/types';
-
-export type TGlobalState = {
-  ProductsState: TProductState;
-  NotifiState: TNotification[];
+export type TNotification = {
+  type: string;
+  isActive: boolean;
+  id: string;
+  label: string;
 };
 
-export type TGlobalDispatch = {
-  ProductsDispatch: Dispatch<TProductActions>;
-  NotifiDispatch: Dispatch<TNotifyActions>;
-};
+export interface IProduct {
+  isEditable: boolean;
+  id: string;
+  name: string;
+  price: number;
+  origin: string;
+  createdAt: string;
+  updatedAt: string;
+  photo?: string;
+}
 
-export type TAppContext = {
-  state: TGlobalState;
-  dispatch: TGlobalDispatch;
-};
+export interface IBasket extends IProduct {
+  count: number;
+}
+
 
 export type ResponseGetProducts = {
   data: { items: IProduct[]; totalItems: number };
 };
 export type ResponseGetProduct = { data: IProduct };
+

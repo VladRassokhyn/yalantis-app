@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { AddToBasketButton } from './AddToBasketButton';
-import { IProduct } from '../lib/store/Products';
+import { IProduct } from '../lib/types';
 
 type TProps = {
   product: IProduct;

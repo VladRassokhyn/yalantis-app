@@ -1,15 +1,19 @@
-import React from 'react';
-import { TNotification } from '../../lib/store/Notificator';
+import React from "react";
 import ok from '../../static/ok.svg';
+import { EntityId } from "@reduxjs/toolkit";
+import { useSelector } from "../../lib/store/hooks";
+import { selectById } from "../../lib/store/notoficationSlice";
 
 type TProps = {
-  notification: TNotification;
-  // eslint-disable-next-line no-unused-vars
-  deleteFn: (id: string) => void;
+  notificationId: EntityId;
+  deleteFn: () => void
 };
 
-export const Notification: React.FC<TProps> = ({ notification, deleteFn }) => {
+export const Notification: React.FC<TProps> = ({ notificationId, deleteFn }) => {
+
   const [willDeleted, setWillDeleted] = React.useState(false);
+
+  const notification = useSelector((state) => selectById(state.notification, notificationId))
 
   const handlerClick = () => {
     setWillDeleted(true);
@@ -25,21 +29,23 @@ export const Notification: React.FC<TProps> = ({ notification, deleteFn }) => {
   React.useEffect(() => {
     if (willDeleted) {
       let timer = setTimeout(() => {
-        deleteFn(notification.id);
+        deleteFn();
       }, 300);
       return () => clearTimeout(timer);
     }
   }, [willDeleted]);
 
-  return (
-    <div
-      onClick={handlerClick}
-      className={`notification-wrapper ${
-        willDeleted && 'delete-notification'
-      } ${notification.type}`}
-    >
-      <img src={ok} alt={''} />
-      <h1>{notification.label}</h1>
-    </div>
-  );
+  if (notification) {
+    return (
+      <div
+        onClick={handlerClick}
+        className={`notification-wrapper ${
+          willDeleted && 'delete-notification'
+        } ${notification.type}`}
+      >
+        <img src={ok} alt={''} />
+        <h1>{notification.label}</h1>
+      </div>
+    );
+  } else return null
 };
