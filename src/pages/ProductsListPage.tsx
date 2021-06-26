@@ -1,51 +1,51 @@
 import React from 'react';
 import { List } from '../components/List';
 import { ProductListItem } from '../components/ProductListItem';
-import { clientAPI } from '../lib/api/api';
-import {
-  setCurrentPage,
-  setIsLoading,
-  setProducts,
-  stProductPerPage,
-} from '../lib/store/Products';
 import { Paginator } from '../common/Paginator';
 import { ListPrototype } from '../common/ListPrototype';
 import { Selector } from '../common/Selector';
-import { useProductsContext } from '../lib/store/Products';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectProductsOptions,
+  getProducts,
+  productSelectors,
+  currentPageChanged,
+  currentPerPageChanged,
+} from '../lib/store/productsSlice';
 
 export const ProductsListPage = () => {
-  const [state, dispatch] = useProductsContext();
+  const toolkitDispatch = useDispatch();
+
+  const products = useSelector(productSelectors.selectAll);
+
+  const { page, perPage, totalItems, status } = useSelector(
+    selectProductsOptions
+  );
 
   React.useEffect(() => {
-    dispatch(setIsLoading(true));
-    clientAPI.getProducts(state.page, state.perPage).then((res) => {
-      dispatch(setProducts(res.data.items, res.data.totalItems));
-      dispatch(setIsLoading(false));
-    });
-  }, [state.page, state.perPage]);
-
-  const reduxState = useSelector(state => state)
-  console.log(reduxState)
+    console.log(page, perPage);
+    toolkitDispatch(getProducts({ page, perPage }));
+  }, [page, perPage]);
 
   return (
     <div>
-      {state.isLoading ? (
-        <ListPrototype />
-      ) : (
-        <List listArray={state.items} ItemComponent={ProductListItem} />
+      {status === 'loading' && <ListPrototype />}
+      {status === 'success' && (
+        <List listArray={products} ItemComponent={ProductListItem} />
       )}
+
       <Paginator
-        changer={(page: number) => dispatch(setCurrentPage(page))}
-        currentPage={state.page}
-        perPage={state.perPage}
-        totalItems={state.totalItems}
+        changer={(page: number) => toolkitDispatch(currentPageChanged(page))}
+        currentPage={page}
+        perPage={perPage}
+        totalItems={totalItems}
       />
+
       <Selector
         label={'Show in page'}
-        changer={(option) => dispatch(stProductPerPage(option))}
-        current={state.perPage}
-        arr={[10, 20, 30, 50]}
+        changer={(option) => toolkitDispatch(currentPerPageChanged(option))}
+        current={perPage}
+        arr={[10, 25, 50]}
       />
     </div>
   );

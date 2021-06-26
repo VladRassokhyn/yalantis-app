@@ -18,5 +18,5 @@ export const clientAPI = {
 
   getProduct: async (id: string): Promise<ResponseGetProduct> => {
     return await axiosInstance.get(`${APP_ENDPOINTS.PRODUCTS.GET}/${id}`);
-  }
+  },
 };
