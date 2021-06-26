@@ -4,26 +4,26 @@ import { ProductListItem } from '../components/ProductListItem';
 import { Paginator } from '../common/Paginator';
 import { ListPrototype } from '../common/ListPrototype';
 import { Selector } from '../common/Selector';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   selectProductsOptions,
   getProducts,
-  productSelectors,
+  selectIds,
   currentPageChanged,
   currentPerPageChanged,
 } from '../lib/store/productsSlice';
+import { useSelector } from '../lib/store/hooks';
 
 export const ProductsListPage = () => {
   const toolkitDispatch = useDispatch();
 
-  const products = useSelector(productSelectors.selectAll);
+  const productsIds = useSelector(selectIds);
 
   const { page, perPage, totalItems, status } = useSelector(
     selectProductsOptions
   );
 
   React.useEffect(() => {
-    console.log(page, perPage);
     toolkitDispatch(getProducts({ page, perPage }));
   }, [page, perPage]);
 
@@ -31,7 +31,7 @@ export const ProductsListPage = () => {
     <div>
       {status === 'loading' && <ListPrototype />}
       {status === 'success' && (
-        <List listArray={products} ItemComponent={ProductListItem} />
+        <List listArray={productsIds} ItemComponent={ProductListItem} />
       )}
 
       <Paginator
@@ -47,6 +47,7 @@ export const ProductsListPage = () => {
         current={perPage}
         arr={[10, 25, 50]}
       />
+
     </div>
   );
 };

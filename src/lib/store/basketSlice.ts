@@ -1,5 +1,6 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { IBasket } from './Products';
+import { RootState } from "./store";
 
 export const basketAdapter = createEntityAdapter<IBasket>();
 
@@ -17,3 +18,10 @@ export const basketSlice = createSlice({
 });
 
 export const basketReducer = basketSlice.reducer;
+
+
+export const { addedToBasket, deletedFromBasket } = basketSlice.actions;
+
+export const basketSelectors = basketAdapter.getSelectors<RootState>(
+  (state) => state.basket
+);
