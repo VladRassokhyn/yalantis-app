@@ -6,7 +6,7 @@ export const notifiState: TNotification[] = [];
 
 export const NotificationReducer: Reducer<TNotification[], TActions> = (
   state = notifiState,
-  action
+  action,
 ) => {
   switch (action.type) {
     case ActionTypes.ADD_NOTIFICATION:

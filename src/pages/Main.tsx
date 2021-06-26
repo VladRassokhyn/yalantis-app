@@ -4,9 +4,8 @@ import { Routes, routes } from '../lib/router/routes';
 import { Header } from '../components/Header';
 import { Notificator } from '../components/Notificator/Notificator';
 
-export const Main = () => {
-  return (
-    <div>
+export const Main = () => (
+  <div>
       <Header />
       <Notificator />
       <Switch>
@@ -16,4 +15,4 @@ export const Main = () => {
       </Switch>
     </div>
   );
-};
+

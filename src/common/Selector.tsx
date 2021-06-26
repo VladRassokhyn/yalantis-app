@@ -4,19 +4,17 @@ type TProps = {
   current: number;
   arr: number[];
   label: string;
-  // eslint-disable-next-line no-unused-vars
-  changer: (option: number) => void;
+  changer: any
 };
 
 export const Selector: React.FC<TProps> = React.memo(
   ({ current, arr, changer, label }) => {
-    const [visible, setVisible] = React.useState(false);
 
+    const [visible, setVisible] = React.useState(false);
     const handleClick = React.useCallback(
       (option: number) => {
         setVisible(!visible);
         changer(option);
-        // eslint-disable-next-line no-undef
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       [changer]

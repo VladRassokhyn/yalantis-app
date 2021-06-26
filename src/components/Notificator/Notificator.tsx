@@ -6,7 +6,10 @@ import {
 import { Notification } from './Notification';
 
 export const Notificator = () => {
+
   const [state, dispatch] = useNotifiContext();
+
+  const deleteFn = (id: string) => () => dispatch(deleteNotification(id))
 
   return (
     <div className={'notificator-wrapper'}>
@@ -14,7 +17,7 @@ export const Notificator = () => {
         .map((notification) => {
           return (
             <Notification
-              deleteFn={() => dispatch(deleteNotification(notification.id))}
+              deleteFn={deleteFn(notification.id)}
               key={notification.id}
               notification={notification}
             />

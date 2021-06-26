@@ -1,15 +1,13 @@
 import React from 'react';
 import { IProduct } from '../lib/store/Products';
-import { addProductToBasket, useProductsContext } from '../lib/store/Products';
-import { useNotifiContext, addNotification } from '../lib/store/Notificator';
+import { addProductToBasket, useProductsDispatch } from '../lib/store/Products';
+import { useNotifiDispatch, addNotification } from '../lib/store/Notificator';
 
 export const AddToBasketButton: React.FC<{ product: IProduct }> = ({
   product,
 }) => {
-  // eslint-disable-next-line no-unused-vars
-  const [_, dispatchNotifi] = useNotifiContext();
-  // eslint-disable-next-line no-unused-vars
-  const [state, dispatchProduct] = useProductsContext();
+  const dispatchNotifi = useNotifiDispatch();
+  const dispatchProduct = useProductsDispatch();
 
   const handleClick = React.useCallback(() => {
     dispatchProduct(addProductToBasket(product));

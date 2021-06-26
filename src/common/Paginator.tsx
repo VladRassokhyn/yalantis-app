@@ -5,8 +5,7 @@ type TProps = {
   currentPage: number;
   perPage: number;
   totalItems: number;
-  // eslint-disable-next-line no-unused-vars
-  changer: (page: number) => void;
+  changer: any
 };
 
 export const Paginator: React.FC<TProps> = ({
@@ -44,7 +43,6 @@ export const Paginator: React.FC<TProps> = ({
 
   React.useEffect(() => {
     changer(pageState);
-    // eslint-disable-next-line no-undef
     window.scrollTo({ behavior: 'smooth', top: 0 });
   }, [pageState]);
 

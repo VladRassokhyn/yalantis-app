@@ -1,7 +1,7 @@
 import { ProductsReducer, productState } from './reducer';
 import { IProduct, IBasket } from './types';
 import { ProductStateContext, ProductDispatchContext } from './context';
-import { useProductsContext } from './hooks';
+import { useProductsContext, useProductsDispatch, useProductsState } from './hooks';
 import {
   addProductToBasket,
   setIsLoading,
@@ -12,6 +12,8 @@ import {
 
 export {
   productState,
+  useProductsState,
+  useProductsDispatch,
   useProductsContext,
   ProductStateContext,
   ProductDispatchContext,

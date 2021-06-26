@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import basket from '../static/basket.svg';
-import { useProductsContext } from '../lib/store/Products';
+import { useProductsState } from '../lib/store/Products';
 import { ROUTE_PATHS } from '../lib/router/paths';
 
 export const Header = () => {
-  const isBasketPage = useLocation().pathname === '/basket';
-  // eslint-disable-next-line no-unused-vars
-  const [state, dispatch] = useProductsContext();
+
+  const isBasketPage = useLocation().pathname === ROUTE_PATHS.BASKET.BASE();
+  const state = useProductsState();
   const [itemsInBasket, setItemsInBasket] = React.useState(0);
 
-  React.useMemo(
-    () =>
-      state.basketItems.forEach((product) => {
-        setItemsInBasket((prevState) => prevState + product.count);
-      }),
-    [state.basketItems.length]
-  );
+  React.useEffect(() => {
+    let count = 0;
+    state.basketItems.forEach((product) => {
+      count += product.count
+    })
+    setItemsInBasket(count);
+  }, [state.basketItems]);
 
   return (
     <div className={'main-header'}>

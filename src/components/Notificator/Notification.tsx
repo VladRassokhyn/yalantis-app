@@ -1,12 +1,11 @@
-import React from 'react';
-import { TNotification } from '../../lib/store/Notificator';
-import ok from '../../static/ok.svg';
+import React from "react";
+import { TNotification } from "../../lib/store/Notificator";
+import ok from "../../static/ok.svg";
 
 type TProps = {
   notification: TNotification;
-  // eslint-disable-next-line no-unused-vars
-  deleteFn: (id: string) => void;
-};
+  deleteFn: any
+}
 
 export const Notification: React.FC<TProps> = ({ notification, deleteFn }) => {
   const [willDeleted, setWillDeleted] = React.useState(false);
@@ -35,10 +34,10 @@ export const Notification: React.FC<TProps> = ({ notification, deleteFn }) => {
     <div
       onClick={handlerClick}
       className={`notification-wrapper ${
-        willDeleted && 'delete-notification'
+        willDeleted && "delete-notification"
       } ${notification.type}`}
     >
-      <img src={ok} alt={''} />
+      <img src={ok} alt={""}/>
       <h1>{notification.label}</h1>
     </div>
   );

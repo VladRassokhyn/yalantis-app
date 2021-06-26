@@ -1,3 +1,5 @@
+import { Dispatch } from "react";
+
 export type TNotification = {
   type: string;
   isActive: boolean;
@@ -12,8 +14,7 @@ export enum ActionTypes {
   DELETE_NOTIFICATION = 'products/DELETE_NOTIFICATION',
 }
 
-// eslint-disable-next-line no-unused-vars
-export type TDispatch = (action: TActions) => void;
+export type TDispatch = Dispatch<TActions>
 
 export type TActions = TAddNotification | TDeleteNotification;
 

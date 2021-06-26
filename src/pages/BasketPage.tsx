@@ -1,18 +1,21 @@
 import React from 'react';
-import { useProductsContext } from '../lib/store/Products';
+import { useProductsState } from '../lib/store/Products';
 import { List } from '../components/List';
 import { ProductBasketItem } from '../components/ProductBasketItem';
 
 export const BasketPage = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [state, dispatch] = useProductsContext();
+
+  const state = useProductsState();
   let totalProducts = 0;
   let totalPrice = 0;
 
-  state.basketItems.forEach((item) => {
-    totalProducts += item.count;
-    totalPrice += item.price * item.count;
-  });
+  React.useEffect(() => {
+    state.basketItems.forEach((item) => {
+      totalProducts += item.count;
+      totalPrice += item.price * item.count;
+    });
+  }, [state.basketItems])
+
 
   return (
     <div className={'basket-wrapper'}>

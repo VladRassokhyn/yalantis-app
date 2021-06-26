@@ -39,7 +39,7 @@ export const ProductsListPage = () => {
       />
       <Selector
         label={'Show in page'}
-        changer={(option) => dispatch(stProductPerPage(option))}
+        changer={(option: number) => dispatch(stProductPerPage(option))}
         current={state.perPage}
         arr={[10, 20, 30, 50]}
       />

@@ -1,3 +1,5 @@
+import { Dispatch } from "react";
+
 export interface IProduct {
   isEditable: boolean;
   id: string;
@@ -22,8 +24,7 @@ export type TProductState = {
   basketItems: IBasket[];
 };
 
-// eslint-disable-next-line no-unused-vars
-export type TDispatch = (action: TActions) => void;
+export type TDispatch = Dispatch<TActions>
 
 export enum ActionTypes {
   // eslint-disable-next-line no-unused-vars
