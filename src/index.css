@@ -311,7 +311,7 @@ b {
     background-color: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.06), 0 0 2px rgba(0, 0, 0, 0.07);
     border-radius: 10px;
-    padding: 15px 5%;
+    padding: 15px 0 15px 5%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -321,9 +321,15 @@ b {
 .basket-item-wrapper img {
     height: 100%;
 }
-
+.basket-count-input {
+    width: 50px;
+    height: 18px;
+    font-size: 14pt;
+    border: 0;
+    border-bottom: 1px solid grey;
+}
 .basket-item-title-container {
-    width: 50%;
+    width: 40%;
     padding-left: 3%;
     height: 100%;
     display: flex;
@@ -344,6 +350,8 @@ b {
     font-size: 16pt;
     margin-top: 10px;
     color: #313e49;
+    display: flex;
+    align-items: center;
 }
 
 .basket-item-total-container h1 {
@@ -361,6 +369,65 @@ b {
     text-align: center;
     margin-top: 15px;
     font-size: 24pt;
+}
+
+.basket-count-buttons {
+    margin-left: 10px;
+    width: 20px;
+    height: 18px;
+}
+.basket-count-increment {
+    display: block;
+    border-left: 3px solid grey;
+    border-top: 3px solid grey;
+    transform: rotate(45deg);
+    width: 5px;
+    height: 5px;
+}
+.basket-count-decrement {
+    display: block;
+    border-right: 3px solid grey;
+    border-bottom: 3px solid grey;
+    transform: rotate(45deg);
+    width: 5px;
+    height: 5px;
+    transition: 0.3s linear;
+}
+.basket-count-increment:hover {
+    border-color: #f6481c;
+    cursor: pointer;
+}
+.basket-count-decrement:hover {
+    border-color: #f6481c;
+    cursor: pointer;
+}
+
+.basket-delete-wrapper {
+    width: 150px;
+    height: calc(100% + 30px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 0 10px 10px 0;
+    transition: .3s linear;
+}
+
+.basket-delete-wrapper img {
+    width: 30px;
+    height: 40px;
+}
+.basket-delete-wrapper h3 {
+    color: rgba(72, 71, 72, 0.7);
+    font-size: 14pt;
+    font-weight: 600;
+    font-family: Arial;
+}
+
+.basket-delete-wrapper:hover {
+    background-color: #fafafa;
+    cursor: pointer;
 }
 
 h5 {
@@ -407,6 +474,9 @@ h5 {
 
 .notification-success {
     background-color: rgba(0, 175, 38, 0.9);
+}
+.notification-error {
+    background-color: rgba(175, 0, 0, 0.9);
 }
 
 .notification-success:hover {

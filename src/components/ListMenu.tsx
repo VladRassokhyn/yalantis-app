@@ -34,13 +34,6 @@ export const ListMenu: React.FC<TProps> = ({
   changePerPageFn,
 }) => {
 
-  const handleChange = React.useCallback(
-    (e: any) => {
-      changePerPageFn(e.value);
-    },
-    [perPage]
-  );
-
   return (
     <div className={'list-menu-wrapper'}>
       <div />
@@ -55,7 +48,7 @@ export const ListMenu: React.FC<TProps> = ({
           className="react-select-container"
           classNamePrefix="react-select"
           isSearchable={false}
-          onChange={(e: any) => handleChange(e)}
+          onChange={(e: any) => changePerPageFn(e.value)}
           value={{ value: perPage, label: perPage }}
           options={options}
           theme={theme}
