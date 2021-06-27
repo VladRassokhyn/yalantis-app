@@ -1,18 +1,17 @@
-import React from 'react';
-import { List } from '../components/List';
-import { ProductListItem } from '../components/ProductListItem';
-import { Paginator } from '../common/Paginator';
-import { ListPrototype } from '../common/ListPrototype';
-import { Selector } from '../common/Selector';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { List } from "../components/List";
+import { ProductListItem } from "../components/ProductListItem";
+import { ListPrototype } from "../common/ListPrototype";
+import { useDispatch } from "react-redux";
 import {
   selectProductsOptions,
   getProducts,
   selectIds,
   currentPageChanged,
-  currentPerPageChanged,
-} from '../lib/store/productsSlice';
-import { useSelector } from '../lib/store/hooks';
+  currentPerPageChanged
+} from "../lib/store/productsSlice";
+import { useSelector } from "../lib/store/hooks";
+import { ListMenu } from "../components/ListMenu";
 
 export const ProductsListPage = () => {
   const toolkitDispatch = useDispatch();
@@ -29,25 +28,18 @@ export const ProductsListPage = () => {
 
   return (
     <div>
-      {status === 'loading' && <ListPrototype />}
-      {status === 'success' && (
-        <List listArray={productsIds} ItemComponent={ProductListItem} />
-      )}
-
-      <Paginator
-        changer={(page: number) => toolkitDispatch(currentPageChanged(page))}
-        currentPage={page}
+      <ListMenu
+        page={page}
         perPage={perPage}
         totalItems={totalItems}
+        changePageFn={(page: number) => toolkitDispatch(currentPageChanged(page))}
+        changePerPageFn={(option: number) => toolkitDispatch(currentPerPageChanged(option))}
       />
 
-      <Selector
-        label={'Show in page'}
-        changer={(option) => toolkitDispatch(currentPerPageChanged(option))}
-        current={perPage}
-        arr={[10, 25, 50]}
-      />
-
+      {status === "loading" && <ListPrototype/>}
+      {status === "success" && (
+        <List listArray={productsIds} ItemComponent={ProductListItem}/>
+      )}
     </div>
   );
 };

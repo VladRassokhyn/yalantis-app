@@ -5,8 +5,6 @@ import { RootState } from "./store";
 
 const notificationAdapter = createEntityAdapter<TNotification>({});
 
-export const initialState: TNotification[] = [];
-
 export const notificationSlice = createSlice({
   name: "notification",
   initialState: notificationAdapter.getInitialState(),

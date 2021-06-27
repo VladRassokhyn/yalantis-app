@@ -463,76 +463,27 @@ h5 {
     }
 }
 
-.pagination-selector-wrapper {
-    display: flex;
-    height: 40px;
-    width: 30%;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: -70px;
-    margin-left: 3vw;
+.list-menu-wrapper {
+    padding-left: 2vw;
+    padding-right: 2vw;
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
 }
 
-.paginator-per-page-title {
-    font-size: 14pt;
-    height: 42px;
+.list-menu-selector-wrapper {
+    height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    color: #484748;
-    transition: 0.3s linear;
-}
-
-.selector-wrapper {
-    width: 300px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-}
-
-.selector-options-list {
-    display: flex;
-    flex-direction: row;
-    width: 0;
-}
-
-.open-selector {
-    animation: openSelector .3s forwards;
-}
-
-@keyframes openSelector {
-    from {
-        opacity: 0;
-        width: 0
-    }
-    to {
-        opacity: 1;
-        width: 200px
-    }
-}
-
-.selector-label {
-    position: relative;
     align-items: center;
-    justify-content: center;
+}
+
+.react-select-wrapper {
     display: flex;
-    border: 1px solid rgba(0, 0, 0, .05);
-    border-radius: 10px;
-    font: 14pt Arial;
-    color: #484748;
-    width: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.react-select-container {
+    width: 80px;
     height: 40px;
-    transition: 0.3s;
-    margin-left: 5px;
-    background-color: white;
-}
-
-.selector-label-current {
-    border: 1px solid #f6731c;
-}
-
-.selector-label:hover {
-    cursor: pointer;
-    color: #f6731c;
-    border: 1px solid #f6731c;
 }
