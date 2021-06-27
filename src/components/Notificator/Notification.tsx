@@ -1,19 +1,23 @@
-import React from "react";
+import React from 'react';
 import ok from '../../static/ok.svg';
-import { EntityId } from "@reduxjs/toolkit";
-import { useSelector } from "../../lib/store/hooks";
-import { selectById } from "../../lib/store/notoficationSlice";
+import { EntityId } from '@reduxjs/toolkit';
+import { useSelector } from '../../lib/store/hooks';
+import { selectById } from '../../lib/store/notoficationSlice';
 
 type TProps = {
   notificationId: EntityId;
-  deleteFn: () => void
+  deleteFn: () => void;
 };
 
-export const Notification: React.FC<TProps> = ({ notificationId, deleteFn }) => {
-
+export const Notification: React.FC<TProps> = ({
+  notificationId,
+  deleteFn,
+}) => {
   const [willDeleted, setWillDeleted] = React.useState(false);
 
-  const notification = useSelector((state) => selectById(state.notification, notificationId))
+  const notification = useSelector((state) =>
+    selectById(state.notification, notificationId)
+  );
 
   const handlerClick = () => {
     setWillDeleted(true);
@@ -47,5 +51,5 @@ export const Notification: React.FC<TProps> = ({ notificationId, deleteFn }) => 
         <h1>{notification.label}</h1>
       </div>
     );
-  } else return null
+  } else return null;
 };

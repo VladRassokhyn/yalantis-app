@@ -7,7 +7,7 @@ export const store = configureStore({
   reducer: {
     products: productsReducer,
     basket: basketReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
   },
 });
 

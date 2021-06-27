@@ -2,11 +2,10 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import basket from '../static/basket.svg';
 import { ROUTE_PATHS } from '../lib/router/paths';
-import { useSelector } from "../lib/store/hooks";
-import { selectBasketOptions } from "../lib/store/basketSlice";
+import { useSelector } from '../lib/store/hooks';
+import { selectBasketOptions } from '../lib/store/basketSlice';
 
 export const Header = () => {
-
   const isBasketPage = useLocation().pathname === ROUTE_PATHS.BASKET.BASE();
 
   const { totalCount } = useSelector(selectBasketOptions);

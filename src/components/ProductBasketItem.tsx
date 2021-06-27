@@ -2,12 +2,11 @@ import React from 'react';
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { Link } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
-import { useSelector } from "../lib/store/hooks";
+import { useSelector } from '../lib/store/hooks';
 import { selectById } from '../lib/store/basketSlice';
 
 export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
-
-  const product = useSelector(state => selectById(state, itemId))
+  const product = useSelector((state) => selectById(state, itemId));
 
   if (product) {
     return (
@@ -30,5 +29,5 @@ export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
         </div>
       </div>
     );
-  }else return null
+  } else return null;
 };

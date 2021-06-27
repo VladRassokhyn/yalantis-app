@@ -1,5 +1,5 @@
 import React from 'react';
-import { EntityId } from "@reduxjs/toolkit";
+import { EntityId } from '@reduxjs/toolkit';
 
 type TProps = {
   listArray: EntityId[];
@@ -9,7 +9,7 @@ type TProps = {
 export const List: React.FC<TProps> = ({ listArray, ItemComponent }) => {
   return (
     <div className={'list-wrapper'}>
-      {listArray.map(itemId => {
+      {listArray.map((itemId) => {
         return <ItemComponent key={itemId} itemId={itemId} />;
       })}
     </div>
