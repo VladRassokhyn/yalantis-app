@@ -8,14 +8,20 @@ export type TNotification = {
 };
 
 export interface IProduct {
-  isEditable: boolean;
-  id: string;
-  name: string;
-  price: number;
-  origin: string;
-  createdAt: string;
-  updatedAt: string;
-  photo?: string;
+    isEditable: boolean;
+    id: string;
+    name: string;
+    price: number;
+    origin: string;
+    createdAt: string;
+    updatedAt: string;
+    photo?: string;
+}
+
+export type TSingleProductState = {
+  status: string
+  error: string
+  product: IProduct
 }
 
 export type TInitialProducts = {

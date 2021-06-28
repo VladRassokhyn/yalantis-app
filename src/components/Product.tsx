@@ -21,7 +21,7 @@ export const Product: React.FC<TProps> = ({
         <div className={'product-description-container'}>
           <div className={'product-image-wrapper'}>
             <img
-              src={`${product.photo ? product.photo : defaultProductPhoto}`}
+              src={`${defaultProductPhoto}`}
               alt={'image'}
             />
           </div>

@@ -33,7 +33,11 @@ export const SliderRange: React.FC<TProps> = ({
     if (e.target.name === 'max') {
       const value = Math.max(+e.target.value, minVal + 1);
       setMaxVal(value);
-      maxValRef.current = value;
+      if (maxVal > 999){
+        maxValRef.current = 1000
+      } else {
+        maxValRef.current = value;
+      }
     }
   };
 
@@ -91,6 +95,7 @@ export const SliderRange: React.FC<TProps> = ({
         <div className={'slider__left-input-box'}>
           <label>From $</label>
           <input
+            maxLength={3}
             name={'min'}
             value={minVal}
             onChange={(e) => handleChange(e)}
@@ -100,6 +105,7 @@ export const SliderRange: React.FC<TProps> = ({
         <div className={'slider__right-input-box'}>
           <label>To $</label>
           <input
+            maxLength={3}
             name={'max'}
             value={maxVal}
             onChange={(e) => handleChange(e)}
