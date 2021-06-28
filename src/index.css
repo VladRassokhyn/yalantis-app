@@ -545,9 +545,8 @@ h5 {
     height: 80px;
     padding-left: 3vw;
     padding-right: 3vw;
-    width: 100%;
     display: grid;
-    grid-template-columns: 4fr 2fr 4fr 3fr;
+    grid-template-columns: 4fr 2fr 4fr 1fr;
     grid-gap: 50px;
 }
 
