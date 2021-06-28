@@ -1,8 +1,8 @@
-import React from 'react';
-import { List } from '../components/List';
-import { ProductListItem } from '../components/ProductListItem';
-import { ListPrototype } from '../common/ListPrototype';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { List } from "../components/List";
+import { ProductListItem } from "../components/ProductListItem";
+import { ListPrototype } from "../common/ListPrototype";
+import { useDispatch } from "react-redux";
 import {
   selectProductsOptions,
   getProducts,
@@ -11,12 +11,14 @@ import {
   currentPerPageChanged,
   originsChanged,
   priceFilterChanged,
-} from '../lib/store/productsSlice';
-import { useSelector } from '../lib/store/hooks';
-import { ListMenu } from '../components/ListMenu';
-import { Paginator } from '../common/Paginator';
+  allFiltersResets
+} from "../lib/store/productsSlice";
+import { useSelector } from "../lib/store/hooks";
+import { ListMenu } from "../components/ListMenu";
+import { Paginator } from "../common/Paginator";
 
 export const ProductsListPage = () => {
+
   const dispatch = useDispatch();
 
   const productsIds = useSelector(selectIds);
@@ -30,7 +32,7 @@ export const ProductsListPage = () => {
     filterOrigins,
     minPrice,
     maxPrice,
-    filterPrice,
+    filterPrice
   } = useSelector(selectProductsOptions);
 
   React.useEffect(() => {
@@ -40,11 +42,17 @@ export const ProductsListPage = () => {
         perPage,
         origins: filterOrigins ? filterOrigins : origins,
         minPrice: filterPrice.min,
-        maxPrice: filterPrice.max,
+        maxPrice: filterPrice.max
       })
     );
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page, perPage, origins, filterOrigins, filterPrice]);
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(allFiltersResets())
+    }
+  }, []);
 
   return (
     <div>
@@ -65,9 +73,9 @@ export const ProductsListPage = () => {
         }
       />
 
-      {status === 'loading' && <ListPrototype />}
-      {status === 'success' && (
-        <List listArray={productsIds} ItemComponent={ProductListItem} />
+      {status === "loading" && <ListPrototype/>}
+      {status === "success" && (
+        <List listArray={productsIds} ItemComponent={ProductListItem}/>
       )}
 
       <Paginator

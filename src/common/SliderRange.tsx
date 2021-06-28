@@ -33,8 +33,8 @@ export const SliderRange: React.FC<TProps> = ({
     if (e.target.name === 'max') {
       const value = Math.max(+e.target.value, minVal + 1);
       setMaxVal(value);
-      if (maxVal > 999){
-        maxValRef.current = 1000
+      if (maxVal > 999) {
+        maxValRef.current = 1000;
       } else {
         maxValRef.current = value;
       }

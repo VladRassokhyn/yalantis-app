@@ -1,10 +1,7 @@
-import {
-  createAsyncThunk,
-  createSlice,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { clientAPI } from '../api/api';
-import { TSingleProductState } from "../types";
-import { RootState } from "./store";
+import { TSingleProductState } from '../types';
+import { RootState } from './store';
 
 export const getSingleProduct = createAsyncThunk(
   'singleProduct/getSingleProduct',
@@ -26,9 +23,8 @@ export const initialState: TSingleProductState = {
     createdAt: new Date().toDateString(),
     updatedAt: new Date().toDateString(),
     photo: '',
-  }
+  },
 };
-
 
 export const singleProductSlice = createSlice({
   name: 'products',
@@ -56,5 +52,5 @@ export const singleProductReducer = singleProductSlice.reducer;
 
 export const selectSingleProduct = (state: RootState) => ({
   product: state.singleProduct.product,
-  status: state.singleProduct.status
+  status: state.singleProduct.status,
 });
