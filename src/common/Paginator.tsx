@@ -27,9 +27,9 @@ const getPages = (pagesCount: number, currentPage: number, pages: string[]) => {
     }
   }
 
-  if (pages[0] !== '1') pages.unshift('prev');
+  if (+pages[0] !== 1) pages.unshift('prev');
 
-  if (pages[4] > '4') pages.push('next');
+  if (+pages[4] > 4) pages.push('next');
 };
 
 export const Paginator: React.FC<TProps> = ({
@@ -42,7 +42,7 @@ export const Paginator: React.FC<TProps> = ({
   const pagesCount: number = Math.ceil(totalItems / perPage);
   const pages: string[] = [];
 
-  getPages(pagesCount, currentPage, pages);
+  getPages(pagesCount, currentPage, pages)
 
   return (
     <div className={'pagination-wrapper'}>

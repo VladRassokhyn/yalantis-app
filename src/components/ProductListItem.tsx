@@ -23,6 +23,7 @@ export const ProductListItem: React.FC<{ itemId: EntityId }> = ({ itemId }) => {
         <div className={'product-item-title'}>
           <Link to={ROUTE_PATHS.PRODUCTS.BY_ID({ productId: product.id })}>
             <h1>{product.name}</h1>
+            <h3>Origin: {product.origin}</h3>
           </Link>
           <h2>
             {product.price}$

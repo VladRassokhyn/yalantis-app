@@ -534,10 +534,13 @@ h5 {
 }
 
 .list-menu-wrapper {
-    padding-left: 2vw;
-    padding-right: 2vw;
+    height: 80px;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    width: 100%;
     display: grid;
-    grid-template-columns: 1fr 10fr 1fr;
+    grid-template-columns: 4fr 2fr 6fr;
+    grid-gap: 50px;
 }
 
 .list-menu-selector-wrapper {
@@ -553,7 +556,13 @@ h5 {
     align-items: center;
 }
 
-.react-select-container {
+.react-select-container__per-page {
     width: 80px;
     height: 40px;
+    margin-left: 15px;
+}
+
+.react-select-container__origins {
+    width: 100%;
+    margin-left: 15px;
 }

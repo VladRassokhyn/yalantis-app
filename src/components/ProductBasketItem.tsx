@@ -63,7 +63,7 @@ export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
   };
 
   const handlerDelete = () => {
-    dispatch(deletedFromBasket({id: itemId}));
+    dispatch(deletedFromBasket({ id: itemId }));
   };
 
   return (

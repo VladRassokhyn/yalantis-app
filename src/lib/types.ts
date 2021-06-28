@@ -1,3 +1,5 @@
+import { EntityState } from "@reduxjs/toolkit";
+
 export type TNotification = {
   type: string;
   isActive: boolean;
@@ -14,6 +16,17 @@ export interface IProduct {
   createdAt: string;
   updatedAt: string;
   photo?: string;
+}
+
+export type TInitialProducts = {
+  status: string,
+  page: number,
+  perPage: number,
+  totalItems: number,
+  items: EntityState<IProduct>,
+  error: null,
+  origins: string[]
+  filterOrigins: string[] | null
 }
 
 export interface IBasket extends IProduct {
