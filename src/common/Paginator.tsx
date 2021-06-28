@@ -38,11 +38,10 @@ export const Paginator: React.FC<TProps> = ({
   totalItems,
   changer,
 }) => {
-
   const pagesCount: number = Math.ceil(totalItems / perPage);
   const pages: string[] = [];
 
-  getPages(pagesCount, currentPage, pages)
+  getPages(pagesCount, currentPage, pages);
 
   return (
     <div className={'pagination-wrapper'}>

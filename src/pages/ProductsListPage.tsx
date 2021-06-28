@@ -1,8 +1,8 @@
-import React from "react";
-import { List } from "../components/List";
-import { ProductListItem } from "../components/ProductListItem";
-import { ListPrototype } from "../common/ListPrototype";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { List } from '../components/List';
+import { ProductListItem } from '../components/ProductListItem';
+import { ListPrototype } from '../common/ListPrototype';
+import { useDispatch } from 'react-redux';
 import {
   selectProductsOptions,
   getProducts,
@@ -10,11 +10,11 @@ import {
   currentPageChanged,
   currentPerPageChanged,
   originsChanged,
-  priceFilterChanged
-} from "../lib/store/productsSlice";
-import { useSelector } from "../lib/store/hooks";
-import { ListMenu } from "../components/ListMenu";
-import { Paginator } from "../common/Paginator";
+  priceFilterChanged,
+} from '../lib/store/productsSlice';
+import { useSelector } from '../lib/store/hooks';
+import { ListMenu } from '../components/ListMenu';
+import { Paginator } from '../common/Paginator';
 
 export const ProductsListPage = () => {
   const dispatch = useDispatch();
@@ -30,18 +30,20 @@ export const ProductsListPage = () => {
     filterOrigins,
     minPrice,
     maxPrice,
-    filterPrice
+    filterPrice,
   } = useSelector(selectProductsOptions);
 
   React.useEffect(() => {
-    dispatch(getProducts({
-      page,
-      perPage,
-      origins: filterOrigins ? filterOrigins : origins,
-      minPrice: filterPrice.min,
-      maxPrice: filterPrice.max
-    }));
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    dispatch(
+      getProducts({
+        page,
+        perPage,
+        origins: filterOrigins ? filterOrigins : origins,
+        minPrice: filterPrice.min,
+        maxPrice: filterPrice.max,
+      })
+    );
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [page, perPage, origins, filterOrigins, filterPrice]);
 
   return (
@@ -59,18 +61,17 @@ export const ProductsListPage = () => {
           dispatch(originsChanged(origins))
         }
         changePriceFn={(min: number, max: number) =>
-          dispatch(priceFilterChanged({min, max}))
+          dispatch(priceFilterChanged({ min, max }))
         }
       />
 
-      {status === "loading" && <ListPrototype/>}
-      {status === "success" && (
-        <List listArray={productsIds} ItemComponent={ProductListItem}/>
+      {status === 'loading' && <ListPrototype />}
+      {status === 'success' && (
+        <List listArray={productsIds} ItemComponent={ProductListItem} />
       )}
 
       <Paginator
-        changer={(page: number) =>
-          dispatch(currentPageChanged(page))}
+        changer={(page: number) => dispatch(currentPageChanged(page))}
         currentPage={page}
         perPage={perPage}
         totalItems={totalItems}

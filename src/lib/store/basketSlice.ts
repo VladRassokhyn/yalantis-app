@@ -1,17 +1,17 @@
-import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { IBasket, IProduct } from "../types";
-import { RootState } from "./store";
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { IBasket, IProduct } from '../types';
+import { RootState } from './store';
 
 export const basketAdapter = createEntityAdapter<IBasket>();
 
 const initialState = {
   totalPrice: 0,
   totalCount: 0,
-  items: basketAdapter.getInitialState()
+  items: basketAdapter.getInitialState(),
 };
 
 export const basketSlice = createSlice({
-  name: "basket",
+  name: 'basket',
   initialState,
   reducers: {
     addedToBasket(state, action: { type: string; payload: IProduct }) {
@@ -38,16 +38,18 @@ export const basketSlice = createSlice({
       const product = state.items.entities[action.payload.id];
       if (product) {
         state.totalCount += action.payload.count - product.count;
-        state.totalPrice += product.price * action.payload.count - product.price * product.count;
+        state.totalPrice +=
+          product.price * action.payload.count - product.price * product.count;
         product.count = action.payload.count;
       }
-    }
-  }
+    },
+  },
 });
 
 export const basketReducer = basketSlice.reducer;
 
-export const { addedToBasket, deletedFromBasket, changedItemCount } = basketSlice.actions;
+export const { addedToBasket, deletedFromBasket, changedItemCount } =
+  basketSlice.actions;
 
 export const { selectIds, selectById } = basketAdapter.getSelectors<RootState>(
   (state) => state.basket.items
@@ -55,5 +57,5 @@ export const { selectIds, selectById } = basketAdapter.getSelectors<RootState>(
 
 export const selectBasketOptions = (state: RootState) => ({
   totalPrice: state.basket.totalPrice,
-  totalCount: state.basket.totalCount
+  totalCount: state.basket.totalCount,
 });
