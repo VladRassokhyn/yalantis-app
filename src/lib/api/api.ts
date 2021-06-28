@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ResponseGetProduct, ResponseGetProducts } from "../types";
+import { ResponseGetProduct, ResponseGetProducts, TReqProductsArgs } from "../types";
 import { APP_ENDPOINTS } from "./endpoints";
 
 const axiosInstance = axios.create({
@@ -8,14 +8,15 @@ const axiosInstance = axios.create({
 
 export const clientAPI = {
   getProducts: async (
-    page: number,
-    perPage: number,
-    origins: string[]
+    args: TReqProductsArgs
   ): Promise<ResponseGetProducts> => {
     return await axiosInstance.get(
       `${APP_ENDPOINTS.PRODUCTS.GET}`
-      + `?page=${page}&perPage=${perPage}`
-      + `&origins=${origins}`
+      + `?page=${args.page}`
+      + `&perPage=${args.perPage}`
+      + `&origins=${args.origins}`
+      + `&minPrice=${args.minPrice}`
+      + `&maxPrice=${args.maxPrice}`
     );
   },
 

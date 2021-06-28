@@ -27,6 +27,20 @@ export type TInitialProducts = {
   error: null,
   origins: string[]
   filterOrigins: string[] | null
+  minPrice: number
+  maxPrice: number
+  filterPrice: {
+    min: number,
+    max: number
+  }
+}
+
+export type TReqProductsArgs = {
+  page: number;
+  perPage: number,
+  origins: string[]
+  minPrice: number
+  maxPrice: number
 }
 
 export interface IBasket extends IProduct {

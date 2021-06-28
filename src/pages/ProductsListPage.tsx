@@ -9,7 +9,8 @@ import {
   selectIds,
   currentPageChanged,
   currentPerPageChanged,
-  originsChanged
+  originsChanged,
+  priceFilterChanged
 } from "../lib/store/productsSlice";
 import { useSelector } from "../lib/store/hooks";
 import { ListMenu } from "../components/ListMenu";
@@ -20,29 +21,45 @@ export const ProductsListPage = () => {
 
   const productsIds = useSelector(selectIds);
 
-  const { page, perPage, totalItems, status, origins, filterOrigins } = useSelector(
-    selectProductsOptions
-  );
+  const {
+    page,
+    perPage,
+    totalItems,
+    status,
+    origins,
+    filterOrigins,
+    minPrice,
+    maxPrice,
+    filterPrice
+  } = useSelector(selectProductsOptions);
 
   React.useEffect(() => {
     dispatch(getProducts({
       page,
       perPage,
-      origins: filterOrigins ? filterOrigins : origins
+      origins: filterOrigins ? filterOrigins : origins,
+      minPrice: filterPrice.min,
+      maxPrice: filterPrice.max
     }));
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page, perPage, origins, filterOrigins]);
+  }, [page, perPage, origins, filterOrigins, filterPrice]);
 
   return (
     <div>
       <ListMenu
         perPage={perPage}
         origins={origins}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        filterPrice={filterPrice}
         changePerPageFn={(perPage: number) =>
           dispatch(currentPerPageChanged(perPage))
         }
         changeOriginsFn={(origins: string[]) =>
           dispatch(originsChanged(origins))
+        }
+        changePriceFn={(min: number, max: number) =>
+          dispatch(priceFilterChanged({min, max}))
         }
       />
 
