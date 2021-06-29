@@ -41,6 +41,21 @@ export const Paginator: React.FC<TProps> = ({
   const pagesCount: number = Math.ceil(totalItems / perPage);
   const pages: string[] = [];
 
+  const handleNext = React.useCallback(
+    () => changer(currentPage + 1)
+    , [currentPage]
+  );
+
+  const handlePrev = React.useCallback(
+    () => changer(currentPage - 1)
+    , [currentPage]
+  )
+
+  const handleSetPage = React.useCallback(
+    (page: string) => changer(+page)
+    , [currentPage]
+  )
+
   getPages(pagesCount, currentPage, pages);
 
   return (
@@ -51,7 +66,7 @@ export const Paginator: React.FC<TProps> = ({
             return (
               <img
                 key={i}
-                onClick={() => changer(currentPage - 1)}
+                onClick={handlePrev}
                 className={'paginator-page paginator-back'}
                 src={paginatorNext}
                 alt={''}
@@ -62,7 +77,7 @@ export const Paginator: React.FC<TProps> = ({
             return (
               <img
                 key={i}
-                onClick={() => changer(currentPage + 1)}
+                onClick={handleNext}
                 className={'paginator-page paginator-next'}
                 src={paginatorNext}
                 alt={''}
@@ -72,7 +87,7 @@ export const Paginator: React.FC<TProps> = ({
           return (
             <span
               key={i}
-              onClick={() => changer(+page)}
+              onClick={() => handleSetPage(page)}
               className={
                 currentPage === +page
                   ? 'paginator-active-page paginator-page'

@@ -80,10 +80,6 @@ export const productsSlice = createSlice({
           state.origins.push(item.origin);
         }
       });
-      /*action.payload.items.forEach((item: IProduct) => {
-        if (item.price > state.maxPrice) state.maxPrice = item.price;
-        if (item.price < state.minPrice) state.minPrice = item.price
-      })*/
       productsAdapter.setAll(state.items, action.payload.items);
     },
 

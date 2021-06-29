@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface TProps {
   min: number;
@@ -7,12 +7,14 @@ interface TProps {
   changePriceFn: any;
 }
 
-export const SliderRange: React.FC<TProps> = ({
-  min,
-  max,
-  filterRange,
-  changePriceFn,
-}) => {
+export const SliderRange: React.FC<TProps> = (
+  {
+    min,
+    max,
+    filterRange,
+    changePriceFn
+  }
+) => {
   const [minVal, setMinVal] = React.useState(min);
   const [maxVal, setMaxVal] = React.useState(max);
   const minValRef = React.useRef(filterRange.min);
@@ -24,22 +26,24 @@ export const SliderRange: React.FC<TProps> = ({
     [min, max]
   );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === 'min') {
-      const value = Math.min(+e.target.value, maxVal - 1);
-      setMinVal(value);
-      minValRef.current = value;
-    }
-    if (e.target.name === 'max') {
-      const value = Math.max(+e.target.value, minVal + 1);
-      setMaxVal(value);
-      if (maxVal > 999) {
-        maxValRef.current = 1000;
-      } else {
-        maxValRef.current = value;
+  const handleChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.name === "min") {
+        const value = Math.min(+e.target.value, maxVal - 1);
+        setMinVal(value);
+        minValRef.current = value;
       }
-    }
-  };
+      if (e.target.name === "max") {
+        const value = Math.max(+e.target.value, minVal + 1);
+        setMaxVal(value);
+        if (maxVal > 999) {
+          maxValRef.current = 1000;
+        } else {
+          maxValRef.current = value;
+        }
+      }
+    }, [minVal, maxVal]
+  );
 
   React.useEffect(() => {
     const minPercent = getPercent(minVal);
@@ -70,7 +74,7 @@ export const SliderRange: React.FC<TProps> = ({
   return (
     <div className="price-range-wrapper">
       <input
-        name={'min'}
+        name={"min"}
         type="range"
         min={min}
         max={max}
@@ -80,7 +84,7 @@ export const SliderRange: React.FC<TProps> = ({
         style={minVal > max - 100 ? { zIndex: 5 } : {}}
       />
       <input
-        name={'max'}
+        name={"max"}
         type="range"
         min={min}
         max={max}
@@ -90,23 +94,23 @@ export const SliderRange: React.FC<TProps> = ({
       />
 
       <div className="slider">
-        <div className="slider__track" />
-        <div ref={range} className="slider__range" />
-        <div className={'slider__left-input-box'}>
+        <div className="slider__track"/>
+        <div ref={range} className="slider__range"/>
+        <div className={"slider__left-input-box"}>
           <label>From $</label>
           <input
             maxLength={3}
-            name={'min'}
+            name={"min"}
             value={minVal}
             onChange={(e) => handleChange(e)}
             className="slider__left-value"
           />
         </div>
-        <div className={'slider__right-input-box'}>
+        <div className={"slider__right-input-box"}>
           <label>To $</label>
           <input
             maxLength={3}
-            name={'max'}
+            name={"max"}
             value={maxVal}
             onChange={(e) => handleChange(e)}
             className="slider__right-value"

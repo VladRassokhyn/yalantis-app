@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 type TProps = {
   count: number;
@@ -6,29 +6,35 @@ type TProps = {
 };
 
 export const Counter: React.FC<TProps> = ({ count, changerFn }) => {
-  const increment = () => {
-    changerFn(count + 1);
-  };
 
-  const decrement = () => {
-    changerFn(count - 1);
-  };
+  const increment = React.useCallback(
+    () => {
+      changerFn(count + 1);
+    }, [count]
+  );
+  const decrement = React.useCallback(
+    () => {
+      changerFn(count - 1);
+    }, [count]
+  );
 
-  const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    changerFn(+e.target.value);
-  };
+  const handlerChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      changerFn(+e.target.value);
+    }, []
+  );
 
   return (
     <>
       <b>Count:</b>
       <input
-        className={'basket-count-input'}
+        className={"basket-count-input"}
         value={count}
-        onChange={(e) => handlerChange(e)}
+        onChange={handlerChange}
       />
-      <div className={'basket-count-buttons'}>
-        <span className={'basket-count-increment'} onClick={increment} />
-        <span className={'basket-count-decrement'} onClick={decrement} />
+      <div className={"basket-count-buttons"}>
+        <span className={"basket-count-increment"} onClick={increment}/>
+        <span className={"basket-count-decrement"} onClick={decrement}/>
       </div>
     </>
   );
