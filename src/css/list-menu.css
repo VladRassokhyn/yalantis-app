@@ -1,0 +1,39 @@
+.list-menu-wrapper {
+    height: 80px;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    display: grid;
+    grid-template-columns: 4fr 2fr 4fr 1fr;
+    grid-gap: 50px;
+}
+
+.list-menu-selector-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.react-select-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.react-select-container__per-page {
+    width: 80px;
+    height: 40px;
+    margin-left: 15px;
+}
+
+.react-select-container__origins {
+    width: 100%;
+    margin-left: 15px;
+}
+
+
+.list-menu-price {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
