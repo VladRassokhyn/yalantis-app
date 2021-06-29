@@ -46,13 +46,13 @@ export const ProductsListPage = () => {
       })
     );
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page, perPage, origins, filterOrigins, filterPrice]);
+  }, [page, perPage, origins, filterOrigins, filterPrice, dispatch]);
 
   React.useEffect(() => {
     return () => {
       dispatch(allFiltersResets())
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

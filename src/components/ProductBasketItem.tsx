@@ -45,7 +45,7 @@ export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
     if (!validate(product.count, dispatch)) {
       dispatch(changedItemCount({ id: itemId, count: 1 }));
     }
-  }, [product.count]);
+  }, [product.count, dispatch]);
 
   const changerFn = (count: number) => {
     dispatch(changedItemCount({ id: itemId, count }));

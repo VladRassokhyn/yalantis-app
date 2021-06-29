@@ -20,7 +20,7 @@ export const ProductPage = () => {
 
   React.useEffect(() => {
     dispatch(getSingleProduct(params.productId));
-  }, [params]);
+  }, [params, dispatch]);
 
   if (status !== 'success') {
     return <ProductPrototype />;
