@@ -12,14 +12,14 @@ export const AddToBasketButton: React.FC<{ productId: string }> = ({
 
   const product = useSelector((state) => selectById(state, productId));
 
+  if (!product) return null
+
   const handleClick = React.useCallback(() => {
-    if (product) {
-      dispatch(addedToBasket(product));
-    }
+    dispatch(addedToBasket(product));
     dispatch(
       notificationAdded({
         type: 'notification-success',
-        label: `${product && product.name} added to basket !`,
+        label: `${product.name} added to basket !`,
       })
     );
   }, [productId]);
