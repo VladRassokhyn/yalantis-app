@@ -13,7 +13,7 @@ export const Counter: React.FC<TProps> = ({ count, changerFn }) => {
     changerFn(count - 1);
   }, [count]);
 
-  const handlerChange = React.useCallback(
+  const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       changerFn(+e.target.value);
     },
@@ -26,7 +26,7 @@ export const Counter: React.FC<TProps> = ({ count, changerFn }) => {
       <input
         className={'basket-count-input'}
         value={count}
-        onChange={handlerChange}
+        onChange={handleChange}
       />
       <div className={'basket-count-buttons'}>
         <span className={'basket-count-increment'} onClick={increment} />
