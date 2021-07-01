@@ -1,6 +1,6 @@
 import React from 'react';
 import { Notification } from './Notification';
-import { useSelector } from '../../lib/store/hooks';
+import { useSelector } from '../../lib/hooks';
 import {
   notificationRemoved,
   selectNotificationIds,

@@ -8,7 +8,7 @@ import {
   selectSingleProduct,
 } from '../lib/store/singleProductSlice';
 import { useDispatch } from 'react-redux';
-import { useSelector } from '../lib/store/hooks';
+import { useSelector } from '../lib/hooks';
 
 export const ProductPage = () => {
   const { product, status } = useSelector(selectSingleProduct);

@@ -1,7 +1,7 @@
 import React from 'react';
 import ok from '../../static/ok.svg';
 import { EntityId } from '@reduxjs/toolkit';
-import { useSelector } from '../../lib/store/hooks';
+import { useSelector } from '../../lib/hooks';
 import { selectById } from '../../lib/store/notoficationSlice';
 import classNames from 'classnames';
 
@@ -30,7 +30,7 @@ export const Notification: React.FC<TProps> = ({
 
   const handlerClick = React.useCallback(() => {
     setWillDeleted(true);
-  }, [willDeleted] )
+  }, [willDeleted]);
 
   React.useEffect(() => {
     const timer = setTimeout(() => {

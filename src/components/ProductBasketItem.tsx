@@ -2,7 +2,7 @@ import React from 'react';
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { Link } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
-import { useSelector } from '../lib/store/hooks';
+import { useSelector } from '../lib/hooks';
 import {
   changedItemCount,
   deletedFromBasket,
@@ -79,4 +79,4 @@ export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
       </div>
     </div>
   );
-}
+};

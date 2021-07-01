@@ -13,7 +13,7 @@ import {
   priceFilterChanged,
   allFiltersResets,
 } from '../lib/store/productsSlice';
-import { useSelector } from '../lib/store/hooks';
+import { useSelector } from '../lib/hooks';
 import { ListMenu } from '../components/ListMenu';
 import { Paginator } from '../common/Paginator';
 

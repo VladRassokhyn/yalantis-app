@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from '../lib/store/hooks';
+import { useSelector } from '../lib/hooks';
 import { selectById } from '../lib/store/productsSlice';
 import { useDispatch } from 'react-redux';
 import { addedToBasket } from '../lib/store/basketSlice';
@@ -12,7 +12,7 @@ export const AddToBasketButton: React.FC<{ productId: string }> = ({
 
   const product = useSelector((state) => selectById(state, productId));
 
-  if (!product) return null
+  if (!product) return null;
 
   const handleClick = React.useCallback(() => {
     dispatch(addedToBasket(product));

@@ -38,7 +38,10 @@ export const Paginator: React.FC<TProps> = ({
   totalItems,
   changer,
 }) => {
-  const pagesCount: number = React.useMemo(()=> Math.ceil(totalItems / perPage),[totalItems, perPage]);
+  const pagesCount: number = React.useMemo(
+    () => Math.ceil(totalItems / perPage),
+    [totalItems, perPage]
+  );
   const pages: string[] = [];
 
   const handleNext = React.useCallback(

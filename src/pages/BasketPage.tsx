@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from '../lib/store/hooks';
+import { useSelector } from '../lib/hooks';
 import { selectBasketOptions, selectIds } from '../lib/store/basketSlice';
 import { List } from '../components/List';
 import { ProductBasketItem } from '../components/ProductBasketItem';
