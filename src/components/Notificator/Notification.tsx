@@ -28,9 +28,9 @@ export const Notification: React.FC<TProps> = ({
     [`${notification.type}`]: true,
   });
 
-  const handlerClick = () => {
+  const handlerClick = React.useCallback(() => {
     setWillDeleted(true);
-  };
+  }, [willDeleted] )
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
