@@ -78,7 +78,7 @@ export const SliderRange: React.FC<TProps> = ({
         min={min}
         max={max}
         value={minVal}
-        onChange={(e) => handleChange(e)}
+        onChange={handleChange}
         className="thumb thumb--left"
         style={minVal > max - 100 ? { zIndex: 5 } : {}}
       />
@@ -88,7 +88,7 @@ export const SliderRange: React.FC<TProps> = ({
         min={min}
         max={max}
         value={maxVal}
-        onChange={(e) => handleChange(e)}
+        onChange={handleChange}
         className="thumb thumb--right"
       />
 
@@ -101,7 +101,7 @@ export const SliderRange: React.FC<TProps> = ({
             maxLength={3}
             name={'min'}
             value={minVal}
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
             className="slider__left-value"
           />
         </div>
@@ -111,7 +111,7 @@ export const SliderRange: React.FC<TProps> = ({
             maxLength={3}
             name={'max'}
             value={maxVal}
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
             className="slider__right-value"
           />
         </div>
