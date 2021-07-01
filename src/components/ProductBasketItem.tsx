@@ -79,4 +79,4 @@ export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
       </div>
     </div>
   );
-};
+}

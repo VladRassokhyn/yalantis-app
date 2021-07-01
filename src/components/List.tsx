@@ -3,7 +3,7 @@ import { EntityId } from '@reduxjs/toolkit';
 
 type TProps = {
   listArray: EntityId[];
-  ItemComponent: any; //({ item: IProduct | IBasket }) => JSX.Element
+  ItemComponent: any;
 };
 
 export const List: React.FC<TProps> = ({ listArray, ItemComponent }) => {
