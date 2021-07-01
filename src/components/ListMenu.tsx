@@ -24,9 +24,9 @@ const theme = (theme: any) => ({
 });
 
 const perPageOptions = [
-  { value: 10, label: 10 },
-  { value: 25, label: 25 },
-  { value: 50, label: 50 },
+  { name: 'perPage', value: 10, label: 10 },
+  { name: 'perPage', value: 25, label: 25 },
+  { name: 'perPage', value: 50, label: 50 },
 ];
 
 export const ListMenu: React.FC<TProps> = ({
@@ -39,6 +39,14 @@ export const ListMenu: React.FC<TProps> = ({
   minPrice,
   filterPrice,
 }) => {
+  const handleChange = (e: any) => {
+    if (e.name === 'perPage') {
+      changePerPageFn(e.value);
+    } else {
+      changeOriginsFn(e);
+    }
+  };
+
   const originOptions = React.useMemo(
     () =>
       origins.map((origin: string) => ({
@@ -59,8 +67,8 @@ export const ListMenu: React.FC<TProps> = ({
               classNamePrefix="react-select"
               isMulti
               isClearable={true}
-              onChange={(e: any) => changeOriginsFn(e)}
-              options={originOptions as any}
+              onChange={handleChange}
+              options={originOptions}
               theme={theme}
             />
           ),
@@ -76,7 +84,7 @@ export const ListMenu: React.FC<TProps> = ({
               className="react-select-container__per-page"
               classNamePrefix="react-select"
               isSearchable={false}
-              onChange={(e: any) => changePerPageFn(e.value)}
+              onChange={handleChange}
               value={{ value: perPage, label: perPage }}
               options={perPageOptions}
               theme={theme}
