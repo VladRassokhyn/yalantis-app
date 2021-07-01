@@ -42,19 +42,19 @@ export const Paginator: React.FC<TProps> = ({
   const pages: string[] = [];
 
   const handleNext = React.useCallback(
-    () => changer(currentPage + 1)
-    , [currentPage]
+    () => changer(currentPage + 1),
+    [currentPage]
   );
 
   const handlePrev = React.useCallback(
-    () => changer(currentPage - 1)
-    , [currentPage]
-  )
+    () => changer(currentPage - 1),
+    [currentPage]
+  );
 
   const handleSetPage = React.useCallback(
-    (page: string) => changer(+page)
-    , [currentPage]
-  )
+    (page: string) => changer(+page),
+    [currentPage]
+  );
 
   getPages(pagesCount, currentPage, pages);
 

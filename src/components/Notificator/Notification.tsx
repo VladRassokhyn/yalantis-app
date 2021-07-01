@@ -3,6 +3,7 @@ import ok from '../../static/ok.svg';
 import { EntityId } from '@reduxjs/toolkit';
 import { useSelector } from '../../lib/store/hooks';
 import { selectById } from '../../lib/store/notoficationSlice';
+import classNames from 'classnames';
 
 type TProps = {
   notificationId: EntityId;
@@ -18,6 +19,14 @@ export const Notification: React.FC<TProps> = ({
   const notification = useSelector((state) =>
     selectById(state.notification, notificationId)
   );
+
+  if (!notification) return null;
+
+  const notifiClassNames = classNames({
+    'notification-wrapper': true,
+    'delete-notification': willDeleted,
+    [`${notification.type}`]: true,
+  });
 
   const handlerClick = () => {
     setWillDeleted(true);
@@ -39,17 +48,10 @@ export const Notification: React.FC<TProps> = ({
     }
   }, [willDeleted]);
 
-  if (notification) {
-    return (
-      <div
-        onClick={handlerClick}
-        className={`notification-wrapper ${
-          willDeleted && 'delete-notification'
-        } ${notification.type}`}
-      >
-        <img src={ok} alt={''} />
-        <h1>{notification.label}</h1>
-      </div>
-    );
-  } else return null;
+  return (
+    <div onClick={handlerClick} className={notifiClassNames}>
+      <img src={ok} alt={''} />
+      <h1>{notification.label}</h1>
+    </div>
+  );
 };
