@@ -1,16 +1,16 @@
 import React from 'react';
-import { IProduct, IBasket } from '../lib/store/Products';
+import { EntityId } from '@reduxjs/toolkit';
 
 type TProps = {
-  listArray: IProduct[] | IBasket[];
-  ItemComponent: any; //({ item: IProduct | IBasket }) => JSX.Element
+  listArray: EntityId[];
+  ItemComponent: any;
 };
 
 export const List: React.FC<TProps> = ({ listArray, ItemComponent }) => {
   return (
     <div className={'list-wrapper'}>
-      {listArray.map((arrItem, i) => {
-        return <ItemComponent key={i} item={arrItem} />;
+      {listArray.map((itemId) => {
+        return <ItemComponent key={itemId} itemId={itemId} />;
       })}
     </div>
   );

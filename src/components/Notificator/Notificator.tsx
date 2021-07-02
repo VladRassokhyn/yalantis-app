@@ -1,25 +1,25 @@
 import React from 'react';
-import {
-  deleteNotification,
-  useNotifiContext,
-} from '../../lib/store/Notificator';
 import { Notification } from './Notification';
+import { useSelector } from '../../lib/hooks';
+import {
+  notificationRemoved,
+  selectNotificationIds,
+} from '../../lib/store/notoficationSlice';
+import { useDispatch } from 'react-redux';
 
 export const Notificator = () => {
-
-  const [state, dispatch] = useNotifiContext();
-
-  const deleteFn = (id: string) => () => dispatch(deleteNotification(id))
+  const dispatch = useDispatch();
+  const notificationIds = useSelector(selectNotificationIds);
 
   return (
     <div className={'notificator-wrapper'}>
-      {state
-        .map((notification) => {
+      {notificationIds
+        .map((notificationId) => {
           return (
             <Notification
-              deleteFn={deleteFn(notification.id)}
-              key={notification.id}
-              notification={notification}
+              deleteFn={() => dispatch(notificationRemoved(notificationId))}
+              key={notificationId}
+              notificationId={notificationId}
             />
           );
         })

@@ -1,26 +1,57 @@
-import { IProduct } from './store/Products';
-import {
-  TActions as TProductActions,
-  TProductState,
-} from './store/Products/types';
-import { TNotification } from './store/Notificator';
-import { Dispatch } from 'react';
-import { TActions as TNotifyActions } from './store/Notificator/types';
+import { EntityState } from '@reduxjs/toolkit';
 
-export type TGlobalState = {
-  ProductsState: TProductState;
-  NotifiState: TNotification[];
+export type TNotification = {
+  type: string;
+  isActive: boolean;
+  id: string;
+  label: string;
 };
 
-export type TGlobalDispatch = {
-  ProductsDispatch: Dispatch<TProductActions>;
-  NotifiDispatch: Dispatch<TNotifyActions>;
+export interface IProduct {
+  isEditable: boolean;
+  id: string;
+  name: string;
+  price: number;
+  origin: string;
+  createdAt: string;
+  updatedAt: string;
+  photo?: string;
+}
+
+export type TSingleProductState = {
+  status: string;
+  error: string;
+  product: IProduct;
 };
 
-export type TAppContext = {
-  state: TGlobalState;
-  dispatch: TGlobalDispatch;
+export type TInitialProducts = {
+  status: string;
+  page: number;
+  perPage: number;
+  totalItems: number;
+  items: EntityState<IProduct>;
+  error: null;
+  origins: string[];
+  filterOrigins: string[] | null;
+  minPrice: number;
+  maxPrice: number;
+  filterPrice: {
+    min: number;
+    max: number;
+  };
 };
+
+export type TReqProductsArgs = {
+  page: number;
+  perPage: number;
+  origins: string[];
+  minPrice: number;
+  maxPrice: number;
+};
+
+export interface IBasket extends IProduct {
+  count: number;
+}
 
 export type ResponseGetProducts = {
   data: { items: IProduct[]; totalItems: number };

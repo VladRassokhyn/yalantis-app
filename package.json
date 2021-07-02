@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -10,11 +11,14 @@
     "@types/node": "^12.20.15",
     "@types/react-dom": "^17.0.7",
     "axios": "^0.21.1",
+    "classnames": "^2.3.1",
     "date-fns": "^2.22.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-select": "^4.3.1",
     "typescript": "^4.3.2",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.2"
@@ -34,8 +38,11 @@
     ]
   },
   "devDependencies": {
+    "@types/rc-slider": "^9.3.1",
     "@types/react": "^17.0.11",
+    "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
+    "@types/react-select": "^4.0.16",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",

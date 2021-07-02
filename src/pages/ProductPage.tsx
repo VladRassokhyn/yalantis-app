@@ -1,40 +1,28 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { getProduct } from '../lib/api/api';
-import { IProduct } from '../lib/store/Products';
 import { format } from 'date-fns';
 import { Product } from '../components/Product';
 import { ProductPrototype } from '../common/ProductPrototype';
-
-const initialState = {
-  isEditable: false,
-  id: '',
-  name: '',
-  price: 0,
-  origin: '',
-  createdAt: new Date().toDateString(),
-  updatedAt: new Date().toDateString(),
-  photo: '',
-};
+import {
+  getSingleProduct,
+  selectSingleProduct,
+} from '../lib/store/singleProductSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from '../lib/hooks';
 
 export const ProductPage = () => {
-  const [product, setProduct] = React.useState<IProduct>(initialState);
-  const [isLoading, setIsLoading] = React.useState(true);
-
+  const { product, status } = useSelector(selectSingleProduct);
+  const dispatch = useDispatch();
   const params = useParams<{ productId: string }>();
 
   const createdAt = format(new Date(product.createdAt), 'HH:mm - dd.mm.yyyy');
   const updatedAt = format(new Date(product.updatedAt), 'HH:mm - dd.mm.yyyy');
 
   React.useEffect(() => {
-    setIsLoading(true);
-    getProduct(params.productId).then((res) => {
-      setProduct(res.data);
-      setIsLoading(false);
-    });
-  }, [params]);
+    dispatch(getSingleProduct(params.productId));
+  }, [params, dispatch]);
 
-  if (isLoading) {
+  if (status !== 'success') {
     return <ProductPrototype />;
   } else {
     return (

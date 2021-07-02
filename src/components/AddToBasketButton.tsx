@@ -1,23 +1,28 @@
 import React from 'react';
-import { IProduct } from '../lib/store/Products';
-import { addProductToBasket, useProductsDispatch } from '../lib/store/Products';
-import { useNotifiDispatch, addNotification } from '../lib/store/Notificator';
+import { useSelector } from '../lib/hooks';
+import { selectById } from '../lib/store/productsSlice';
+import { useDispatch } from 'react-redux';
+import { addedToBasket } from '../lib/store/basketSlice';
+import { notificationAdded } from '../lib/store/notoficationSlice';
 
-export const AddToBasketButton: React.FC<{ product: IProduct }> = ({
-  product,
-}) => {
-  const dispatchNotifi = useNotifiDispatch();
-  const dispatchProduct = useProductsDispatch();
+export const AddToBasketButton: React.FC<{ productId: string }> = ({
+                                                                     productId,
+                                                                   }) => {
+  const dispatch = useDispatch();
+
+  const product = useSelector((state) => selectById(state, productId));
+
+  if (!product) return null;
 
   const handleClick = React.useCallback(() => {
-    dispatchProduct(addProductToBasket(product));
-    dispatchNotifi(
-      addNotification(
-        'notification-success',
-        `${product.name} added to basket !`
-      )
+    dispatch(addedToBasket(product));
+    dispatch(
+      notificationAdded({
+        type: 'notification-success',
+        label: `${product.name} added to basket !`,
+      })
     );
-  }, [product]);
+  }, [productId]);
 
   return (
     <button className={'add-to-basket-button'} onClick={handleClick}>

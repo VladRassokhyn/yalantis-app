@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { AddToBasketButton } from './AddToBasketButton';
-import { IProduct } from '../lib/store/Products';
+import { IProduct } from '../lib/types';
 
 type TProps = {
   product: IProduct;
@@ -20,10 +20,7 @@ export const Product: React.FC<TProps> = ({
         <h1>{product.name}</h1>
         <div className={'product-description-container'}>
           <div className={'product-image-wrapper'}>
-            <img
-              src={`${product.photo ? product.photo : defaultProductPhoto}`}
-              alt={'image'}
-            />
+            <img src={defaultProductPhoto} alt={'image'} />
           </div>
           <div className={'product-description'}>
             <h2>
@@ -37,7 +34,7 @@ export const Product: React.FC<TProps> = ({
             </h2>
             <div className={'product-price-container'}>
               <h1>{product.price}$</h1>
-              <AddToBasketButton product={product}>ADD</AddToBasketButton>
+              <AddToBasketButton productId={product.id}>ADD</AddToBasketButton>
             </div>
           </div>
         </div>
