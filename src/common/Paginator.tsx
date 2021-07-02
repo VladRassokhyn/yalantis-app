@@ -5,11 +5,7 @@ type TProps = {
   currentPage: number;
   perPage: number;
   totalItems: number;
-<<<<<<< HEAD
-  changer: any
-=======
   changer: any;
->>>>>>> 8e49aec1be6aef715ee39c6b062ebeb8c8113984
 };
 
 const getPages = (pagesCount: number, currentPage: number, pages: string[]) => {
@@ -37,11 +33,11 @@ const getPages = (pagesCount: number, currentPage: number, pages: string[]) => {
 };
 
 export const Paginator: React.FC<TProps> = ({
-  currentPage,
-  perPage,
-  totalItems,
-  changer,
-}) => {
+                                              currentPage,
+                                              perPage,
+                                              totalItems,
+                                              changer,
+                                            }) => {
   const pagesCount: number = React.useMemo(
     () => Math.ceil(totalItems / perPage),
     [totalItems, perPage]
@@ -63,14 +59,7 @@ export const Paginator: React.FC<TProps> = ({
     [currentPage]
   );
 
-<<<<<<< HEAD
-  React.useEffect(() => {
-    changer(pageState);
-    window.scrollTo({ behavior: 'smooth', top: 0 });
-  }, [pageState]);
-=======
   getPages(pagesCount, currentPage, pages);
->>>>>>> 8e49aec1be6aef715ee39c6b062ebeb8c8113984
 
   return (
     <div className={'pagination-wrapper'}>

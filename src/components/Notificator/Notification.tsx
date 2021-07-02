@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import { TNotification } from "../../lib/store/Notificator";
-import ok from "../../static/ok.svg";
-
-type TProps = {
-  notification: TNotification;
-  deleteFn: any
-}
-=======
 import React from 'react';
 import ok from '../../static/ok.svg';
 import { EntityId } from '@reduxjs/toolkit';
@@ -19,12 +9,11 @@ type TProps = {
   notificationId: EntityId;
   deleteFn: () => void;
 };
->>>>>>> 8e49aec1be6aef715ee39c6b062ebeb8c8113984
 
 export const Notification: React.FC<TProps> = ({
-  notificationId,
-  deleteFn,
-}) => {
+                                                 notificationId,
+                                                 deleteFn,
+                                               }) => {
   const [willDeleted, setWillDeleted] = React.useState(false);
 
   const notification = useSelector((state) =>
@@ -60,18 +49,8 @@ export const Notification: React.FC<TProps> = ({
   }, [willDeleted]);
 
   return (
-<<<<<<< HEAD
-    <div
-      onClick={handlerClick}
-      className={`notification-wrapper ${
-        willDeleted && "delete-notification"
-      } ${notification.type}`}
-    >
-      <img src={ok} alt={""}/>
-=======
     <div onClick={handlerClick} className={notifiClassNames}>
       <img src={ok} alt={''} />
->>>>>>> 8e49aec1be6aef715ee39c6b062ebeb8c8113984
       <h1>{notification.label}</h1>
     </div>
   );
