@@ -1,47 +1,87 @@
 import React from 'react';
 import { List } from '../components/List';
 import { ProductListItem } from '../components/ProductListItem';
-import { getProducts } from '../lib/api/api';
-import {
-  setCurrentPage,
-  setIsLoading,
-  setProducts,
-  stProductPerPage,
-} from '../lib/store/Products';
-import { Paginator } from '../common/Paginator';
 import { ListPrototype } from '../common/ListPrototype';
-import { Selector } from '../common/Selector';
-import { useProductsContext } from '../lib/store/Products';
+import { useDispatch } from 'react-redux';
+import {
+  selectProductsOptions,
+  getProducts,
+  selectIds,
+  currentPageChanged,
+  currentPerPageChanged,
+  originsChanged,
+  priceFilterChanged,
+  allFiltersResets,
+} from '../lib/store/productsSlice';
+import { useSelector } from '../lib/hooks';
+import { ListMenu } from '../components/ListMenu';
+import { Paginator } from '../common/Paginator';
 
 export const ProductsListPage = () => {
-  const [state, dispatch] = useProductsContext();
+  const dispatch = useDispatch();
+
+  const productsIds = useSelector(selectIds);
+
+  const {
+    page,
+    perPage,
+    totalItems,
+    status,
+    origins,
+    filterOrigins,
+    minPrice,
+    maxPrice,
+    filterPrice,
+  } = useSelector(selectProductsOptions);
 
   React.useEffect(() => {
-    dispatch(setIsLoading(true));
-    getProducts(state.page, state.perPage).then((res) => {
-      dispatch(setProducts(res.data.items, res.data.totalItems));
-      dispatch(setIsLoading(false));
-    });
-  }, [state.page, state.perPage]);
+    dispatch(
+      getProducts({
+        page,
+        perPage,
+        origins: filterOrigins ? filterOrigins : origins,
+        minPrice: filterPrice.min,
+        maxPrice: filterPrice.max,
+      })
+    );
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [page, perPage, origins, filterOrigins, filterPrice, dispatch]);
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(allFiltersResets());
+    };
+  }, [dispatch]);
 
   return (
     <div>
-      {state.isLoading ? (
-        <ListPrototype />
-      ) : (
-        <List listArray={state.items} ItemComponent={ProductListItem} />
-      )}
-      <Paginator
-        changer={(page: number) => dispatch(setCurrentPage(page))}
-        currentPage={state.page}
-        perPage={state.perPage}
-        totalItems={state.totalItems}
+      <ListMenu
+        perPage={perPage}
+        origins={origins}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        filterPrice={filterPrice}
+        changePerPageFn={(perPage: number) =>
+          dispatch(currentPerPageChanged(perPage))
+        }
+        changeOriginsFn={(origins: string[]) =>
+          dispatch(originsChanged(origins))
+        }
+        changePriceFn={(min: number, max: number) =>
+          dispatch(priceFilterChanged({ min, max }))
+        }
       />
-      <Selector
-        label={'Show in page'}
-        changer={(option: number) => dispatch(stProductPerPage(option))}
-        current={state.perPage}
-        arr={[10, 20, 30, 50]}
+
+      {status === 'loading' && <ListPrototype />}
+      {status === 'success' && (
+        <List listArray={productsIds} ItemComponent={ProductListItem} />
+      )}
+
+      <Paginator
+        changer={(page: number) => dispatch(currentPageChanged(page))}
+        currentPage={page}
+        perPage={perPage}
+        totalItems={totalItems}
       />
     </div>
   );

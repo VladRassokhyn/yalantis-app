@@ -5,20 +5,14 @@ type TProps = {
   currentPage: number;
   perPage: number;
   totalItems: number;
+<<<<<<< HEAD
   changer: any
+=======
+  changer: any;
+>>>>>>> 8e49aec1be6aef715ee39c6b062ebeb8c8113984
 };
 
-export const Paginator: React.FC<TProps> = ({
-  currentPage,
-  perPage,
-  totalItems,
-  changer,
-}) => {
-  const [pageState, setPageState] = React.useState(currentPage);
-
-  const pagesCount: number = Math.ceil(totalItems / perPage);
-  const pages: string[] = [];
-
+const getPages = (pagesCount: number, currentPage: number, pages: string[]) => {
   if (pagesCount > 5) {
     if (currentPage > 2) {
       for (let i = currentPage - 2; i <= currentPage + 2; i++) {
@@ -37,14 +31,46 @@ export const Paginator: React.FC<TProps> = ({
     }
   }
 
-  if (pages[0] !== '1') pages.unshift('prev');
+  if (+pages[0] !== 1) pages.unshift('prev');
 
-  if (pages[4] > '4') pages.push('next');
+  if (+pages[4] > 4) pages.push('next');
+};
 
+export const Paginator: React.FC<TProps> = ({
+  currentPage,
+  perPage,
+  totalItems,
+  changer,
+}) => {
+  const pagesCount: number = React.useMemo(
+    () => Math.ceil(totalItems / perPage),
+    [totalItems, perPage]
+  );
+  const pages: string[] = [];
+
+  const handleNext = React.useCallback(
+    () => changer(currentPage + 1),
+    [currentPage]
+  );
+
+  const handlePrev = React.useCallback(
+    () => changer(currentPage - 1),
+    [currentPage]
+  );
+
+  const handleSetPage = React.useCallback(
+    (page: string) => changer(+page),
+    [currentPage]
+  );
+
+<<<<<<< HEAD
   React.useEffect(() => {
     changer(pageState);
     window.scrollTo({ behavior: 'smooth', top: 0 });
   }, [pageState]);
+=======
+  getPages(pagesCount, currentPage, pages);
+>>>>>>> 8e49aec1be6aef715ee39c6b062ebeb8c8113984
 
   return (
     <div className={'pagination-wrapper'}>
@@ -54,7 +80,7 @@ export const Paginator: React.FC<TProps> = ({
             return (
               <img
                 key={i}
-                onClick={() => setPageState((p) => p - 1)}
+                onClick={handlePrev}
                 className={'paginator-page paginator-back'}
                 src={paginatorNext}
                 alt={''}
@@ -65,7 +91,7 @@ export const Paginator: React.FC<TProps> = ({
             return (
               <img
                 key={i}
-                onClick={() => setPageState((p) => p + 1)}
+                onClick={handleNext}
                 className={'paginator-page paginator-next'}
                 src={paginatorNext}
                 alt={''}
@@ -75,9 +101,9 @@ export const Paginator: React.FC<TProps> = ({
           return (
             <span
               key={i}
-              onClick={() => setPageState(+page)}
+              onClick={() => handleSetPage(page)}
               className={
-                pageState === +page
+                currentPage === +page
                   ? 'paginator-active-page paginator-page'
                   : 'paginator-page'
               }

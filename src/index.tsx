@@ -1,17 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import './reset.css';
+import './css/global.css';
+import './css/products-list.css';
+import './css/paginator.css';
+import './css/product.css';
+import './css/basket.css';
+import './css/reset.css';
+import './css/header.css';
+import './css/notificator.css';
+import './css/ranged-slider.css';
+import './css/list-menu.css';
+import './css/buttons.css';
+import './css/pages-proto.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Main } from './pages/Main';
-import { AppProvider } from './lib/store/context';
+import { Provider } from 'react-redux';
+import { store } from './lib/store/store';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AppProvider>
+      <Provider store={store}>
         <Main />
-      </AppProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
