@@ -2,13 +2,17 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import basket from '../static/basket.svg';
 import { ROUTE_PATHS } from '../lib/router/paths';
-import { useSelector } from '../lib/hooks';
+import { useSelector } from '../lib/hooks/useSelector';
 import { selectBasketOptions } from '../lib/store/basketSlice';
+import { useModal } from '../lib/hooks/useModal';
+import { NewProductForm } from './NewProductForm';
 
 export const Header = () => {
   const isBasketPage = useLocation().pathname === ROUTE_PATHS.BASKET.BASE();
 
   const { totalCount } = useSelector(selectBasketOptions);
+
+  const { handleModal, Modal } = useModal(NewProductForm);
 
   return (
     <div className={'main-header'}>
@@ -17,6 +21,12 @@ export const Header = () => {
           <h1>PRODUCTS</h1>
         </div>
       </Link>
+
+      <button onClick={handleModal}>
+        <Modal/>
+        Modal Button
+      </button>
+
       {isBasketPage ? (
         <div />
       ) : (

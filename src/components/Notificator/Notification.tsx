@@ -1,7 +1,7 @@
 import React from 'react';
 import ok from '../../static/ok.svg';
 import { EntityId } from '@reduxjs/toolkit';
-import { useSelector } from '../../lib/hooks';
+import { useSelector } from '../../lib/hooks/useSelector';
 import { selectById } from '../../lib/store/notoficationSlice';
 import classNames from 'classnames';
 

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
 import { selectById } from '../lib/store/productsSlice';
 import { EntityId } from '@reduxjs/toolkit';
-import { useSelector } from '../lib/hooks';
+import { useSelector } from '../lib/hooks/useSelector';
 
 export const ProductListItem: React.FC<{ itemId: EntityId }> = ({ itemId }) => {
   const product = useSelector((state) => selectById(state, itemId));

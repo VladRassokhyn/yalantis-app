@@ -6,6 +6,7 @@ import './css/paginator.css';
 import './css/product.css';
 import './css/basket.css';
 import './css/reset.css';
+import './css/modal.css';
 import './css/header.css';
 import './css/notificator.css';
 import './css/ranged-slider.css';
