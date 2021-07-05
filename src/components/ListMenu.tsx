@@ -1,10 +1,13 @@
 import React from 'react';
 import Select from 'react-select';
+import { ListMenuPrototype } from '../common/ListMenuPrototype';
 import { SliderRange } from '../common/SliderRange';
+import { TOrigin } from '../lib/types';
 
 type TProps = {
   perPage: number;
-  origins: string[];
+  statusOrigins: string;
+  origins: TOrigin[];
   changePerPageFn: any;
   changeOriginsFn: any;
   changePriceFn: any;
@@ -19,26 +22,27 @@ const theme = (theme: any) => ({
   colors: {
     ...theme.colors,
     primary25: 'rgba(246,72,28,0.2)',
-    primary: '#f6481c',
-  },
+    primary: '#f6481c'
+  }
 });
 
 const perPageOptions = [
   { name: 'perPage', value: 10, label: 10 },
   { name: 'perPage', value: 25, label: 25 },
-  { name: 'perPage', value: 50, label: 50 },
+  { name: 'perPage', value: 50, label: 50 }
 ];
 
 export const ListMenu: React.FC<TProps> = ({
-  perPage,
-  origins,
-  changePerPageFn,
-  changeOriginsFn,
-  changePriceFn,
-  maxPrice,
-  minPrice,
-  filterPrice,
-}) => {
+    perPage,
+    origins,
+    statusOrigins,
+    changePerPageFn,
+    changeOriginsFn,
+    changePriceFn,
+    maxPrice,
+    minPrice,
+    filterPrice
+  }) => {
   const handleChange = (e: any) => {
     if (e.name === 'perPage') {
       changePerPageFn(e.value);
@@ -49,64 +53,51 @@ export const ListMenu: React.FC<TProps> = ({
 
   const originOptions = React.useMemo(
     () =>
-      origins.map((origin: string) => ({
-        value: origin,
-        label: origin,
+      origins.map((origin: TOrigin) => ({
+        value: origin.value,
+        label: origin.displayName
       })),
     [origins]
   );
+
+  if (statusOrigins !== 'success') return <ListMenuPrototype/>;
 
   return (
     <div className={'list-menu-wrapper'}>
       <div className={'react-select-wrapper'}>
         <h1>Origins</h1>
-        {React.useMemo(
-          () => (
-            <Select
-              className="react-select-container__origins"
-              classNamePrefix="react-select"
-              isMulti
-              isClearable={true}
-              onChange={handleChange}
-              options={originOptions}
-              theme={theme}
-            />
-          ),
-          [originOptions]
-        )}
+        <Select
+          className="react-select-container__origins"
+          classNamePrefix="react-select"
+          isMulti
+          isClearable={true}
+          onChange={handleChange}
+          options={originOptions}
+          theme={theme}
+        />
       </div>
 
       <div className={'react-select-wrapper'}>
         <h1>Per page</h1>
-        {React.useMemo(
-          () => (
-            <Select
-              className="react-select-container__per-page"
-              classNamePrefix="react-select"
-              isSearchable={false}
-              onChange={handleChange}
-              value={{ value: perPage, label: perPage }}
-              options={perPageOptions}
-              theme={theme}
-            />
-          ),
-          [perPage]
-        )}
+        <Select
+          className="react-select-container__per-page"
+          classNamePrefix="react-select"
+          isSearchable={false}
+          onChange={handleChange}
+          value={{ value: perPage, label: perPage }}
+          options={perPageOptions}
+          theme={theme}
+        />
       </div>
 
       <div className={'list-menu-price'}>
         <h1>Price</h1>
-        {React.useMemo(
-          () => (
-            <SliderRange
-              min={minPrice}
-              max={maxPrice}
-              filterRange={filterPrice}
-              changePriceFn={changePriceFn}
-            />
-          ),
-          [minPrice, maxPrice, filterPrice]
-        )}
+        <SliderRange
+          min={minPrice}
+          max={maxPrice}
+          filterRange={filterPrice}
+          changePriceFn={changePriceFn}
+        />
       </div>
     </div>
   );

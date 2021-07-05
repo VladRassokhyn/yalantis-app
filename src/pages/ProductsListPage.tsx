@@ -11,7 +11,7 @@ import {
   currentPerPageChanged,
   originsChanged,
   priceFilterChanged,
-  allFiltersResets,
+  allFiltersResets, getOrigins
 } from '../lib/store/productsSlice';
 import { useSelector } from '../lib/hooks';
 import { ListMenu } from '../components/ListMenu';
@@ -27,11 +27,12 @@ export const ProductsListPage = () => {
     perPage,
     totalItems,
     status,
+    statusOrigins,
     origins,
     filterOrigins,
     minPrice,
     maxPrice,
-    filterPrice,
+    filterPrice
   } = useSelector(selectProductsOptions);
 
   React.useEffect(() => {
@@ -39,13 +40,21 @@ export const ProductsListPage = () => {
       getProducts({
         page,
         perPage,
-        origins: filterOrigins ? filterOrigins : origins,
+        origins:
+          filterOrigins
+            ? filterOrigins.map(o => o.value)
+            : origins.map(o => o.value)
+        ,
         minPrice: filterPrice.min,
-        maxPrice: filterPrice.max,
+        maxPrice: filterPrice.max
       })
     );
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [page, perPage, origins, filterOrigins, filterPrice, dispatch]);
+
+  React.useEffect(() => {
+    dispatch(getOrigins());
+  }, [dispatch])
 
   React.useEffect(() => {
     return () => {
@@ -56,6 +65,7 @@ export const ProductsListPage = () => {
   return (
     <div>
       <ListMenu
+        statusOrigins={statusOrigins}
         perPage={perPage}
         origins={origins}
         minPrice={minPrice}
@@ -72,9 +82,9 @@ export const ProductsListPage = () => {
         }
       />
 
-      {status === 'loading' && <ListPrototype />}
+      {status === 'loading' && <ListPrototype/>}
       {status === 'success' && (
-        <List listArray={productsIds} ItemComponent={ProductListItem} />
+        <List listArray={productsIds} ItemComponent={ProductListItem}/>
       )}
 
       <Paginator

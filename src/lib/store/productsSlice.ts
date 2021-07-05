@@ -1,10 +1,10 @@
 import {
   createAsyncThunk,
   createEntityAdapter,
-  createSlice,
+  createSlice
 } from '@reduxjs/toolkit';
 import { clientAPI } from '../api/api';
-import { IProduct, TInitialProducts, TReqProductsArgs } from '../types';
+import { IProduct, TInitialProducts, TOrigin, TReqProductsArgs } from '../types';
 import { RootState } from './store';
 
 export const getProducts = createAsyncThunk(
@@ -15,10 +15,19 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+export const getOrigins = createAsyncThunk(
+  'products/getOrigins',
+  async () => {
+    const res = await clientAPI.getOrigins();
+    return res.data.items;
+  }
+);
+
 export const productsAdapter = createEntityAdapter<IProduct>();
 
 export const initialState: TInitialProducts = {
   status: '',
+  statusOrigins: '',
   page: 1,
   perPage: 10,
   totalItems: 1,
@@ -30,8 +39,8 @@ export const initialState: TInitialProducts = {
   maxPrice: 1000,
   filterPrice: {
     min: 0,
-    max: 1000,
-  },
+    max: 1000
+  }
 };
 
 export const { selectById, selectIds } =
@@ -51,11 +60,12 @@ export const productsSlice = createSlice({
     originsChanged(state, action) {
       state.page = 1;
       state.filterOrigins = [];
-      action.payload.forEach((origin: { label: string; value: string }) => {
-        state.filterOrigins && state.filterOrigins.push(origin.value);
+      action.payload.forEach((origin: TOrigin) => {
+        state.filterOrigins && state.filterOrigins.push(origin);
       });
     },
     priceFilterChanged(state, action) {
+      state.page = 1;
       state.filterPrice.min = action.payload.min;
       state.filterPrice.max = action.payload.max;
     },
@@ -64,7 +74,7 @@ export const productsSlice = createSlice({
       state.perPage = 10;
       state.page = 1;
       state.filterPrice = { min: 0, max: 1000 };
-    },
+    }
   },
 
   extraReducers: {
@@ -75,11 +85,6 @@ export const productsSlice = createSlice({
     [getProducts.fulfilled.toString()]: (state, action) => {
       state.status = 'success';
       state.totalItems = action.payload.totalItems;
-      action.payload.items.forEach((item: IProduct) => {
-        if (!state.origins.includes(item.origin)) {
-          state.origins.push(item.origin);
-        }
-      });
       productsAdapter.setAll(state.items, action.payload.items);
     },
 
@@ -87,7 +92,21 @@ export const productsSlice = createSlice({
       state.status = 'error';
       state.error = action.err;
     },
-  },
+
+    [getOrigins.pending.toString()]: (state) => {
+      state.statusOrigins = 'loading';
+    },
+
+    [getOrigins.fulfilled.toString()]: (state, action) => {
+      state.statusOrigins = 'success';
+      state.origins = action.payload;
+    },
+
+    [getOrigins.rejected.toString()]: (state, action) => {
+      state.statusOrigins = 'error';
+      state.error = action.err;
+    }
+  }
 });
 
 export const productsReducer = productsSlice.reducer;
@@ -97,7 +116,7 @@ export const {
   currentPerPageChanged,
   originsChanged,
   priceFilterChanged,
-  allFiltersResets,
+  allFiltersResets
 } = productsSlice.actions;
 
 export const selectProductsOptions = (state: RootState) => ({
@@ -105,9 +124,10 @@ export const selectProductsOptions = (state: RootState) => ({
   perPage: state.products.perPage,
   totalItems: state.products.totalItems,
   status: state.products.status,
+  statusOrigins: state.products.statusOrigins,
   origins: state.products.origins,
   filterOrigins: state.products.filterOrigins,
   minPrice: state.products.minPrice,
   maxPrice: state.products.maxPrice,
-  filterPrice: state.products.filterPrice,
+  filterPrice: state.products.filterPrice
 });

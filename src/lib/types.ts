@@ -26,13 +26,14 @@ export type TSingleProductState = {
 
 export type TInitialProducts = {
   status: string;
+  statusOrigins: string;
   page: number;
   perPage: number;
   totalItems: number;
   items: EntityState<IProduct>;
   error: null;
-  origins: string[];
-  filterOrigins: string[] | null;
+  origins: TOrigin[];
+  filterOrigins: TOrigin[] | null;
   minPrice: number;
   maxPrice: number;
   filterPrice: {
@@ -53,7 +54,15 @@ export interface IBasket extends IProduct {
   count: number;
 }
 
+export type TOrigin = {
+  value: string
+  displayName: string
+}
+
 export type ResponseGetProducts = {
   data: { items: IProduct[]; totalItems: number };
+};
+export type ResponseGetOrigins = {
+  data: { items: TOrigin[];};
 };
 export type ResponseGetProduct = { data: IProduct };
