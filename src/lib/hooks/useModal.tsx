@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { useClickOutside } from './useClickOutside';
 
 const ModalRoot: React.FC<{handleModal: ()=> void}> = ({children, handleModal}) => {
 
   const parent = document.querySelector('#modal-root');
+  const contentRef = React.useRef<any>()
 
   if (!parent) return null;
 
-  const handleClick = (e: any) => {
-    if(!e.target.classList.contains('modal-wrapper')) {
-      return
-    }
-    handleModal()
-  }
+  useClickOutside(contentRef, handleModal);
 
   return ReactDOM.createPortal(
-    <div className={'modal-wrapper'} onClick={handleClick}>
-      <div className={'modal-content'}>
+    <div className={'modal-wrapper'} >
+      <div
+        ref={contentRef}
+        className={'modal-content'}
+      >
         {children}
       </div>
     </div>,
@@ -24,7 +24,7 @@ const ModalRoot: React.FC<{handleModal: ()=> void}> = ({children, handleModal}) 
   );
 };
 
-export const useModal = (component:React.FC) => {
+export const useModal = () => {
 
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
@@ -32,8 +32,8 @@ export const useModal = (component:React.FC) => {
     setModalIsOpen(!modalIsOpen);
   };
 
-  const Modal = () => modalIsOpen
-    ? <ModalRoot handleModal={handleModal}>{component}</ModalRoot>
+  const Modal: React.FC = ({children}) => modalIsOpen
+    ? <ModalRoot handleModal={handleModal}>{children}</ModalRoot>
     : null
 
   return { handleModal, Modal };

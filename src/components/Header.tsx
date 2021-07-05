@@ -12,7 +12,7 @@ export const Header = () => {
 
   const { totalCount } = useSelector(selectBasketOptions);
 
-  const { handleModal, Modal } = useModal(NewProductForm);
+  const { handleModal, Modal } = useModal();
 
   return (
     <div className={'main-header'}>
@@ -23,9 +23,12 @@ export const Header = () => {
       </Link>
 
       <button onClick={handleModal}>
-        <Modal/>
         Modal Button
       </button>
+
+      <Modal>
+        <NewProductForm/>
+      </Modal>
 
       {isBasketPage ? (
         <div />
