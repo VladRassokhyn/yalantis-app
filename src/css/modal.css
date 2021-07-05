@@ -4,7 +4,7 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,7 +12,9 @@
 }
 
 .modal-content {
-    min-width: 70vw;
+    min-width: 50vw;
     min-height: 70vh;
     background-color: white;
+    border-radius: 10px;
+    padding: 25px;
 }

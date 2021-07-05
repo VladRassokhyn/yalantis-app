@@ -6,6 +6,7 @@ import { useSelector } from '../lib/hooks/useSelector';
 import { selectBasketOptions } from '../lib/store/basketSlice';
 import { useModal } from '../lib/hooks/useModal';
 import { NewProductForm } from './NewProductForm';
+import { selectProductsOptions } from '../lib/store/productsSlice';
 
 export const Header = () => {
   const isBasketPage = useLocation().pathname === ROUTE_PATHS.BASKET.BASE();
@@ -13,6 +14,8 @@ export const Header = () => {
   const { totalCount } = useSelector(selectBasketOptions);
 
   const { handleModal, Modal } = useModal();
+
+  const { origins } = useSelector(selectProductsOptions)
 
   return (
     <div className={'main-header'}>
@@ -27,7 +30,7 @@ export const Header = () => {
       </button>
 
       <Modal>
-        <NewProductForm/>
+        <NewProductForm origins={origins}/>
       </Modal>
 
       {isBasketPage ? (

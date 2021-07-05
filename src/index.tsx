@@ -10,6 +10,7 @@ import './css/modal.css';
 import './css/header.css';
 import './css/notificator.css';
 import './css/ranged-slider.css';
+import './css/new-product-form.css';
 import './css/list-menu.css';
 import './css/buttons.css';
 import './css/pages-proto.css';
