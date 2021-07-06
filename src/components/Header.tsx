@@ -15,30 +15,44 @@ export const Header = () => {
 
   const { handleModal, Modal } = useModal();
 
-  const { origins } = useSelector(selectProductsOptions)
+  const { origins, newProductStatus } = useSelector(selectProductsOptions);
 
   return (
     <div className={'main-header'}>
-      <Link to={ROUTE_PATHS.PRODUCTS.BASE()}>
-        <div className={'nav-button'}>
-          <h1>PRODUCTS</h1>
+      <div className={'navigation'}>
+        <Link to={ROUTE_PATHS.PRODUCTS.BASE()}>
+          <div className={'nav-button'}>
+            <h1>PRODUCTS</h1>
+          </div>
+        </Link>
+
+        <Link to={ROUTE_PATHS.MY_PRODUCTS.BASE()}>
+          <div className={'nav-button'}>
+            <h1>MY PRODUCTS</h1>
+          </div>
+        </Link>
+
+        <div className={'nav-button'} onClick={handleModal}>
+          <h1>ADD PRODUCT</h1>
         </div>
-      </Link>
 
-      <button onClick={handleModal}>
-        Modal Button
-      </button>
-
-      <Modal>
-        <NewProductForm origins={origins}/>
-      </Modal>
-
+        <Modal>
+          <NewProductForm
+            handleModal={handleModal}
+            origins={origins}
+            newProductStatus={newProductStatus}
+            name={''}
+            price={0}
+            origin={''}
+          />
+        </Modal>
+      </div>
       {isBasketPage ? (
-        <div />
+        <div/>
       ) : (
         <Link to={ROUTE_PATHS.BASKET.BASE()}>
           <div className={'nav-button'}>
-            <img src={basket} alt={'basket'} />
+            <img src={basket} alt={'basket'}/>
             {totalCount > 0 && <span>{totalCount}</span>}
           </div>
         </Link>

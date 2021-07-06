@@ -4,7 +4,7 @@ import {
   createSlice
 } from '@reduxjs/toolkit';
 import { clientAPI } from '../api/api';
-import { IProduct, TInitialProducts, TOrigin, TProductPostPayload, TReqProductsArgs } from '../types';
+import { IProduct, IInitialProducts, TOrigin, TProductPostPayload, TReqProductsArgs } from '../types';
 import { RootState } from './store';
 
 
@@ -27,15 +27,21 @@ export const getOrigins = createAsyncThunk(
 export const postProduct = createAsyncThunk(
   'products/postProduct',
   async (product: TProductPostPayload) => {
-    const res = await clientAPI.postNowProduct(product);
+    const res = await clientAPI.postNewProduct(product);
+    return res.data;
+  }
+);
+export const updateProduct = createAsyncThunk(
+  'products/postProduct',
+  async (args: {product: TProductPostPayload, id: string}) => {
+    const res = await clientAPI.updateProduct(args.id, args.product);
     return res.data;
   }
 );
 
 const productsAdapter = createEntityAdapter<IProduct>();
-const userItemsAdapter = createEntityAdapter<IProduct>()
 
-export const initialState: TInitialProducts = {
+export const initialState: IInitialProducts = {
   status: '',
   statusOrigins: '',
   newProductStatus: '',
@@ -43,7 +49,6 @@ export const initialState: TInitialProducts = {
   perPage: 10,
   totalItems: 1,
   items: productsAdapter.getInitialState(),
-  userItems: userItemsAdapter.getInitialState(),
   error: null,
   origins: [],
   filterOrigins: null,
@@ -86,6 +91,10 @@ export const productsSlice = createSlice({
       state.perPage = 10;
       state.page = 1;
       state.filterPrice = { min: 0, max: 1000 };
+    },
+    statusResets(state, action) {
+      const status = action.payload
+      state[status] = '';
     }
   },
 
@@ -97,9 +106,7 @@ export const productsSlice = createSlice({
     [getProducts.fulfilled.toString()]: (state, action) => {
       state.status = 'success';
       state.totalItems = action.payload.totalItems;
-      const userItems = action.payload.items.map((item: IProduct) => item.isEditable)
       productsAdapter.setAll(state.items, action.payload.items);
-      userItemsAdapter.setAll(state.userItems, userItems);
     },
 
     [getProducts.rejected.toString()]: (state, action) => {
@@ -125,12 +132,25 @@ export const productsSlice = createSlice({
       state.newProductStatus = 'loading';
     },
 
-    [postProduct.fulfilled.toString()]: (state, action) => {
+    [postProduct.fulfilled.toString()]: (state) => {
       state.newProductStatus = 'success';
-      userItemsAdapter.addOne(state.items, action.payload)
     },
 
     [postProduct.rejected.toString()]: (state, action) => {
+      state.newProductStatus = 'error';
+      state.error = action.err;
+    },
+
+    [updateProduct.pending.toString()]: (state) => {
+      state.newProductStatus = 'loading';
+    },
+
+    [updateProduct.fulfilled.toString()]: (state) => {
+      state.newProductStatus = 'success';
+
+    },
+
+    [updateProduct.rejected.toString()]: (state, action) => {
       state.newProductStatus = 'error';
       state.error = action.err;
     }
@@ -144,7 +164,8 @@ export const {
   currentPerPageChanged,
   originsChanged,
   priceFilterChanged,
-  allFiltersResets
+  allFiltersResets,
+  statusResets,
 } = productsSlice.actions;
 
 export const selectProductsOptions = (state: RootState) => ({

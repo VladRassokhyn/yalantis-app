@@ -18,7 +18,7 @@ export const AddToBasketButton: React.FC<{ productId: string }> = ({
     dispatch(addedToBasket(product));
     dispatch(
       notificationAdded({
-        type: 'notification-success',
+        type: 'success',
         label: `${product.name} added to basket !`,
       })
     );

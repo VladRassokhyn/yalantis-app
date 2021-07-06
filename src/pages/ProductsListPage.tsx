@@ -16,8 +16,13 @@ import {
 import { useSelector } from '../lib/hooks/useSelector';
 import { ListMenu } from '../components/ListMenu';
 import { Paginator } from '../common/Paginator';
+import { useLocation } from 'react-router-dom';
+import { ROUTE_PATHS } from '../lib/router/paths';
 
 export const ProductsListPage = () => {
+
+  const isProductPage = useLocation().pathname === ROUTE_PATHS.PRODUCTS.BASE()
+
   const dispatch = useDispatch();
 
   const productsIds = useSelector(selectIds);
@@ -32,25 +37,29 @@ export const ProductsListPage = () => {
     filterOrigins,
     minPrice,
     maxPrice,
-    filterPrice
+    filterPrice,
+    newProductStatus
   } = useSelector(selectProductsOptions);
 
   React.useEffect(() => {
-    dispatch(
-      getProducts({
-        page,
-        perPage,
-        origins:
-          filterOrigins
-            ? filterOrigins.map(o => o.value)
-            : origins.map(o => o.value)
-        ,
-        minPrice: filterPrice.min,
-        maxPrice: filterPrice.max
-      })
-    );
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [page, perPage, origins, filterOrigins, filterPrice, dispatch]);
+    if (newProductStatus === '') {
+      dispatch(
+        getProducts({
+          page,
+          perPage,
+          origins:
+            filterOrigins
+              ? filterOrigins.map(o => o.value)
+              : origins.map(o => o.value)
+          ,
+          minPrice: filterPrice.min,
+          maxPrice: filterPrice.max,
+          editable: !isProductPage
+        })
+      );
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [page, perPage, origins, filterOrigins, filterPrice, newProductStatus,dispatch]);
 
   React.useEffect(() => {
     dispatch(getOrigins());

@@ -2,6 +2,8 @@ import React from 'react';
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { AddToBasketButton } from './AddToBasketButton';
 import { IProduct } from '../lib/types';
+import { EditProductButton } from './EditProductButton';
+import { DeleteProductButton } from './DeleteProductButton';
 
 type TProps = {
   product: IProduct;
@@ -34,7 +36,14 @@ export const Product: React.FC<TProps> = ({
             </h2>
             <div className={'product-price-container'}>
               <h1>{product.price}$</h1>
-              <AddToBasketButton productId={product.id}>ADD</AddToBasketButton>
+              {
+                !product.isEditable
+                  ? <AddToBasketButton productId={product.id}>ADD</AddToBasketButton>
+                  : <div className={'product-buttons'}>
+                    <EditProductButton productId={product.id}/>
+                    <DeleteProductButton productId={product.id}>DELETE</DeleteProductButton>
+                  </div>
+              }
             </div>
           </div>
         </div>

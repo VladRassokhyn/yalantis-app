@@ -22,7 +22,8 @@ export const clientAPI = {
       `&perPage=${args.perPage}` +
       `&origins=${args.origins}` +
       `&minPrice=${args.minPrice}` +
-      `&maxPrice=${args.maxPrice}`
+      `&maxPrice=${args.maxPrice}` +
+      `&editable=${args.editable}`
     );
   },
 
@@ -34,7 +35,11 @@ export const clientAPI = {
     return await axiosInstance.get(APP_ENDPOINTS.PRODUCTS_ORIGINS.GET);
   },
 
-  postNowProduct: async (product: TProductPostPayload): Promise<ResponseGetProduct> => {
+  postNewProduct: async (product: TProductPostPayload): Promise<ResponseGetProduct> => {
     return await axiosInstance.post(APP_ENDPOINTS.PRODUCTS.POST, {product});
+  },
+
+  updateProduct: async (id: string, product: TProductPostPayload): Promise<ResponseGetProduct> => {
+    return await axiosInstance.patch(`${APP_ENDPOINTS.PRODUCTS.POST}/${id}`, {product});
   },
 };

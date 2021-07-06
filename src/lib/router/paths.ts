@@ -8,4 +8,7 @@ export const ROUTE_PATHS = {
   BASKET: {
     BASE: pathMaker('/basket'),
   },
+  MY_PRODUCTS: {
+    BASE: pathMaker('/my-products')
+  }
 };

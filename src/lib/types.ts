@@ -24,7 +24,11 @@ export type TSingleProductState = {
   product: IProduct;
 };
 
-export type TInitialProducts = {
+interface S {
+  [prop: string]: any
+}
+
+export interface IInitialProducts extends S {
   status: string;
   statusOrigins: string;
   newProductStatus: string
@@ -32,7 +36,6 @@ export type TInitialProducts = {
   perPage: number;
   totalItems: number;
   items: EntityState<IProduct>;
-  userItems: EntityState<IProduct>;
   error: null;
   origins: TOrigin[];
   filterOrigins: TOrigin[] | null;
@@ -50,6 +53,7 @@ export type TReqProductsArgs = {
   origins: string[];
   minPrice: number;
   maxPrice: number;
+  editable: boolean
 };
 
 export interface IBasket extends IProduct {

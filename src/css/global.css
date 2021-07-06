@@ -38,3 +38,11 @@ h5 {
     text-align: center;
 }
 
+select:disabled {
+    background-color: #efefef;
+    font-style: italic;
+}
+input:disabled {
+    background-color: #efefef;
+    font-style: italic;
+}

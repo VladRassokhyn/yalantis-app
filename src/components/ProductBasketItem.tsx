@@ -17,7 +17,7 @@ const validate = (count: number, dispatch: any) => {
   if (count === 0) {
     dispatch(
       notificationAdded({
-        type: 'notification-error',
+        type: 'error',
         label: `Can\`t be lower then 1`,
       })
     );
@@ -25,7 +25,7 @@ const validate = (count: number, dispatch: any) => {
   } else if (count.toString().length > 3) {
     dispatch(
       notificationAdded({
-        type: 'notification-error',
+        type: 'error',
         label: `Maximum counts is 999`,
       })
     );

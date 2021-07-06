@@ -1,5 +1,6 @@
 import React from 'react';
 import ok from '../../static/ok.svg';
+import x from '../../static/x.svg';
 import { EntityId } from '@reduxjs/toolkit';
 import { useSelector } from '../../lib/hooks/useSelector';
 import { selectById } from '../../lib/store/notoficationSlice';
@@ -25,9 +26,11 @@ export const Notification: React.FC<TProps> = ({
   const notifiClassNames = classNames({
     'notification-wrapper': true,
     'delete-notification': willDeleted,
-    [`${notification.type}`]: true,
+    'notification-error': notification.type === 'error',
+    'notification-success': notification.type === 'success'
   });
 
+  const img = notification.type === 'success' ? ok : x;
   const handlerClick = React.useCallback(() => {
     setWillDeleted(true);
   }, [willDeleted]);
@@ -50,7 +53,7 @@ export const Notification: React.FC<TProps> = ({
 
   return (
     <div onClick={handlerClick} className={notifiClassNames}>
-      <img src={ok} alt={''} />
+      <img src={img} alt={''} />
       <h1>{notification.label}</h1>
     </div>
   );

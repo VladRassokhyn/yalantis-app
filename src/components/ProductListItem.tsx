@@ -1,14 +1,16 @@
 import React from 'react';
 import { AddToBasketButton } from './AddToBasketButton';
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
 import { selectById } from '../lib/store/productsSlice';
 import { EntityId } from '@reduxjs/toolkit';
 import { useSelector } from '../lib/hooks/useSelector';
+import { EditProductButton } from './EditProductButton';
 
 export const ProductListItem: React.FC<{ itemId: EntityId }> = ({ itemId }) => {
   const product = useSelector((state) => selectById(state, itemId));
+  const isProductPage = useLocation().pathname === ROUTE_PATHS.PRODUCTS.BASE();
 
   if (!product) return null;
 
@@ -28,7 +30,11 @@ export const ProductListItem: React.FC<{ itemId: EntityId }> = ({ itemId }) => {
         </Link>
         <h2>
           {product.price}$
-          <AddToBasketButton productId={product.id} />
+          {
+            isProductPage
+              ? <AddToBasketButton productId={product.id}/>
+              : <EditProductButton productId={product.id}/>
+          }
         </h2>
       </div>
     </div>

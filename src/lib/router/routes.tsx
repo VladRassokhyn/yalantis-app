@@ -19,6 +19,11 @@ export const routes: TRoute[] = [
     exact: true,
   },
   {
+    path: ROUTE_PATHS.MY_PRODUCTS.BASE(),
+    component: ProductsListPage,
+    exact: true,
+  },
+  {
     path: ROUTE_PATHS.PRODUCTS.BY_ID(),
     component: ProductPage,
   },

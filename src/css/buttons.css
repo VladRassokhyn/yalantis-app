@@ -1,7 +1,7 @@
 
 .add-to-basket-button {
     padding: 5px 0;
-    min-width: 130px;
+    min-width: 100px;
     text-align: center;
     color: #fff;
     background: #f6731c 50%;
@@ -15,4 +15,8 @@
 
 .add-to-basket-button:hover {
     background: #f6481c;
+}
+
+.add-to-basket-button:disabled {
+    background-color: #cccccc;
 }
