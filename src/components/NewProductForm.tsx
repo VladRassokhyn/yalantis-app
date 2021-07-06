@@ -1,6 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { TOrigin } from '../lib/types';
+import { useDispatch } from 'react-redux';
+import { postProduct } from '../lib/store/productsSlice';
 
 type TProps = {
   origins: TOrigin[]
@@ -9,13 +11,15 @@ type TProps = {
 export const NewProductForm: React.FC<TProps> = ({ origins }) => {
   const { register, handleSubmit } = useForm();
 
+  const dispatch = useDispatch();
+
   const onSubmit = (data: any) => {
     const product = {
       name: data.name,
-      price: data.price,
-      origin: origins.find(origin => origin.value === data.origin)
+      price: +data.price,
+      origin: data.origin
     };
-    console.log(product)
+    dispatch(postProduct(product));
   }
 
   return (

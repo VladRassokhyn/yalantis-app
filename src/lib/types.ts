@@ -27,10 +27,12 @@ export type TSingleProductState = {
 export type TInitialProducts = {
   status: string;
   statusOrigins: string;
+  newProductStatus: string
   page: number;
   perPage: number;
   totalItems: number;
   items: EntityState<IProduct>;
+  userItems: EntityState<IProduct>;
   error: null;
   origins: TOrigin[];
   filterOrigins: TOrigin[] | null;
@@ -66,3 +68,9 @@ export type ResponseGetOrigins = {
   data: { items: TOrigin[];};
 };
 export type ResponseGetProduct = { data: IProduct };
+
+export type TProductPostPayload = {
+  name: string
+  price: number
+  origin: string
+}

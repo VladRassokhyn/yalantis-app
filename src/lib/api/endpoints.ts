@@ -1,8 +1,9 @@
 export const APP_ENDPOINTS = {
   PRODUCTS: {
     GET: '/products',
+    POST: '/products',
   },
-  PRODUCTS_ORIGNS: {
+  PRODUCTS_ORIGINS: {
     GET: '/products-origins'
   }
 };

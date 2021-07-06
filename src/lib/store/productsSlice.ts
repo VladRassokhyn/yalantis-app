@@ -4,8 +4,9 @@ import {
   createSlice
 } from '@reduxjs/toolkit';
 import { clientAPI } from '../api/api';
-import { IProduct, TInitialProducts, TOrigin, TReqProductsArgs } from '../types';
+import { IProduct, TInitialProducts, TOrigin, TProductPostPayload, TReqProductsArgs } from '../types';
 import { RootState } from './store';
+
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
@@ -23,15 +24,26 @@ export const getOrigins = createAsyncThunk(
   }
 );
 
-export const productsAdapter = createEntityAdapter<IProduct>();
+export const postProduct = createAsyncThunk(
+  'products/postProduct',
+  async (product: TProductPostPayload) => {
+    const res = await clientAPI.postNowProduct(product);
+    return res.data;
+  }
+);
+
+const productsAdapter = createEntityAdapter<IProduct>();
+const userItemsAdapter = createEntityAdapter<IProduct>()
 
 export const initialState: TInitialProducts = {
   status: '',
   statusOrigins: '',
+  newProductStatus: '',
   page: 1,
   perPage: 10,
   totalItems: 1,
   items: productsAdapter.getInitialState(),
+  userItems: userItemsAdapter.getInitialState(),
   error: null,
   origins: [],
   filterOrigins: null,
@@ -85,7 +97,9 @@ export const productsSlice = createSlice({
     [getProducts.fulfilled.toString()]: (state, action) => {
       state.status = 'success';
       state.totalItems = action.payload.totalItems;
+      const userItems = action.payload.items.map((item: IProduct) => item.isEditable)
       productsAdapter.setAll(state.items, action.payload.items);
+      userItemsAdapter.setAll(state.userItems, userItems);
     },
 
     [getProducts.rejected.toString()]: (state, action) => {
@@ -104,6 +118,20 @@ export const productsSlice = createSlice({
 
     [getOrigins.rejected.toString()]: (state, action) => {
       state.statusOrigins = 'error';
+      state.error = action.err;
+    },
+
+    [postProduct.pending.toString()]: (state) => {
+      state.newProductStatus = 'loading';
+    },
+
+    [postProduct.fulfilled.toString()]: (state, action) => {
+      state.newProductStatus = 'success';
+      userItemsAdapter.addOne(state.items, action.payload)
+    },
+
+    [postProduct.rejected.toString()]: (state, action) => {
+      state.newProductStatus = 'error';
       state.error = action.err;
     }
   }
@@ -125,6 +153,7 @@ export const selectProductsOptions = (state: RootState) => ({
   totalItems: state.products.totalItems,
   status: state.products.status,
   statusOrigins: state.products.statusOrigins,
+  newProductStatus: state.products.newProductStatus,
   origins: state.products.origins,
   filterOrigins: state.products.filterOrigins,
   minPrice: state.products.minPrice,
