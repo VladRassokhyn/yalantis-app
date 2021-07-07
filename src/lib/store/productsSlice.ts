@@ -38,6 +38,12 @@ export const updateProduct = createAsyncThunk(
     return res.data;
   }
 );
+export const deleteProduct = createAsyncThunk(
+  'products/deleteProduct',
+  async (id: string) => {
+    await clientAPI.deleteProduct(id);
+  }
+);
 
 const productsAdapter = createEntityAdapter<IProduct>();
 
@@ -45,6 +51,7 @@ export const initialState: IInitialProducts = {
   status: '',
   statusOrigins: '',
   newProductStatus: '',
+  deleteStatus: '',
   page: 1,
   perPage: 10,
   totalItems: 1,
@@ -150,6 +157,20 @@ export const productsSlice = createSlice({
     [updateProduct.rejected.toString()]: (state, action) => {
       state.newProductStatus = 'error';
       state.error = action.err;
+    },
+
+    [deleteProduct.pending.toString()]: (state) => {
+      state.deleteStatus = 'loading';
+    },
+
+    [deleteProduct.fulfilled.toString()]: (state) => {
+      state.deleteStatus = 'success';
+
+    },
+
+    [deleteProduct.rejected.toString()]: (state, action) => {
+      state.deleteStatus = 'error';
+      state.error = action.err;
     }
   }
 });
@@ -180,5 +201,6 @@ export const selectProductsOptions = (state: RootState) => ({
   filterOrigins: state.products.filterOrigins,
   minPrice: state.products.minPrice,
   maxPrice: state.products.maxPrice,
-  filterPrice: state.products.filterPrice
+  filterPrice: state.products.filterPrice,
+  deleteStatus: state.products.deleteStatus
 });

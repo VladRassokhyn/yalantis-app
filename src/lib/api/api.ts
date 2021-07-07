@@ -12,7 +12,7 @@ import { APP_ENDPOINTS } from './endpoints';
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
-    "Authorization": process.env.REACT_APP_API_KEY
+    'Authorization': process.env.REACT_APP_API_KEY
   }
 });
 
@@ -38,21 +38,27 @@ export const clientAPI = {
   },
 
   postNewProduct: async (product: TProductPostPayload): Promise<ResponseGetProduct> => {
-    return await axiosInstance.post(APP_ENDPOINTS.PRODUCTS.POST, {product});
+    return await axiosInstance.post(APP_ENDPOINTS.PRODUCTS.POST, { product });
   },
 
   updateProduct: async (id: string, product: TProductPostPayload): Promise<ResponseGetProduct> => {
-    return await axiosInstance.patch(`${APP_ENDPOINTS.PRODUCTS.POST}/${id}`, {product});
+    return await axiosInstance.patch(`${APP_ENDPOINTS.PRODUCTS.POST}/${id}`, { product });
+  },
+
+  deleteProduct: async (id: string): Promise<void> => {
+    return await axiosInstance.delete(`${APP_ENDPOINTS.PRODUCTS.DELETE}/${id}`);
   },
 
   postOrder: async (order: TNewOrder): Promise<ResponsePostNewOrder> => {
-    return await axiosInstance.post(APP_ENDPOINTS.ORDERS.POST, order)
+    return await axiosInstance.post(APP_ENDPOINTS.ORDERS.POST, order);
   },
+
   getOrders: async (): Promise<ResponseGetOrders> => {
-    return await axiosInstance.get(APP_ENDPOINTS.ORDERS.POST)
+    return await axiosInstance.get(APP_ENDPOINTS.ORDERS.POST);
   },
+
   getOrder: async (id: string): Promise<ResponseGetOrder> => {
-    return await  axiosInstance.get(`${APP_ENDPOINTS.ORDERS.GET}/${id}`)
+    return await axiosInstance.get(`${APP_ENDPOINTS.ORDERS.GET}/${id}`);
   }
 
 };

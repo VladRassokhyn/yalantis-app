@@ -32,6 +32,7 @@ export interface IInitialProducts extends S {
   status: string;
   statusOrigins: string;
   newProductStatus: string
+  deleteStatus: string
   page: number;
   perPage: number;
   totalItems: number;

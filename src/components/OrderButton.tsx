@@ -6,6 +6,7 @@ import { postNewOrder, postStatusResets, selectOrdersOptions } from '../lib/stor
 import { Preloader } from '../common/Preloader';
 import { notificationAdded } from '../lib/store/notoficationSlice';
 import { useHistory } from 'react-router-dom';
+import { ROUTE_PATHS } from '../lib/router/paths';
 
 export const OrderButton: React.FC = () => {
 
@@ -27,7 +28,7 @@ export const OrderButton: React.FC = () => {
       }));
       dispatch(basketCleared());
       dispatch(postStatusResets());
-      history.push('/orders');
+      history.push(ROUTE_PATHS.ORDERS.BASE());
     }
   }, [postStatus]);
 
