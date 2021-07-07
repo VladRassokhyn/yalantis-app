@@ -14,6 +14,7 @@ import './css/new-product-form.css';
 import './css/list-menu.css';
 import './css/buttons.css';
 import './css/pages-proto.css';
+import './css/order.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Main } from './pages/Main';
 import { Provider } from 'react-redux';

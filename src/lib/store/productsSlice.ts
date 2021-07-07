@@ -60,9 +60,6 @@ export const initialState: IInitialProducts = {
   }
 };
 
-export const { selectById, selectIds } =
-  productsAdapter.getSelectors<RootState>((state) => state.products.items);
-
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
@@ -158,6 +155,10 @@ export const productsSlice = createSlice({
 });
 
 export const productsReducer = productsSlice.reducer;
+
+
+export const { selectById, selectIds } =
+  productsAdapter.getSelectors<RootState>((state) => state.products.items);
 
 export const {
   currentPageChanged,

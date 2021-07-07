@@ -1,8 +1,10 @@
 import axios from 'axios';
 import {
+  ResponseGetOrder,
+  ResponseGetOrders,
   ResponseGetOrigins,
   ResponseGetProduct,
-  ResponseGetProducts, TProductPostPayload,
+  ResponseGetProducts, ResponsePostNewOrder, TNewOrder, TProductPostPayload,
   TReqProductsArgs
 } from '../types';
 import { APP_ENDPOINTS } from './endpoints';
@@ -42,4 +44,15 @@ export const clientAPI = {
   updateProduct: async (id: string, product: TProductPostPayload): Promise<ResponseGetProduct> => {
     return await axiosInstance.patch(`${APP_ENDPOINTS.PRODUCTS.POST}/${id}`, {product});
   },
+
+  postOrder: async (order: TNewOrder): Promise<ResponsePostNewOrder> => {
+    return await axiosInstance.post(APP_ENDPOINTS.ORDERS.POST, order)
+  },
+  getOrders: async (): Promise<ResponseGetOrders> => {
+    return await axiosInstance.get(APP_ENDPOINTS.ORDERS.POST)
+  },
+  getOrder: async (id: string): Promise<ResponseGetOrder> => {
+    return await  axiosInstance.get(`${APP_ENDPOINTS.ORDERS.GET}/${id}`)
+  }
+
 };

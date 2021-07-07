@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { basketReducer } from './basketSlice';
 import { notificationReducer } from './notoficationSlice';
+import { ordersReducer } from './ordersSlice';
 import { productsReducer } from './productsSlice';
 import { singleProductReducer } from './singleProductSlice';
 
@@ -10,6 +11,7 @@ export const store = configureStore({
     basket: basketReducer,
     notification: notificationReducer,
     singleProduct: singleProductReducer,
+    orders: ordersReducer
   },
 });
 

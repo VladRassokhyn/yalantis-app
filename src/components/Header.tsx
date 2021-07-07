@@ -26,6 +26,12 @@ export const Header = () => {
           </div>
         </Link>
 
+        <Link to={ROUTE_PATHS.ORDERS.BASE()}>
+          <div className={'nav-button'}>
+            <h1>MY ORDERS</h1>
+          </div>
+        </Link>
+
         <Link to={ROUTE_PATHS.MY_PRODUCTS.BASE()}>
           <div className={'nav-button'}>
             <h1>MY PRODUCTS</h1>

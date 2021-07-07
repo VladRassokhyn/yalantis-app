@@ -5,5 +5,9 @@ export const APP_ENDPOINTS = {
   },
   PRODUCTS_ORIGINS: {
     GET: '/products-origins'
+  },
+  ORDERS: {
+    GET: '/orders',
+    POST: '/orders'
   }
 };

@@ -6,7 +6,7 @@ import { useSelector } from '../lib/hooks/useSelector';
 import {
   changedItemCount,
   deletedFromBasket,
-  selectById,
+  selectById
 } from '../lib/store/basketSlice';
 import { notificationAdded } from '../lib/store/notoficationSlice';
 import { useDispatch } from 'react-redux';
@@ -18,7 +18,7 @@ const validate = (count: number, dispatch: any) => {
     dispatch(
       notificationAdded({
         type: 'error',
-        label: `Can\`t be lower then 1`,
+        label: `Can\`t be lower then 1`
       })
     );
     return false;
@@ -26,7 +26,7 @@ const validate = (count: number, dispatch: any) => {
     dispatch(
       notificationAdded({
         type: 'error',
-        label: `Maximum counts is 999`,
+        label: `Maximum counts is 999`
       })
     );
     return false;
@@ -57,7 +57,7 @@ export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
 
   return (
     <div className={'basket-item-wrapper'}>
-      <img src={defaultProductPhoto} alt={'image'} />
+      <img src={defaultProductPhoto} alt={'image'}/>
       <div className={'basket-item-title-container'}>
         <Link to={ROUTE_PATHS.PRODUCTS.BY_ID({ productId: product.id })}>
           <h1>{product.name}</h1>
@@ -66,7 +66,7 @@ export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
           <b>Price:</b> {product.price}$
         </h2>
         <h2>
-          <Counter count={product.count} changerFn={changerFn} />
+          <Counter count={product.count} changerFn={changerFn}/>
         </h2>
       </div>
       <div className={'basket-item-total-container'}>
@@ -74,7 +74,7 @@ export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
         <h2>{product.price * product.count}$</h2>
       </div>
       <div className={'basket-delete-wrapper'} onClick={handlerDelete}>
-        <img src={trash} alt={'trash'} />
+        <img src={trash} alt={'trash'}/>
         <h3>DELETE</h3>
       </div>
     </div>

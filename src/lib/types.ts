@@ -45,7 +45,43 @@ export interface IInitialProducts extends S {
     min: number;
     max: number;
   };
-};
+}
+
+export type TInitialOrders = {
+  postStatus: string
+  error: string
+  singleOrderStatus: string
+  getOrdersStatus: string
+  orders: EntityState<TOrder>
+  singleOrder: TOrder | null
+}
+
+export type TInitialBasket = {
+  totalPrice: number
+  totalCount: number
+  items: EntityState<IBasket>
+  toOrder: EntityState<TNewOrderPiece>
+}
+
+
+type TOrderPiece = { product: IProduct, count: number }
+
+export type TOrder = {
+  id: string,
+  pieces: TOrderPiece[]
+  createdAt: string
+}
+
+export type TNewOrderPiece = {
+  productId: string,
+  count: number
+}
+
+export type TNewOrder = {
+  order: {
+    pieces: TNewOrderPiece[]
+  }
+}
 
 export type TReqProductsArgs = {
   page: number;
@@ -69,7 +105,7 @@ export type ResponseGetProducts = {
   data: { items: IProduct[]; totalItems: number };
 };
 export type ResponseGetOrigins = {
-  data: { items: TOrigin[];};
+  data: { items: TOrigin[]; };
 };
 export type ResponseGetProduct = { data: IProduct };
 
@@ -78,3 +114,7 @@ export type TProductPostPayload = {
   price: number
   origin: string
 }
+
+export type ResponsePostNewOrder = { data: TOrder };
+export type ResponseGetOrders = { data: { items: TOrder[] } };
+export type ResponseGetOrder = { data: TOrder[] };
