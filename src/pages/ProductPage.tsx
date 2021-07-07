@@ -9,9 +9,11 @@ import {
 } from '../lib/store/singleProductSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../lib/hooks/useSelector';
+import { selectProductsOptions } from '../lib/store/productsSlice';
 
 export const ProductPage = () => {
   const { product, status } = useSelector(selectSingleProduct);
+  const { updateStatus } = useSelector(selectProductsOptions);
   const dispatch = useDispatch();
   const params = useParams<{ productId: string }>();
 
@@ -21,6 +23,12 @@ export const ProductPage = () => {
   React.useEffect(() => {
     dispatch(getSingleProduct(params.productId));
   }, [params, dispatch]);
+
+  React.useEffect(() => {
+    if (updateStatus === 'success') {
+      dispatch(getSingleProduct(params.productId));
+    }
+  }, [updateStatus]);
 
   if (status !== 'success') {
     return <ProductPrototype />;

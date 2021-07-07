@@ -51,6 +51,7 @@ export const initialState: IInitialProducts = {
   status: '',
   statusOrigins: '',
   newProductStatus: '',
+  updateStatus: '',
   deleteStatus: '',
   page: 1,
   perPage: 10,
@@ -146,16 +147,16 @@ export const productsSlice = createSlice({
     },
 
     [updateProduct.pending.toString()]: (state) => {
-      state.newProductStatus = 'loading';
+      state.updateStatus = 'loading';
     },
 
     [updateProduct.fulfilled.toString()]: (state) => {
-      state.newProductStatus = 'success';
+      state.updateStatus = 'success';
 
     },
 
     [updateProduct.rejected.toString()]: (state, action) => {
-      state.newProductStatus = 'error';
+      state.updateStatus = 'error';
       state.error = action.err;
     },
 
@@ -202,5 +203,6 @@ export const selectProductsOptions = (state: RootState) => ({
   minPrice: state.products.minPrice,
   maxPrice: state.products.maxPrice,
   filterPrice: state.products.filterPrice,
-  deleteStatus: state.products.deleteStatus
+  deleteStatus: state.products.deleteStatus,
+  updateStatus: state.products.updateStatus
 });

@@ -1,9 +1,9 @@
 import React from 'react';
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
-import { AddToBasketButton } from './AddToBasketButton';
+import { AddToBasketButton } from './Buttons/AddToBasketButton';
 import { IProduct } from '../lib/types';
-import { EditProductButton } from './EditProductButton';
-import { DeleteProductButton } from './DeleteProductButton';
+import { EditProductButton } from './Buttons/EditProductButton';
+import { DeleteProductButton } from './Buttons/DeleteProductButton';
 
 type TProps = {
   product: IProduct;

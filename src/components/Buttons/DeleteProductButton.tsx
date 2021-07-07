@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector } from '../lib/hooks/useSelector';
-import { deleteProduct, selectById, selectProductsOptions, statusResets } from '../lib/store/productsSlice';
+import { useSelector } from '../../lib/hooks/useSelector';
+import { deleteProduct, selectById, selectProductsOptions, statusResets } from '../../lib/store/productsSlice';
 import { useDispatch } from 'react-redux';
-import { notificationAdded } from '../lib/store/notoficationSlice';
+import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useHistory } from 'react-router-dom';
-import { ROUTE_PATHS } from '../lib/router/paths';
+import { ROUTE_PATHS } from '../../lib/router/paths';
 
 export const DeleteProductButton: React.FC<{ productId: string }> = ({ productId }) => {
 

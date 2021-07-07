@@ -3,7 +3,7 @@ import { useSelector } from '../lib/hooks/useSelector';
 import { selectBasketOptions, selectIds } from '../lib/store/basketSlice';
 import { List } from '../components/List';
 import { ProductBasketItem } from '../components/ProductBasketItem';
-import { OrderButton } from '../components/OrderButton';
+import { OrderButton } from '../components/Buttons/OrderButton';
 
 export const BasketPage = () => {
   const { totalCount, totalPrice } = useSelector(selectBasketOptions);

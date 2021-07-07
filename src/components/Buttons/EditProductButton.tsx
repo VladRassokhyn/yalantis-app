@@ -1,8 +1,8 @@
 import React from 'react';
-import { useSelector } from '../lib/hooks/useSelector';
-import { selectById, selectProductsOptions } from '../lib/store/productsSlice';
-import { useModal } from '../lib/hooks/useModal';
-import { NewProductForm } from './NewProductForm';
+import { useSelector } from '../../lib/hooks/useSelector';
+import { selectById, selectProductsOptions } from '../../lib/store/productsSlice';
+import { useModal } from '../../lib/hooks/useModal';
+import { NewProductForm } from '../NewProductForm';
 
 export const EditProductButton: React.FC<{ productId: string }> = ({ productId }) => {
 

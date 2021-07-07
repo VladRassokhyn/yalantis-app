@@ -1,9 +1,9 @@
 import React from 'react';
-import { useSelector } from '../lib/hooks/useSelector';
-import { selectById } from '../lib/store/productsSlice';
+import { useSelector } from '../../lib/hooks/useSelector';
+import { selectById } from '../../lib/store/productsSlice';
 import { useDispatch } from 'react-redux';
-import { addedToBasket } from '../lib/store/basketSlice';
-import { notificationAdded } from '../lib/store/notoficationSlice';
+import { addedToBasket } from '../../lib/store/basketSlice';
+import { notificationAdded } from '../../lib/store/notoficationSlice';
 
 export const AddToBasketButton: React.FC<{ productId: string }> = ({
                                                                      productId,
