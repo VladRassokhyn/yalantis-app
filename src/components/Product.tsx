@@ -16,6 +16,17 @@ export const Product: React.FC<TProps> = ({
   createdAt,
   updatedAt,
 }) => {
+  const buttons = React.useMemo(() => {
+    return !product.isEditable ? (
+      <AddToBasketButton productId={product.id}>ADD</AddToBasketButton>
+    ) : (
+      <div className={'product-buttons'}>
+        <EditProductButton productId={product.id} />
+        <DeleteProductButton productId={product.id}>DELETE</DeleteProductButton>
+      </div>
+    );
+  }, [product.isEditable]);
+
   return (
     <div className={'product-wrapper'}>
       <div className={'product-container'}>
@@ -36,14 +47,7 @@ export const Product: React.FC<TProps> = ({
             </h2>
             <div className={'product-price-container'}>
               <h1>{product.price}$</h1>
-              {
-                !product.isEditable
-                  ? <AddToBasketButton productId={product.id}>ADD</AddToBasketButton>
-                  : <div className={'product-buttons'}>
-                    <EditProductButton productId={product.id}/>
-                    <DeleteProductButton productId={product.id}>DELETE</DeleteProductButton>
-                  </div>
-              }
+              {buttons}
             </div>
           </div>
         </div>

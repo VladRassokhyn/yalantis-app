@@ -12,9 +12,9 @@ type TProps = {
 };
 
 export const Notification: React.FC<TProps> = ({
-                                                 notificationId,
-                                                 deleteFn,
-                                               }) => {
+  notificationId,
+  deleteFn,
+}) => {
   const [willDeleted, setWillDeleted] = React.useState(false);
 
   const notification = useSelector((state) =>
@@ -27,7 +27,7 @@ export const Notification: React.FC<TProps> = ({
     'notification-wrapper': true,
     'delete-notification': willDeleted,
     'notification-error': notification.type === 'error',
-    'notification-success': notification.type === 'success'
+    'notification-success': notification.type === 'success',
   });
 
   const img = notification.type === 'success' ? ok : x;

@@ -22,27 +22,27 @@ const theme = (theme: any) => ({
   colors: {
     ...theme.colors,
     primary25: 'rgba(246,72,28,0.2)',
-    primary: '#f6481c'
-  }
+    primary: '#f6481c',
+  },
 });
 
 const perPageOptions = [
   { name: 'perPage', value: 10, label: 10 },
   { name: 'perPage', value: 25, label: 25 },
-  { name: 'perPage', value: 50, label: 50 }
+  { name: 'perPage', value: 50, label: 50 },
 ];
 
 export const ListMenu: React.FC<TProps> = ({
-    perPage,
-    origins,
-    statusOrigins,
-    changePerPageFn,
-    changeOriginsFn,
-    changePriceFn,
-    maxPrice,
-    minPrice,
-    filterPrice
-  }) => {
+  perPage,
+  origins,
+  statusOrigins,
+  changePerPageFn,
+  changeOriginsFn,
+  changePriceFn,
+  maxPrice,
+  minPrice,
+  filterPrice,
+}) => {
   const handleChange = (e: any) => {
     if (e.name === 'perPage') {
       changePerPageFn(e.value);
@@ -55,12 +55,12 @@ export const ListMenu: React.FC<TProps> = ({
     () =>
       origins.map((origin: TOrigin) => ({
         value: origin.value,
-        label: origin.displayName
+        label: origin.displayName,
       })),
     [origins]
   );
 
-  if (statusOrigins !== 'success') return <ListMenuPrototype/>;
+  if (statusOrigins !== 'success') return <ListMenuPrototype />;
 
   return (
     <div className={'list-menu-wrapper'}>

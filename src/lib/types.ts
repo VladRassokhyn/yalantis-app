@@ -25,15 +25,15 @@ export type TSingleProductState = {
 };
 
 interface S {
-  [prop: string]: any
+  [prop: string]: any;
 }
 
 export interface IInitialProducts extends S {
   status: string;
   statusOrigins: string;
-  newProductStatus: string
-  deleteStatus: string
-  updateStatus: string
+  newProductStatus: string;
+  deleteStatus: string;
+  updateStatus: string;
   page: number;
   perPage: number;
   totalItems: number;
@@ -50,40 +50,39 @@ export interface IInitialProducts extends S {
 }
 
 export type TInitialOrders = {
-  postStatus: string
-  error: string
-  singleOrderStatus: string
-  getOrdersStatus: string
-  orders: EntityState<TOrder>
-  singleOrder: TOrder | null
-}
+  postStatus: string;
+  error: string;
+  singleOrderStatus: string;
+  getOrdersStatus: string;
+  orders: EntityState<TOrder>;
+  singleOrder: TOrder | null;
+};
 
 export type TInitialBasket = {
-  totalPrice: number
-  totalCount: number
-  items: EntityState<IBasket>
-  toOrder: EntityState<TNewOrderPiece>
-}
+  totalPrice: number;
+  totalCount: number;
+  items: EntityState<IBasket>;
+  toOrder: EntityState<TNewOrderPiece>;
+};
 
-
-type TOrderPiece = { product: IProduct, count: number }
+export type TOrderPiece = { product: IProduct; count: number };
 
 export type TOrder = {
-  id: string,
-  pieces: TOrderPiece[]
-  createdAt: string
-}
+  id: string;
+  pieces: TOrderPiece[];
+  createdAt: string;
+};
 
 export type TNewOrderPiece = {
-  productId: string,
-  count: number
-}
+  productId: string;
+  count: number;
+};
 
 export type TNewOrder = {
   order: {
-    pieces: TNewOrderPiece[]
-  }
-}
+    pieces: TNewOrderPiece[];
+  };
+};
 
 export type TReqProductsArgs = {
   page: number;
@@ -91,7 +90,7 @@ export type TReqProductsArgs = {
   origins: string[];
   minPrice: number;
   maxPrice: number;
-  editable: boolean
+  editable: boolean;
 };
 
 export interface IBasket extends IProduct {
@@ -99,23 +98,23 @@ export interface IBasket extends IProduct {
 }
 
 export type TOrigin = {
-  value: string
-  displayName: string
-}
+  value: string;
+  displayName: string;
+};
 
 export type ResponseGetProducts = {
   data: { items: IProduct[]; totalItems: number };
 };
 export type ResponseGetOrigins = {
-  data: { items: TOrigin[]; };
+  data: { items: TOrigin[] };
 };
 export type ResponseGetProduct = { data: IProduct };
 
 export type TProductPostPayload = {
-  name: string
-  price: number
-  origin: string
-}
+  name: string;
+  price: number;
+  origin: string;
+};
 
 export type ResponsePostNewOrder = { data: TOrder };
 export type ResponseGetOrders = { data: { items: TOrder[] } };

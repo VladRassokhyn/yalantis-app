@@ -15,7 +15,9 @@ export const Header = () => {
 
   const { handleModal, Modal } = useModal();
 
-  const { origins, newProductStatus, updateStatus } = useSelector(selectProductsOptions);
+  const { origins, newProductStatus, updateStatus } = useSelector(
+    selectProductsOptions
+  );
 
   return (
     <div className={'main-header'}>
@@ -53,14 +55,13 @@ export const Header = () => {
             origin={''}
           />
         </Modal>
-
       </div>
       {isBasketPage ? (
-        <div/>
+        <div />
       ) : (
         <Link to={ROUTE_PATHS.BASKET.BASE()}>
           <div className={'nav-button'}>
-            <img src={basket} alt={'basket'}/>
+            <img src={basket} alt={'basket'} />
             {totalCount > 0 && <span>{totalCount}</span>}
           </div>
         </Link>

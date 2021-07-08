@@ -1,4 +1,8 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from '@reduxjs/toolkit';
 import { TInitialOrders, TNewOrder, TOrder } from '../types';
 import { clientAPI } from '../api/api';
 import { RootState } from './store';
@@ -11,13 +15,10 @@ export const postNewOrder = createAsyncThunk(
   }
 );
 
-export const getOrders = createAsyncThunk(
-  'orders/getOrders',
-  async () => {
-    const res = await clientAPI.getOrders();
-    return res.data;
-  }
-);
+export const getOrders = createAsyncThunk('orders/getOrders', async () => {
+  const res = await clientAPI.getOrders();
+  return res.data;
+});
 
 export const getOrder = createAsyncThunk(
   'orders/getOrder',
@@ -35,7 +36,7 @@ const initialState: TInitialOrders = {
   singleOrderStatus: '',
   error: '',
   orders: ordersAdapter.getInitialState(),
-  singleOrder: null
+  singleOrder: null,
 };
 
 const ordersSlice = createSlice({
@@ -44,7 +45,7 @@ const ordersSlice = createSlice({
   reducers: {
     postStatusResets: (state) => {
       state.postStatus = '';
-    }
+    },
   },
   extraReducers: {
     [postNewOrder.pending.toString()]: (state) => {
@@ -85,20 +86,21 @@ const ordersSlice = createSlice({
     [getOrder.rejected.toString()]: (state, action) => {
       state.singleOrderStatus = 'error';
       state.error = action.err;
-    }
-  }
+    },
+  },
 });
 
 export const ordersReducer = ordersSlice.reducer;
 
 export const { postStatusResets } = ordersSlice.actions;
 
-export const { selectById, selectIds } =
-  ordersAdapter.getSelectors<RootState>((state) => state.orders.orders);
+export const { selectById, selectIds } = ordersAdapter.getSelectors<RootState>(
+  (state) => state.orders.orders
+);
 
 export const selectOrdersOptions = (state: RootState) => ({
   postStatus: state.orders.postStatus,
   getOrdersStatus: state.orders.getOrdersStatus,
   singleOrder: state.orders.singleOrder,
-  singleOrderStatus: state.orders.singleOrderStatus
+  singleOrderStatus: state.orders.singleOrderStatus,
 });

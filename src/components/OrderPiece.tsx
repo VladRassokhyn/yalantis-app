@@ -3,16 +3,16 @@ import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { IProduct } from '../lib/types';
 
 type TProps = {
-  product: IProduct
-  count: number
-}
+  product: IProduct;
+  count: number;
+};
 
-export const OrderPiece: React.FC<TProps> = ({product, count}) => {
+export const OrderPiece: React.FC<TProps> = ({ product, count }) => {
   return (
     <div className={'basket-item-wrapper'}>
-      <img src={defaultProductPhoto} alt={'image'}/>
+      <img src={defaultProductPhoto} alt={'image'} />
       <div className={'basket-item-title-container'}>
-          <h1>{product.name}</h1>
+        <h1>{product.name}</h1>
         <h2>
           <b>Price:</b> {product.price}$
         </h2>
@@ -25,5 +25,5 @@ export const OrderPiece: React.FC<TProps> = ({product, count}) => {
         <h2>{product.price * count}$</h2>
       </div>
     </div>
-  )
-}
+  );
+};

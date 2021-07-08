@@ -1,12 +1,17 @@
 import {
   createAsyncThunk,
   createEntityAdapter,
-  createSlice
+  createSlice,
 } from '@reduxjs/toolkit';
 import { clientAPI } from '../api/api';
-import { IProduct, IInitialProducts, TOrigin, TProductPostPayload, TReqProductsArgs } from '../types';
+import {
+  IProduct,
+  IInitialProducts,
+  TOrigin,
+  TProductPostPayload,
+  TReqProductsArgs,
+} from '../types';
 import { RootState } from './store';
-
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
@@ -16,13 +21,10 @@ export const getProducts = createAsyncThunk(
   }
 );
 
-export const getOrigins = createAsyncThunk(
-  'products/getOrigins',
-  async () => {
-    const res = await clientAPI.getOrigins();
-    return res.data.items;
-  }
-);
+export const getOrigins = createAsyncThunk('products/getOrigins', async () => {
+  const res = await clientAPI.getOrigins();
+  return res.data.items;
+});
 
 export const postProduct = createAsyncThunk(
   'products/postProduct',
@@ -33,7 +35,7 @@ export const postProduct = createAsyncThunk(
 );
 export const updateProduct = createAsyncThunk(
   'products/patchProduct',
-  async (args: {product: TProductPostPayload, id: string}) => {
+  async (args: { product: TProductPostPayload; id: string }) => {
     const res = await clientAPI.updateProduct(args.id, args.product);
     return res.data;
   }
@@ -64,8 +66,8 @@ export const initialState: IInitialProducts = {
   maxPrice: 1000,
   filterPrice: {
     min: 0,
-    max: 1000
-  }
+    max: 1000,
+  },
 };
 
 export const productsSlice = createSlice({
@@ -98,9 +100,9 @@ export const productsSlice = createSlice({
       state.filterPrice = { min: 0, max: 1000 };
     },
     statusResets(state, action) {
-      const status = action.payload
+      const status = action.payload;
       state[status] = '';
-    }
+    },
   },
 
   extraReducers: {
@@ -152,7 +154,6 @@ export const productsSlice = createSlice({
 
     [updateProduct.fulfilled.toString()]: (state) => {
       state.updateStatus = 'success';
-
     },
 
     [updateProduct.rejected.toString()]: (state, action) => {
@@ -166,18 +167,16 @@ export const productsSlice = createSlice({
 
     [deleteProduct.fulfilled.toString()]: (state) => {
       state.deleteStatus = 'success';
-
     },
 
     [deleteProduct.rejected.toString()]: (state, action) => {
       state.deleteStatus = 'error';
       state.error = action.err;
-    }
-  }
+    },
+  },
 });
 
 export const productsReducer = productsSlice.reducer;
-
 
 export const { selectById, selectIds } =
   productsAdapter.getSelectors<RootState>((state) => state.products.items);
@@ -204,5 +203,5 @@ export const selectProductsOptions = (state: RootState) => ({
   maxPrice: state.products.maxPrice,
   filterPrice: state.products.filterPrice,
   deleteStatus: state.products.deleteStatus,
-  updateStatus: state.products.updateStatus
+  updateStatus: state.products.updateStatus,
 });

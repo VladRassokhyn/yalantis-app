@@ -6,9 +6,9 @@ import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import { OrderPiece } from '../components/OrderPiece';
 import { ProductPrototype } from '../common/ProductPrototype';
+import { useOrderTotals } from '../lib/hooks/useOrdersTotal';
 
 export const OrderPage = () => {
-
   const params = useParams<{ orderId: string }>();
   const dispatch = useDispatch();
 
@@ -21,18 +21,29 @@ export const OrderPage = () => {
   const { singleOrder, singleOrderStatus } = useSelector(selectOrdersOptions);
   if (!singleOrder) return null;
 
-  let totalCount = 0;
-  let totalPrice = 0;
+  const [totalCount, totalPrice] = useOrderTotals(singleOrder.pieces);
 
-  const createdAt = format(new Date(singleOrder.createdAt), 'HH:mm - dd.mm.yyyy');
+  const createdAt = format(
+    new Date(singleOrder.createdAt),
+    'HH:mm - dd.mm.yyyy'
+  );
 
-  singleOrder.pieces.forEach(piece => {
-    totalPrice += piece.count * piece.product.price;
-    totalCount += piece.count;
-  });
+  const pieces = React.useMemo(
+    () =>
+      singleOrder.pieces.map((piece) => {
+        return (
+          <OrderPiece
+            key={piece.product.id}
+            product={piece.product}
+            count={piece.count}
+          />
+        );
+      }),
+    [singleOrder]
+  );
 
   if (singleOrderStatus === 'loading') {
-    return <ProductPrototype/>;
+    return <ProductPrototype />;
   }
 
   return (
@@ -42,13 +53,7 @@ export const OrderPage = () => {
         <h1>Total Products: {totalCount}</h1>
         <h1>Total Price: {totalPrice}$</h1>
       </div>
-      {singleOrder.pieces.map(piece => {
-        return <OrderPiece
-          key={piece.product.id}
-          product={piece.product}
-          count={piece.count}
-        />;
-      })}
+      {pieces}
     </div>
   );
 };

@@ -6,8 +6,8 @@ import { Notificator } from '../components/Notificator/Notificator';
 
 export const Main = () => (
   <div>
-    <Header/>
-    <Notificator/>
+    <Header />
+    <Notificator />
     <Switch>
       {routes.map((route, i) => (
         <Routes key={i} {...route} />
@@ -15,4 +15,3 @@ export const Main = () => (
     </Switch>
   </div>
 );
-

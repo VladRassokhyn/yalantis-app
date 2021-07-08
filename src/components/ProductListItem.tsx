@@ -30,11 +30,11 @@ export const ProductListItem: React.FC<{ itemId: EntityId }> = ({ itemId }) => {
         </Link>
         <h2>
           {product.price}$
-          {
-            isProductPage
-              ? <AddToBasketButton productId={product.id}/>
-              : <EditProductButton productId={product.id}/>
-          }
+          {isProductPage ? (
+            <AddToBasketButton productId={product.id} />
+          ) : (
+            <EditProductButton productId={product.id} />
+          )}
         </h2>
       </div>
     </div>

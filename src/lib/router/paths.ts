@@ -9,10 +9,10 @@ export const ROUTE_PATHS = {
     BASE: pathMaker('/basket'),
   },
   MY_PRODUCTS: {
-    BASE: pathMaker('/my-products')
+    BASE: pathMaker('/my-products'),
   },
   ORDERS: {
     BASE: pathMaker('/orders'),
-    BY_ID: pathMaker('/orders/:orderId')
-  }
+    BY_ID: pathMaker('/orders/:orderId'),
+  },
 };

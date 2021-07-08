@@ -2,14 +2,17 @@ import React from 'react';
 import { useSelector } from '../../lib/hooks/useSelector';
 import { basketCleared, selectAll } from '../../lib/store/basketSlice';
 import { useDispatch } from 'react-redux';
-import { postNewOrder, postStatusResets, selectOrdersOptions } from '../../lib/store/ordersSlice';
+import {
+  postNewOrder,
+  postStatusResets,
+  selectOrdersOptions,
+} from '../../lib/store/ordersSlice';
 import { Preloader } from '../../common/Preloader';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useHistory } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../lib/router/paths';
 
 export const OrderButton: React.FC = () => {
-
   const toOrder = useSelector(selectAll);
   const { postStatus } = useSelector(selectOrdersOptions);
   const dispatch = useDispatch();
@@ -22,10 +25,12 @@ export const OrderButton: React.FC = () => {
 
   React.useEffect(() => {
     if (postStatus === 'success') {
-      dispatch(notificationAdded({
-        type: 'success',
-        label: 'Order created!'
-      }));
+      dispatch(
+        notificationAdded({
+          type: 'success',
+          label: 'Order created!',
+        })
+      );
       dispatch(basketCleared());
       dispatch(postStatusResets());
       history.push(ROUTE_PATHS.ORDERS.BASE());
@@ -34,12 +39,12 @@ export const OrderButton: React.FC = () => {
 
   return (
     <>
-      {postStatus !== 'loading' && <button className={'add-to-basket-button'} onClick={handleClick}>
-        ORDER
-      </button>
-      }
-      {postStatus === 'loading' && <Preloader/>
-      }
+      {postStatus !== 'loading' && (
+        <button className={'add-to-basket-button'} onClick={handleClick}>
+          ORDER
+        </button>
+      )}
+      {postStatus === 'loading' && <Preloader />}
     </>
   );
 };

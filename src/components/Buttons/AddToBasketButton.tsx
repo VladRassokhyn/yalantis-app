@@ -6,8 +6,8 @@ import { addedToBasket } from '../../lib/store/basketSlice';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 
 export const AddToBasketButton: React.FC<{ productId: string }> = ({
-                                                                     productId,
-                                                                   }) => {
+  productId,
+}) => {
   const dispatch = useDispatch();
 
   const product = useSelector((state) => selectById(state, productId));

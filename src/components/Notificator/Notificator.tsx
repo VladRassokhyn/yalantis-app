@@ -9,9 +9,8 @@ import { useDispatch } from 'react-redux';
 import ReactDOM from 'react-dom';
 
 export const Notificator = () => {
-
   const parent = document.querySelector('#notificator');
-  if (!parent) return null
+  if (!parent) return null;
 
   const dispatch = useDispatch();
   const notificationIds = useSelector(selectNotificationIds);
@@ -31,5 +30,5 @@ export const Notificator = () => {
         .reverse()}
     </div>,
     parent
-  )
-}
+  );
+};

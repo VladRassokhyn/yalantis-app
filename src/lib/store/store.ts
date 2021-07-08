@@ -11,7 +11,7 @@ export const store = configureStore({
     basket: basketReducer,
     notification: notificationReducer,
     singleProduct: singleProductReducer,
-    orders: ordersReducer
+    orders: ordersReducer,
   },
 });
 

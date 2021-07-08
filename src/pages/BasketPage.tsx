@@ -15,10 +15,10 @@ export const BasketPage = () => {
         <h1>Total Products: {totalCount}</h1>
         <h1>Total Price: {totalPrice}$</h1>
       </div>
-      <List listArray={basketItemsIds} ItemComponent={ProductBasketItem}/>
+      <List listArray={basketItemsIds} ItemComponent={ProductBasketItem} />
       {totalCount < 1 && <h5>Basket is empty :( </h5>}
       <div className={'basket-order-button'}>
-        {totalCount > 1 && <OrderButton/>}
+        {totalCount > 0 && <OrderButton />}
       </div>
     </div>
   );
