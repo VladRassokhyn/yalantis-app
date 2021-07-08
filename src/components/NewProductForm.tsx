@@ -144,6 +144,7 @@ export const NewProductForm: React.FC<TProps> = (
                   name={'origin'}
                   render={({field}) => (
                     <Select
+                      menuPlacement={'top'}
                       className={'add-new-product__select'}
                       classNamePrefix={"react-select"}
                       inputRef={field.ref}
