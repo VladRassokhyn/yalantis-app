@@ -32,7 +32,7 @@ export const postProduct = createAsyncThunk(
   }
 );
 export const updateProduct = createAsyncThunk(
-  'products/postProduct',
+  'products/patchProduct',
   async (args: {product: TProductPostPayload, id: string}) => {
     const res = await clientAPI.updateProduct(args.id, args.product);
     return res.data;

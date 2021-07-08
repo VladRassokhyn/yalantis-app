@@ -8,7 +8,7 @@ export const EditProductButton: React.FC<{ productId: string }> = ({ productId }
 
   const product = useSelector((state) => selectById(state, productId));
   if (!product) return null;
-  const { origins, newProductStatus } = useSelector(selectProductsOptions);
+  const { origins, newProductStatus, updateStatus } = useSelector(selectProductsOptions);
   const { handleModal, Modal } = useModal();
 
   return (
@@ -19,6 +19,7 @@ export const EditProductButton: React.FC<{ productId: string }> = ({ productId }
 
       <Modal>
         <NewProductForm
+          updateStatus={updateStatus}
           handleModal={handleModal}
           origins={origins}
           newProductStatus={newProductStatus}

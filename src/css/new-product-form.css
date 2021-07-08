@@ -98,3 +98,16 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px
 }
+
+.add-new-product__select {
+    margin-top: 10px;
+    height: 30px;
+}
+
+.react-select__control {
+    height: 30px;
+}
+
+.react-select__value-container {
+    height: 30px;
+}

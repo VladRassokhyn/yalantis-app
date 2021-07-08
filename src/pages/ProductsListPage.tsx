@@ -38,7 +38,8 @@ export const ProductsListPage = () => {
     minPrice,
     maxPrice,
     filterPrice,
-    newProductStatus
+    newProductStatus,
+    updateStatus
   } = useSelector(selectProductsOptions);
 
   React.useEffect(() => {
@@ -59,7 +60,7 @@ export const ProductsListPage = () => {
       );
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [page, perPage, origins, filterOrigins, filterPrice, newProductStatus,dispatch]);
+  }, [page, perPage, origins, filterOrigins, filterPrice, newProductStatus, updateStatus, dispatch]);
 
   React.useEffect(() => {
     dispatch(getOrigins());

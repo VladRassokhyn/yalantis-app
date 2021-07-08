@@ -1,20 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useClickOutside } from './useClickOutside';
 
-const ModalRoot: React.FC<{handleModal: ()=> void}> = ({children, handleModal}) => {
+const ModalRoot: React.FC<{handleModal: ()=> void}> = ({children}) => {
 
   const parent = document.querySelector('#modal-root');
-  const contentRef = React.useRef<any>()
 
   if (!parent) return null;
-
-  useClickOutside(contentRef, handleModal);
 
   return ReactDOM.createPortal(
     <div className={'modal-wrapper'} >
       <div
-        ref={contentRef}
         className={'modal-content'}
       >
         {children}
@@ -29,7 +24,7 @@ export const useModal = () => {
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
   const handleModal = () => {
-    setModalIsOpen(!modalIsOpen);
+    setModalIsOpen(prev => !prev);
   };
 
   const Modal: React.FC = ({children}) => modalIsOpen

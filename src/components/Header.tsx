@@ -15,7 +15,7 @@ export const Header = () => {
 
   const { handleModal, Modal } = useModal();
 
-  const { origins, newProductStatus } = useSelector(selectProductsOptions);
+  const { origins, newProductStatus, updateStatus } = useSelector(selectProductsOptions);
 
   return (
     <div className={'main-header'}>
@@ -44,6 +44,7 @@ export const Header = () => {
 
         <Modal>
           <NewProductForm
+            updateStatus={updateStatus}
             handleModal={handleModal}
             origins={origins}
             newProductStatus={newProductStatus}
@@ -52,6 +53,7 @@ export const Header = () => {
             origin={''}
           />
         </Modal>
+
       </div>
       {isBasketPage ? (
         <div/>

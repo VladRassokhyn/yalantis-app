@@ -1,16 +1,18 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { TOrigin, TProductPostPayload } from '../lib/types';
 import { useDispatch } from 'react-redux';
 import { postProduct, statusResets, updateProduct } from '../lib/store/productsSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { notificationAdded } from '../lib/store/notoficationSlice';
+import Select from 'react-select';
 
 type TProps = {
   origins: TOrigin[]
   handleModal: () => void
   newProductStatus: string
+  updateStatus: string
   name: string
   price: number
   origin: string
@@ -25,6 +27,7 @@ const schema = yup.object().shape({
 
 export const NewProductForm: React.FC<TProps> = (
   {
+    updateStatus,
     origins,
     handleModal,
     newProductStatus,
@@ -33,7 +36,7 @@ export const NewProductForm: React.FC<TProps> = (
     origin,
     productId
   }) => {
-  const { register, handleSubmit, formState, reset } = useForm({
+  const { register, handleSubmit, formState, reset, control } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       name: name,
@@ -41,6 +44,15 @@ export const NewProductForm: React.FC<TProps> = (
       origin: origin
     }
   });
+
+  const originOptions = React.useMemo(
+    () =>
+      origins.map((origin: TOrigin) => ({
+        value: origin.value,
+        label: origin.displayName
+      })),
+    [origins]
+  );
 
   const disabled = newProductStatus === 'loading';
   const dispatch = useDispatch();
@@ -83,15 +95,20 @@ export const NewProductForm: React.FC<TProps> = (
         label: `Error: ${formState.errors.origin.message}`
       }));
     }
-    if (newProductStatus === 'success') {
+
+  }, [formState.errors, dispatch]);
+
+  React.useEffect(() => {
+    if (newProductStatus === 'success' || updateStatus === 'success') {
       dispatch(notificationAdded({
         type: 'success',
         label: `Saved`
       }));
       dispatch(statusResets('newProductStatus'));
+      dispatch(statusResets('updateStatus'));
       handleModal();
     }
-  }, [formState.errors, dispatch, newProductStatus]);
+  }, [ dispatch, newProductStatus, updateStatus])
 
   return (
     <div className={'add-new-product__wrapper'}>
@@ -111,53 +128,56 @@ export const NewProductForm: React.FC<TProps> = (
 
                 <label>Name</label>
                 <input
-                  className={formState.errors.name && 'add-new-product__error-field'}
                   {...register('name', { required: true })}
                 />
 
                 <label>Price</label>
                 <input
-                  className={formState.errors.price && 'add-new-product__error-field'}
                   {...register('price', { required: true })}
                 />
 
                 <label>Origin</label>
-                <select
-                  {...register('origin')}
-                >
-                  {origins.map(option => {
-                    return <option
-                      key={option.value}
-                      value={option.value}
-                    >
-                      {option.displayName}
-                    </option>;
-                  })}
-                </select>
 
-              </div>
-            </form>
-            <div className={'add-new-product__buttons'}>
-              <button
-                className={'add-to-basket-button'}
-                onClick={handleSubmit(onSubmit)}
-              >SAVE
-              </button>
-              <button
-                className={'add-to-basket-button'}
-                onClick={handleReset}
-              >RESET
-              </button>
-              <button
-                className={'add-to-basket-button'}
-                onClick={handleModal}
-              >CANCEL
-              </button>
-            </div>
-          </fieldset>
+                <Controller
+                  control={control}
+                  defaultValue={originOptions[0].value}
+                  name={'origin'}
+                  render={({field}) => (
+                    <Select
+                      className={'add-new-product__select'}
+                      classNamePrefix={"react-select"}
+                      inputRef={field.ref}
+                      options={originOptions}
+                      value={originOptions.find(option => option.value === field.value)}
+                      onChange={val => field.onChange(val?.value)}
+                    />
+                  )}
+              />
+
         </div>
-
+      </form>
+      <div className={'add-new-product__buttons'}>
+        <button
+          className={'add-to-basket-button'}
+          onClick={handleSubmit(onSubmit)}
+        >SAVE
+        </button>
+        <button
+          className={'add-to-basket-button'}
+          onClick={handleReset}
+        >RESET
+        </button>
+        <button
+          className={'add-to-basket-button'}
+          onClick={handleModal}
+        >CANCEL
+        </button>
       </div>
-    </div>
-  );
+    </fieldset>
+</div>
+
+</div>
+</div>
+)
+  ;
 };
