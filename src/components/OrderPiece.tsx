@@ -17,7 +17,7 @@ export const OrderPiece: React.FC<TProps> = ({ product, count }) => {
           <b>Price:</b> {product.price}$
         </h2>
         <h2>
-          <span> {count}</span>
+          <span>Count: {count}</span>
         </h2>
       </div>
       <div className={'basket-item-total-container'}>
