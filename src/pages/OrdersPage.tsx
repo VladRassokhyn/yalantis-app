@@ -6,7 +6,7 @@ import {
   selectOrdersOptions,
 } from '../lib/store/ordersSlice';
 import { useDispatch } from 'react-redux';
-import { Order } from '../components/Order';
+import { Order } from "../components/Order";
 import { ProductPrototype } from '../common/ProductPrototype';
 
 export const OrdersPage = () => {

@@ -28,22 +28,18 @@ export const OrderPage = () => {
     'HH:mm - dd.mm.yyyy'
   );
 
-  const pieces = React.useMemo(
-    () =>
-      singleOrder.pieces.map((piece) => {
-        return (
-          <OrderPiece
-            key={piece.product.id}
-            product={piece.product}
-            count={piece.count}
-          />
-        );
-      }),
-    [singleOrder]
-  );
+  const pieces = singleOrder.pieces.map((piece) => {
+    return (
+      <OrderPiece
+        key={piece.product.id}
+        product={piece.product}
+        count={piece.count}
+      />
+    );
+  });
 
   if (singleOrderStatus === 'loading') {
-    return <ProductPrototype />;
+    return <ProductPrototype/>;
   }
 
   return (
