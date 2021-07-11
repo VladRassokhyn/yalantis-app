@@ -12,7 +12,7 @@ export const Order: React.FC<{ orderId: EntityId }> = ({ orderId }) => {
   if (!order) return null;
   const [orderTotalCount, orderTotalPrice] = useOrderTotals(order.pieces);
 
-  const createdAt = format(new Date(order.createdAt), 'dd.mm.yyyy - HH:mm ');
+  const createdAt = format(new Date(order.createdAt), 'dd.MM.yyyy - HH:mm ');
 
   return (
     <div>

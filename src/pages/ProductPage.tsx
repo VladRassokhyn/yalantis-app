@@ -17,8 +17,8 @@ export const ProductPage = () => {
   const dispatch = useDispatch();
   const params = useParams<{ productId: string }>();
 
-  const createdAt = format(new Date(product.createdAt), 'HH:mm - dd.mm.yyyy');
-  const updatedAt = format(new Date(product.updatedAt), 'HH:mm - dd.mm.yyyy');
+  const createdAt = format(new Date(product.createdAt), 'HH:mm - dd.MM.yyyy');
+  const updatedAt = format(new Date(product.updatedAt), 'HH:mm - dd.MM.yyyy');
 
   React.useEffect(() => {
     dispatch(getSingleProduct(params.productId));
