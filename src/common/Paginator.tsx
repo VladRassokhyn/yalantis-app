@@ -5,7 +5,7 @@ type TProps = {
   currentPage: number;
   perPage: number;
   totalItems: number;
-  changer: any;
+  changer: (page: number) => void;
 };
 
 const getPages = (pagesCount: number, currentPage: number, pages: string[]) => {

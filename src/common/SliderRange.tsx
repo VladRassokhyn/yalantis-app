@@ -4,7 +4,7 @@ interface TProps {
   min: number;
   max: number;
   filterRange: { min: number; max: number };
-  changePriceFn: any;
+  changePriceFn: (min: number, max: number) => void;
 }
 
 export const SliderRange: React.FC<TProps> = ({

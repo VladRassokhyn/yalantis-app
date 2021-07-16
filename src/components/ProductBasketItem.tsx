@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { Link } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
@@ -12,8 +12,9 @@ import { notificationAdded } from '../lib/store/notoficationSlice';
 import { useDispatch } from 'react-redux';
 import trash from '../static/trash.svg';
 import { Counter } from '../common/Counter';
+import { EntityId } from '@reduxjs/toolkit';
 
-const validate = (count: number, dispatch: any) => {
+const validate = (count: number, dispatch: Dispatch<{}>) => {
   if (count === 0) {
     dispatch(
       notificationAdded({
@@ -35,7 +36,7 @@ const validate = (count: number, dispatch: any) => {
   }
 };
 
-export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
+export const ProductBasketItem: React.FC<{ itemId: EntityId }> = ({ itemId }) => {
   const product = useSelector((state) => selectById(state, itemId));
   if (!product) return null;
 

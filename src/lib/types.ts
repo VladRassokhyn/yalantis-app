@@ -1,5 +1,7 @@
 import { EntityState } from '@reduxjs/toolkit';
 
+export type FixThisTypeLeter = any
+
 export type TNotification = {
   type: string;
   isActive: boolean;
