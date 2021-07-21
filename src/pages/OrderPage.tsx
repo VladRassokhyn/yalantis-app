@@ -36,7 +36,7 @@ export const OrderPage = () => {
         key={piece.product.id}
         product={piece.product}
         count={piece.count}
-      />  
+      />
     );
   });
 

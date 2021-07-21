@@ -27,6 +27,8 @@ const getPages = (pagesCount: number, currentPage: number, pages: string[]) => {
     }
   }
 
+  if (pages.length === 0) pages = []
+
   if (+pages[0] !== 1) pages.unshift('prev');
 
   if (+pages[4] > 4) pages.push('next');
