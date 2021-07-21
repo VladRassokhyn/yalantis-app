@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Order } from "../components/Order";
 import { ProductPrototype } from '../common/ProductPrototype';
 import { selectOrderIds, selectOrdersOptions } from '../lib/store/selectors';
+import { RequestStatuses } from '../lib/types';
 
 export const OrdersPage = () => {
   const ordersIds = useSelector(selectOrderIds);
@@ -17,7 +18,7 @@ export const OrdersPage = () => {
     dispatch(getOrders());
   }, [dispatch]);
 
-  if (getOrdersStatus === 'loading') {
+  if (getOrdersStatus === RequestStatuses.LOADING) {
     return <ProductPrototype />;
   }
 

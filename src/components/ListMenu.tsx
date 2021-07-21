@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import { ListMenuPrototype } from '../common/ListMenuPrototype';
 import { SliderRange } from '../common/SliderRange';
-import { FixThisTypeLeter, TOrigin } from '../lib/types';
+import { FixThisTypeLeter, RequestStatuses, TOrigin } from '../lib/types';
 
 type TProps = {
   perPage: number;
@@ -64,7 +64,7 @@ export const ListMenu = (props: TProps) => {
     [origins]
   );
 
-  if (statusOrigins !== 'success') return <ListMenuPrototype/>;
+  if (statusOrigins !== RequestStatuses.SUCCESS) return <ListMenuPrototype/>;
 
   return (
     <div className={'list-menu-wrapper'}>

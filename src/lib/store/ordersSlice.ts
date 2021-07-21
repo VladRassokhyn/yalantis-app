@@ -3,7 +3,7 @@ import {
   createEntityAdapter,
   createSlice,
 } from '@reduxjs/toolkit';
-import { TInitialOrders, TNewOrder, TOrder } from '../types';
+import { RequestStatuses, TInitialOrders, TNewOrder, TOrder } from '../types';
 import { ordersAPI } from '../api/ordersAPI';
 
 export const postNewOrder = createAsyncThunk(
@@ -30,9 +30,9 @@ export const getOrder = createAsyncThunk(
 export const ordersAdapter = createEntityAdapter<TOrder>();
 
 const initialState: TInitialOrders = {
-  postStatus: '',
-  getOrdersStatus: '',
-  singleOrderStatus: '',
+  postStatus: RequestStatuses.IDLE,
+  getOrdersStatus: RequestStatuses.IDLE,
+  singleOrderStatus: RequestStatuses.IDLE,
   error: '',
   orders: ordersAdapter.getInitialState(),
   singleOrder: null,
@@ -43,47 +43,47 @@ const ordersSlice = createSlice({
   initialState,
   reducers: {
     postStatusResets: (state) => {
-      state.postStatus = '';
+      state.postStatus = RequestStatuses.IDLE;
     },
   },
   extraReducers: {
     [postNewOrder.pending.toString()]: (state) => {
-      state.postStatus = 'loading';
+      state.postStatus = RequestStatuses.LOADING;
     },
 
     [postNewOrder.fulfilled.toString()]: (state) => {
-      state.postStatus = 'success';
+      state.postStatus = RequestStatuses.SUCCESS;
     },
 
     [postNewOrder.rejected.toString()]: (state, action) => {
-      state.postStatus = 'error';
+      state.postStatus = RequestStatuses.ERROR;
       state.error = action.err;
     },
     [getOrders.pending.toString()]: (state) => {
-      state.getOrdersStatus = 'loading';
+      state.getOrdersStatus = RequestStatuses.LOADING;
     },
 
     [getOrders.fulfilled.toString()]: (state, action) => {
-      state.getOrdersStatus = 'success';
+      state.getOrdersStatus = RequestStatuses.SUCCESS;
       ordersAdapter.setAll(state.orders, action.payload.items);
     },
 
     [getOrders.rejected.toString()]: (state, action) => {
-      state.getOrdersStatus = 'error';
+      state.getOrdersStatus = RequestStatuses.ERROR;
       state.error = action.err;
     },
 
     [getOrder.pending.toString()]: (state) => {
-      state.singleOrderStatus = 'loading';
+      state.singleOrderStatus = RequestStatuses.LOADING;
     },
 
     [getOrder.fulfilled.toString()]: (state, action) => {
-      state.singleOrderStatus = 'success';
+      state.singleOrderStatus = RequestStatuses.SUCCESS;
       state.singleOrder = action.payload;
     },
 
     [getOrder.rejected.toString()]: (state, action) => {
-      state.singleOrderStatus = 'error';
+      state.singleOrderStatus = RequestStatuses.ERROR;
       state.error = action.err;
     },
   },

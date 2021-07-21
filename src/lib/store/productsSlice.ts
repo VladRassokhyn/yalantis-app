@@ -9,7 +9,7 @@ import {
   IInitialProducts,
   TOrigin,
   TProductPostPayload,
-  TReqProductsArgs,
+  TReqProductsArgs, RequestStatuses
 } from '../types';
 
 export const getProducts = createAsyncThunk(
@@ -49,11 +49,11 @@ export const deleteProduct = createAsyncThunk(
 export const productsAdapter = createEntityAdapter<IProduct>();
 
 export const initialState: IInitialProducts = {
-  status: '',
-  statusOrigins: '',
-  newProductStatus: '',
-  updateStatus: '',
-  deleteStatus: '',
+  status: RequestStatuses.IDLE,
+  statusOrigins: RequestStatuses.IDLE,
+  newProductStatus: RequestStatuses.IDLE,
+  updateStatus: RequestStatuses.IDLE,
+  deleteStatus: RequestStatuses.IDLE,
   page: 1,
   perPage: 10,
   totalItems: 1,
@@ -106,70 +106,70 @@ export const productsSlice = createSlice({
 
   extraReducers: {
     [getProducts.pending.toString()]: (state) => {
-      state.status = 'loading';
+      state.status = RequestStatuses.LOADING;
     },
 
     [getProducts.fulfilled.toString()]: (state, action) => {
-      state.status = 'success';
+      state.status = RequestStatuses.SUCCESS;
       state.totalItems = action.payload.totalItems;
       productsAdapter.setAll(state.items, action.payload.items);
     },
 
     [getProducts.rejected.toString()]: (state, action) => {
-      state.status = 'error';
+      state.status = RequestStatuses.ERROR;
       state.error = action.err;
     },
 
     [getOrigins.pending.toString()]: (state) => {
-      state.statusOrigins = 'loading';
+      state.statusOrigins = RequestStatuses.LOADING;
     },
 
     [getOrigins.fulfilled.toString()]: (state, action) => {
-      state.statusOrigins = 'success';
+      state.statusOrigins = RequestStatuses.SUCCESS;
       state.origins = action.payload;
     },
 
     [getOrigins.rejected.toString()]: (state, action) => {
-      state.statusOrigins = 'error';
+      state.statusOrigins = RequestStatuses.ERROR;
       state.error = action.err;
     },
 
     [postProduct.pending.toString()]: (state) => {
-      state.newProductStatus = 'loading';
+      state.newProductStatus = RequestStatuses.LOADING;
     },
 
     [postProduct.fulfilled.toString()]: (state) => {
-      state.newProductStatus = 'success';
+      state.newProductStatus = RequestStatuses.SUCCESS;
     },
 
     [postProduct.rejected.toString()]: (state, action) => {
-      state.newProductStatus = 'error';
+      state.newProductStatus = RequestStatuses.ERROR;
       state.error = action.err;
     },
 
     [updateProduct.pending.toString()]: (state) => {
-      state.updateStatus = 'loading';
+      state.updateStatus = RequestStatuses.LOADING;
     },
 
     [updateProduct.fulfilled.toString()]: (state) => {
-      state.updateStatus = 'success';
+      state.updateStatus = RequestStatuses.SUCCESS;
     },
 
     [updateProduct.rejected.toString()]: (state, action) => {
-      state.updateStatus = 'error';
+      state.updateStatus = RequestStatuses.ERROR;
       state.error = action.err;
     },
 
     [deleteProduct.pending.toString()]: (state) => {
-      state.deleteStatus = 'loading';
+      state.deleteStatus = RequestStatuses.LOADING;
     },
 
     [deleteProduct.fulfilled.toString()]: (state) => {
-      state.deleteStatus = 'success';
+      state.deleteStatus = RequestStatuses.SUCCESS;
     },
 
     [deleteProduct.rejected.toString()]: (state, action) => {
-      state.deleteStatus = 'error';
+      state.deleteStatus = RequestStatuses.ERROR;
       state.error = action.err;
     },
   },

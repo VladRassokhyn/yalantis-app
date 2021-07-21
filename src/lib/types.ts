@@ -14,6 +14,13 @@ export enum NotificationTypes {
   ERROR = 'error'
 }
 
+export enum RequestStatuses {
+  IDLE = 'idle',
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error'
+}
+
 export interface IProduct {
   isEditable: boolean;
   id: string;
@@ -26,7 +33,7 @@ export interface IProduct {
 }
 
 export type TSingleProductState = {
-  status: string;
+  status: RequestStatuses;
   error: string;
   product: IProduct;
 };
@@ -36,11 +43,11 @@ interface S {
 }
 
 export interface IInitialProducts extends S {
-  status: string;
-  statusOrigins: string;
-  newProductStatus: string;
-  deleteStatus: string;
-  updateStatus: string;
+  status: RequestStatuses;
+  statusOrigins: RequestStatuses;
+  newProductStatus: RequestStatuses;
+  deleteStatus: RequestStatuses;
+  updateStatus: RequestStatuses;
   page: number;
   perPage: number;
   totalItems: number;
@@ -57,10 +64,10 @@ export interface IInitialProducts extends S {
 }
 
 export type TInitialOrders = {
-  postStatus: string;
+  postStatus: RequestStatuses;
   error: string;
-  singleOrderStatus: string;
-  getOrdersStatus: string;
+  singleOrderStatus: RequestStatuses;
+  getOrdersStatus: RequestStatuses;
   orders: EntityState<TOrder>;
   singleOrder: TOrder | null;
 };

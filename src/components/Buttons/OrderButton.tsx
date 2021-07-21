@@ -10,7 +10,7 @@ import { Preloader } from '../../common/Preloader';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useHistory } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../lib/router/paths';
-import { NotificationTypes } from '../../lib/types';
+import { NotificationTypes, RequestStatuses } from '../../lib/types';
 import { selectOrdersOptions, selectToOrderItems } from '../../lib/store/selectors';
 
 export const OrderButton: React.FC = () => {
@@ -25,7 +25,7 @@ export const OrderButton: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    if (postStatus === 'success') {
+    if (postStatus === RequestStatuses.SUCCESS) {
       dispatch(
         notificationAdded({
           type: NotificationTypes.SUCCESS,
@@ -41,7 +41,7 @@ export const OrderButton: React.FC = () => {
   return (
     <>
       {
-        postStatus === 'loading'
+        postStatus === RequestStatuses.LOADING
           ? <Preloader/>
           : <button className={'add-to-basket-button'} onClick={handleClick}>
             ORDER

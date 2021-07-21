@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useHistory } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../lib/router/paths';
-import { NotificationTypes } from '../../lib/types';
+import { NotificationTypes, RequestStatuses } from '../../lib/types';
 import { selectProductsOptions } from '../../lib/store/selectors';
 
 export const DeleteProductButton: React.FC<{ productId: string }> = ({
@@ -24,7 +24,7 @@ export const DeleteProductButton: React.FC<{ productId: string }> = ({
   }, [productId]);
 
   React.useEffect(() => {
-    if (deleteStatus === 'success') {
+    if (deleteStatus === RequestStatuses.SUCCESS) {
       dispatch(
         notificationAdded({
           type: NotificationTypes.SUCCESS,

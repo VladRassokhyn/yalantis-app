@@ -1,6 +1,6 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { NotificationTypes, TOrigin, TProductPostPayload } from '../lib/types';
+import { NotificationTypes, RequestStatuses, TOrigin, TProductPostPayload } from '../lib/types';
 import { useDispatch } from 'react-redux';
 import {
   postProduct,
@@ -57,7 +57,7 @@ export const NewProductForm: React.FC<TProps> = ({
     [origins]
   );
 
-  const disabled = newProductStatus === 'loading';
+  const disabled = newProductStatus === RequestStatuses.LOADING;
   const dispatch = useDispatch();
 
   const handleReset = React.useCallback(
@@ -111,7 +111,7 @@ export const NewProductForm: React.FC<TProps> = ({
   }, [formState.errors, dispatch]);
 
   React.useEffect(() => {
-    if (newProductStatus === 'success' || updateStatus === 'success') {
+    if (newProductStatus === RequestStatuses.SUCCESS || updateStatus === RequestStatuses.SUCCESS) {
       dispatch(
         notificationAdded({
           type: NotificationTypes.SUCCESS,

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { productsAPI } from '../api/productsAPI';
-import { TSingleProductState } from '../types';
+import { RequestStatuses, TSingleProductState } from '../types';
 
 export const getSingleProduct = createAsyncThunk(
   'singleProduct/getSingleProduct',
@@ -11,7 +11,7 @@ export const getSingleProduct = createAsyncThunk(
 );
 
 export const initialState: TSingleProductState = {
-  status: '',
+  status: RequestStatuses.IDLE,
   error: '',
   product: {
     isEditable: false,
@@ -32,16 +32,16 @@ export const singleProductSlice = createSlice({
 
   extraReducers: {
     [getSingleProduct.pending.toString()]: (state) => {
-      state.status = 'loading';
+      state.status = RequestStatuses.LOADING;
     },
 
     [getSingleProduct.fulfilled.toString()]: (state, action) => {
-      state.status = 'success';
+      state.status = RequestStatuses.SUCCESS;
       state.product = action.payload;
     },
 
     [getSingleProduct.rejected.toString()]: (state, action) => {
-      state.status = 'error';
+      state.status = RequestStatuses.ERROR;
       state.error = action.err;
     },
   },

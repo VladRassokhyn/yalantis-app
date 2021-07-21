@@ -8,6 +8,7 @@ import { OrderPiece } from '../components/OrderPiece';
 import { ProductPrototype } from '../common/ProductPrototype';
 import { useOrderTotals } from '../lib/hooks/useOrdersTotal';
 import { selectOrdersOptions } from '../lib/store/selectors';
+import { RequestStatuses } from '../lib/types';
 
 export const OrderPage = () => {
   const params = useParams<{ orderId: string }>();
@@ -35,11 +36,11 @@ export const OrderPage = () => {
         key={piece.product.id}
         product={piece.product}
         count={piece.count}
-      />
+      />  
     );
   });
 
-  if (singleOrderStatus === 'loading') {
+  if (singleOrderStatus === RequestStatuses.LOADING) {
     return <ProductPrototype/>;
   }
 

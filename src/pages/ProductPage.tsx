@@ -9,6 +9,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../lib/hooks/useSelector';
 import { selectProductsOptions, selectSingleProduct } from '../lib/store/selectors';
+import { RequestStatuses } from '../lib/types';
 
 export const ProductPage = () => {
   const { product, status } = useSelector(selectSingleProduct);
@@ -24,12 +25,12 @@ export const ProductPage = () => {
   }, [params, dispatch]);
 
   React.useEffect(() => {
-    if (updateStatus === 'success') {
+    if (updateStatus === RequestStatuses.SUCCESS) {
       dispatch(getSingleProduct(params.productId));
     }
   }, [updateStatus]);
 
-  if (status !== 'success') {
+  if (status !== RequestStatuses.SUCCESS) {
     return <ProductPrototype />;
   } else {
     return (
