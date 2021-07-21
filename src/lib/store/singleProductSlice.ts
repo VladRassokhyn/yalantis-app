@@ -48,5 +48,3 @@ export const singleProductSlice = createSlice({
 });
 
 export const singleProductReducer = singleProductSlice.reducer;
-
-

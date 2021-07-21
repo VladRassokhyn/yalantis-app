@@ -1,9 +1,7 @@
 import React from 'react';
 import { Notification } from './Notification';
 import { useSelector } from '../../lib/hooks/useSelector';
-import {
-  notificationRemoved,
-} from '../../lib/store/notoficationSlice';
+import { notificationRemoved } from '../../lib/store/notoficationSlice';
 import { useDispatch } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { selectNotificationIds } from '../../lib/store/selectors';

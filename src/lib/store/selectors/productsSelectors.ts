@@ -4,7 +4,6 @@ import { productsAdapter } from '../productsSlice';
 export const { selectById, selectIds } =
   productsAdapter.getSelectors<RootState>((state) => state.products.items);
 
-
 export const selectProductsOptions = (state: RootState) => ({
   page: state.products.page,
   perPage: state.products.perPage,

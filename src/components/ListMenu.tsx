@@ -22,14 +22,14 @@ const theme = (theme: FixThisTypeLeter) => ({
   colors: {
     ...theme.colors,
     primary25: 'rgba(246,72,28,0.2)',
-    primary: '#f6481c'
-  }
+    primary: '#f6481c',
+  },
 });
 
 const perPageOptions = [
   { name: 'perPage', value: 10, label: 10 },
   { name: 'perPage', value: 25, label: 25 },
-  { name: 'perPage', value: 50, label: 50 }
+  { name: 'perPage', value: 50, label: 50 },
 ];
 
 export const ListMenu = (props: TProps) => {
@@ -42,11 +42,10 @@ export const ListMenu = (props: TProps) => {
     changePriceFn,
     maxPrice,
     minPrice,
-    filterPrice
+    filterPrice,
   } = props;
 
   const handleChange = (e: FixThisTypeLeter) => {
-
     console.log(e);
     if (e.name === 'perPage') {
       changePerPageFn(e.value);
@@ -59,12 +58,12 @@ export const ListMenu = (props: TProps) => {
     () =>
       origins.map((origin: TOrigin) => ({
         value: origin.value,
-        label: origin.displayName
+        label: origin.displayName,
       })),
     [origins]
   );
 
-  if (statusOrigins !== RequestStatuses.SUCCESS) return <ListMenuPrototype/>;
+  if (statusOrigins !== RequestStatuses.SUCCESS) return <ListMenuPrototype />;
 
   return (
     <div className={'list-menu-wrapper'}>

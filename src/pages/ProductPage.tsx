@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Product } from '../components/Product';
 import { ProductPrototype } from '../common/ProductPrototype';
-import {
-  getSingleProduct,
-} from '../lib/store/singleProductSlice';
+import { getSingleProduct } from '../lib/store/singleProductSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../lib/hooks/useSelector';
-import { selectProductsOptions, selectSingleProduct } from '../lib/store/selectors';
+import {
+  selectProductsOptions,
+  selectSingleProduct,
+} from '../lib/store/selectors';
 import { RequestStatuses } from '../lib/types';
 
 export const ProductPage = () => {

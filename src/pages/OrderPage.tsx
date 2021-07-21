@@ -41,7 +41,7 @@ export const OrderPage = () => {
   });
 
   if (singleOrderStatus === RequestStatuses.LOADING) {
-    return <ProductPrototype/>;
+    return <ProductPrototype />;
   }
 
   return (

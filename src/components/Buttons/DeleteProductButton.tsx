@@ -1,9 +1,6 @@
 import React from 'react';
 import { useSelector } from '../../lib/hooks/useSelector';
-import {
-  deleteProduct,
-  statusResets,
-} from '../../lib/store/productsSlice';
+import { deleteProduct, statusResets } from '../../lib/store/productsSlice';
 import { useDispatch } from 'react-redux';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useHistory } from 'react-router-dom';

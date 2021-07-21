@@ -17,7 +17,10 @@ import { ListMenu } from '../components/ListMenu';
 import { Paginator } from '../common/Paginator';
 import { useLocation } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
-import { selectProductsIds, selectProductsOptions } from '../lib/store/selectors';
+import {
+  selectProductsIds,
+  selectProductsOptions,
+} from '../lib/store/selectors';
 import { RequestStatuses } from '../lib/types';
 
 export const ProductsListPage = () => {

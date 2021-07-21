@@ -1,11 +1,16 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { NotificationTypes, RequestStatuses, TOrigin, TProductPostPayload } from '../lib/types';
+import {
+  NotificationTypes,
+  RequestStatuses,
+  TOrigin,
+  TProductPostPayload,
+} from '../lib/types';
 import { useDispatch } from 'react-redux';
 import {
   postProduct,
   statusResets,
-  updateProduct
+  updateProduct,
 } from '../lib/store/productsSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -25,42 +30,57 @@ type TProps = {
 };
 
 const schema = yup.object().shape({
-  name: yup.string().required('Required').min(3, 'Min length is 3').max(20, 'Max length is 20'),
-  price: yup.number().required('Required').positive().min(1, 'Can not be lower then 1').max(1000000, 'Max Price 1000000'),
-  origin: yup.string().required('Required')
+  name: yup
+    .string()
+    .required('Required')
+    .min(3, 'Min length is 3')
+    .max(20, 'Max length is 20'),
+  price: yup
+    .number()
+    .required('Required')
+    .positive()
+    .min(1, 'Can not be lower then 1')
+    .max(1000000, 'Max Price 1000000'),
+  origin: yup.string().required('Required'),
 });
 
 export const NewProductForm: React.FC<TProps> = ({
-                                                   updateStatus,
-                                                   origins,
-                                                   handleModal,
-                                                   newProductStatus,
-                                                   name,
-                                                   price,
-                                                   origin,
-                                                   productId
-                                                 }) => {
-  const { register, handleSubmit, formState: { errors }, reset, control } = useForm({
+  updateStatus,
+  origins,
+  handleModal,
+  newProductStatus,
+  name,
+  price,
+  origin,
+  productId,
+}) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    control,
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       name: name,
       price: price,
-      origin: origin
-    }
+      origin: origin,
+    },
   });
 
   const originOptions = React.useMemo(
     () =>
       origins.map((origin: TOrigin) => ({
         value: origin.value,
-        label: origin.displayName
+        label: origin.displayName,
       })),
     [origins]
   );
 
   const isLoadig = newProductStatus === RequestStatuses.LOADING;
-  const isUpdateSuccess = updateStatus === RequestStatuses.SUCCESS
-  const isPostSuccess = newProductStatus === RequestStatuses.SUCCESS
+  const isUpdateSuccess = updateStatus === RequestStatuses.SUCCESS;
+  const isPostSuccess = newProductStatus === RequestStatuses.SUCCESS;
   const isUpdateError = updateStatus === RequestStatuses.ERROR;
   const isPostError = newProductStatus === RequestStatuses.ERROR;
   const dispatch = useDispatch();
@@ -72,7 +92,7 @@ export const NewProductForm: React.FC<TProps> = ({
       reset({
         name: name,
         price: price,
-        origin: origin
+        origin: origin,
       }),
     [reset]
   );
@@ -81,7 +101,7 @@ export const NewProductForm: React.FC<TProps> = ({
     const product = {
       name: data.name,
       price: +data.price,
-      origin: data.origin
+      origin: data.origin,
     };
     if (productId) {
       dispatch(updateProduct({ id: productId, product }));
@@ -95,16 +115,16 @@ export const NewProductForm: React.FC<TProps> = ({
       dispatch(
         notificationAdded({
           type: NotificationTypes.ERROR,
-          label: `Something wrong`
+          label: `Something wrong`,
         })
       );
       dispatch(statusResets('newProductStatus'));
       dispatch(statusResets('updateStatus'));
-    }else if (isUpdateSuccess || isPostSuccess) {
+    } else if (isUpdateSuccess || isPostSuccess) {
       dispatch(
         notificationAdded({
           type: NotificationTypes.SUCCESS,
-          label: `Saved`
+          label: `Saved`,
         })
       );
       dispatch(statusResets('newProductStatus'));
@@ -125,26 +145,31 @@ export const NewProductForm: React.FC<TProps> = ({
               <div className={'add-new-product__inputs'}>
                 <label>
                   Name
-                  {errors.name && <span className={'field-error-title'}>{errors.name.message}</span>}
-
+                  {errors.name && (
+                    <span className={'field-error-title'}>
+                      {errors.name.message}
+                    </span>
+                  )}
                 </label>
-                <input
-                  {...register('name')}
-                />
+                <input {...register('name')} />
 
                 <label>
                   Price
-                  {errors.price && <span className={'field-error-title'}>{errors.price.message}</span>}
-
+                  {errors.price && (
+                    <span className={'field-error-title'}>
+                      {errors.price.message}
+                    </span>
+                  )}
                 </label>
-                <input
-                  {...register('price')}
-                />
+                <input {...register('price')} />
 
                 <label>
                   Origin
-                  {errors.origin && <span className={'field-error-title'}>{errors.origin.message}</span>}
-
+                  {errors.origin && (
+                    <span className={'field-error-title'}>
+                      {errors.origin.message}
+                    </span>
+                  )}
                 </label>
 
                 <Controller
@@ -168,17 +193,25 @@ export const NewProductForm: React.FC<TProps> = ({
               </div>
             </form>
             <div className={'add-new-product__buttons'}>
-              {isLoadig ? <Preloader/> : <button
-                className={'add-to-basket-button'}
-                onClick={handleSubmit(onSubmit)}
-                disabled={formHaveErrors}
-              >
-                SAVE
-              </button>
-              }
-              {productId && <button className={'add-to-basket-button'} onClick={handleReset}>
-                RESET
-              </button>}
+              {isLoadig ? (
+                <Preloader />
+              ) : (
+                <button
+                  className={'add-to-basket-button'}
+                  onClick={handleSubmit(onSubmit)}
+                  disabled={formHaveErrors}
+                >
+                  SAVE
+                </button>
+              )}
+              {productId && (
+                <button
+                  className={'add-to-basket-button'}
+                  onClick={handleReset}
+                >
+                  RESET
+                </button>
+              )}
               <button className={'add-to-basket-button'} onClick={handleModal}>
                 CANCEL
               </button>

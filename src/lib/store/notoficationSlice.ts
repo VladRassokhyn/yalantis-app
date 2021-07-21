@@ -27,5 +27,3 @@ export const notificationReducer = notificationSlice.reducer;
 
 export const { notificationAdded, notificationRemoved } =
   notificationSlice.actions;
-
-

@@ -13,7 +13,6 @@ import {
 import { axiosInstance } from './axiosInstance';
 import { APP_ENDPOINTS } from './endpoints';
 
-
 export const productsAPI = {
   getProducts: async (args: TReqProductsArgs): Promise<ResponseGetProducts> => {
     return await axiosInstance.get(
@@ -52,5 +51,5 @@ export const productsAPI = {
 
   deleteProduct: async (id: string): Promise<void> => {
     return await axiosInstance.delete(`${APP_ENDPOINTS.PRODUCTS.DELETE}/${id}`);
-  }
+  },
 };

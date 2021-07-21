@@ -9,7 +9,8 @@ import {
   IInitialProducts,
   TOrigin,
   TProductPostPayload,
-  TReqProductsArgs, RequestStatuses
+  TReqProductsArgs,
+  RequestStatuses,
 } from '../types';
 
 export const getProducts = createAsyncThunk(
@@ -186,4 +187,3 @@ export const {
   allFiltersResets,
   statusResets,
 } = productsSlice.actions;
-

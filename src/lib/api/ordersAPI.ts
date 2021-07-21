@@ -8,7 +8,6 @@ import { axiosInstance } from './axiosInstance';
 import { APP_ENDPOINTS } from './endpoints';
 
 export const ordersAPI = {
-
   postOrder: async (order: TNewOrder): Promise<ResponsePostNewOrder> => {
     return await axiosInstance.post(APP_ENDPOINTS.ORDERS.POST, order);
   },

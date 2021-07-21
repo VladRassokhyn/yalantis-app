@@ -2,7 +2,7 @@ export {
   selectIds as selectBasketItemsIds,
   selectById as selectBasketItemsById,
   selectAll as selectToOrderItems,
-  selectBasketOptions
+  selectBasketOptions,
 } from './basketSelectors';
 export {
   selectById as selectNotificationById,
@@ -11,13 +11,11 @@ export {
 export {
   selectById as selectOrderById,
   selectIds as selectOrderIds,
-  selectOrdersOptions
+  selectOrdersOptions,
 } from './ordersSelectors';
 export {
   selectIds as selectProductsIds,
   selectById as selectProductById,
-  selectProductsOptions
+  selectProductsOptions,
 } from './productsSelectors';
-export {
-  selectSingleProduct
-} from './singleProductSelectors';
+export { selectSingleProduct } from './singleProductSelectors';

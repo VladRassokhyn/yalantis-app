@@ -1,6 +1,6 @@
 import { EntityState } from '@reduxjs/toolkit';
 
-export type FixThisTypeLeter = any
+export type FixThisTypeLeter = any;
 
 export type TNotification = {
   type: NotificationTypes;
@@ -10,15 +10,15 @@ export type TNotification = {
 };
 
 export enum NotificationTypes {
-  SUCCESS =  'success',
-  ERROR = 'error'
+  SUCCESS = 'success',
+  ERROR = 'error',
 }
 
 export enum RequestStatuses {
   IDLE = 'idle',
   LOADING = 'loading',
   SUCCESS = 'success',
-  ERROR = 'error'
+  ERROR = 'error',
 }
 
 export interface IProduct {
@@ -48,7 +48,7 @@ export interface IInitialProducts extends S {
   newProductStatus: RequestStatuses;
   deleteStatus: RequestStatuses;
   updateStatus: RequestStatuses;
-  newProductError: string | null
+  newProductError: string | null;
   page: number;
   perPage: number;
   totalItems: number;

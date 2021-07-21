@@ -3,10 +3,7 @@ import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { Link } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
 import { useSelector } from '../lib/hooks/useSelector';
-import {
-  changedItemCount,
-  deletedFromBasket,
-} from '../lib/store/basketSlice';
+import { changedItemCount, deletedFromBasket } from '../lib/store/basketSlice';
 import { notificationAdded } from '../lib/store/notoficationSlice';
 import { useDispatch } from 'react-redux';
 import trash from '../static/trash.svg';
@@ -37,7 +34,9 @@ const validate = (count: number, dispatch: Dispatch<{}>) => {
   }
 };
 
-export const ProductBasketItem: React.FC<{ itemId: EntityId }> = ({ itemId }) => {
+export const ProductBasketItem: React.FC<{ itemId: EntityId }> = ({
+  itemId,
+}) => {
   const product = useSelector((state) => selectBasketItemsById(state, itemId));
   if (!product) return null;
 
