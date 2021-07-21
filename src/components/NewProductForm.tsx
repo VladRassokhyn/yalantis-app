@@ -59,6 +59,10 @@ export const NewProductForm: React.FC<TProps> = ({
   );
 
   const isLoadig = newProductStatus === RequestStatuses.LOADING;
+  const isUpdateSuccess = updateStatus === RequestStatuses.SUCCESS
+  const isPostSuccess = newProductStatus === RequestStatuses.SUCCESS
+  const isUpdateError = updateStatus === RequestStatuses.ERROR;
+  const isPostError = newProductStatus === RequestStatuses.ERROR;
   const dispatch = useDispatch();
 
   const formHaveErrors = !!(errors.name || errors.price || errors.origin);
@@ -87,7 +91,16 @@ export const NewProductForm: React.FC<TProps> = ({
   };
 
   React.useEffect(() => {
-    if (newProductStatus === RequestStatuses.SUCCESS || updateStatus === RequestStatuses.SUCCESS) {
+    if (isUpdateError || isPostError) {
+      dispatch(
+        notificationAdded({
+          type: NotificationTypes.ERROR,
+          label: `Something wrong`
+        })
+      );
+      dispatch(statusResets('newProductStatus'));
+      dispatch(statusResets('updateStatus'));
+    }else if (isUpdateSuccess || isPostSuccess) {
       dispatch(
         notificationAdded({
           type: NotificationTypes.SUCCESS,
@@ -98,7 +111,7 @@ export const NewProductForm: React.FC<TProps> = ({
       dispatch(statusResets('updateStatus'));
       handleModal();
     }
-  }, [dispatch, newProductStatus, updateStatus]);
+  }, [dispatch, newProductStatus, updateStatus, isUpdateError, isPostError]);
 
   return (
     <div className={'add-new-product__wrapper'}>

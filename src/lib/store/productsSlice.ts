@@ -59,6 +59,7 @@ export const initialState: IInitialProducts = {
   totalItems: 1,
   items: productsAdapter.getInitialState(),
   error: null,
+  newProductError: null,
   origins: [],
   filterOrigins: null,
   minPrice: 0,

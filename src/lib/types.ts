@@ -48,6 +48,7 @@ export interface IInitialProducts extends S {
   newProductStatus: RequestStatuses;
   deleteStatus: RequestStatuses;
   updateStatus: RequestStatuses;
+  newProductError: string | null
   page: number;
   perPage: number;
   totalItems: number;
