@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { notificationAdded } from '../lib/store/notoficationSlice';
 import Select from 'react-select';
+import { Preloader } from '../common/Preloader';
 
 type TProps = {
   origins: TOrigin[];
@@ -25,7 +26,7 @@ type TProps = {
 
 const schema = yup.object().shape({
   name: yup.string().required('Required').min(3, 'Min length is 3').max(20, 'Max length is 20'),
-  price: yup.number().required('Required').positive().min(1, 'Can not be lower then 1'),
+  price: yup.number().required('Required').positive().min(1, 'Can not be lower then 1').max(1000000, 'Max Price 1000000'),
   origin: yup.string().required('Required')
 });
 
@@ -57,10 +58,10 @@ export const NewProductForm: React.FC<TProps> = ({
     [origins]
   );
 
-  const disabled = newProductStatus === RequestStatuses.LOADING;
+  const isLoadig = newProductStatus === RequestStatuses.LOADING;
   const dispatch = useDispatch();
 
-  const formHaveErrors = !!(errors.name || errors.price || errors.origin)
+  const formHaveErrors = !!(errors.name || errors.price || errors.origin);
 
   const handleReset = React.useCallback(
     () =>
@@ -106,17 +107,17 @@ export const NewProductForm: React.FC<TProps> = ({
         <div className={'add-new-product__info'}>
           <h1>Product information</h1>
 
-          <fieldset disabled={disabled}>
+          <fieldset disabled={isLoadig}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className={'add-new-product__inputs'}>
-                  <label>
-                    Name
-                    {errors.name && <span className={'field-error-title'}>{errors.name.message}</span>}
+                <label>
+                  Name
+                  {errors.name && <span className={'field-error-title'}>{errors.name.message}</span>}
 
-                  </label>
-                  <input
-                    {...register('name')}
-                  />
+                </label>
+                <input
+                  {...register('name')}
+                />
 
                 <label>
                   Price
@@ -154,13 +155,14 @@ export const NewProductForm: React.FC<TProps> = ({
               </div>
             </form>
             <div className={'add-new-product__buttons'}>
-              <button
+              {isLoadig ? <Preloader/> : <button
                 className={'add-to-basket-button'}
                 onClick={handleSubmit(onSubmit)}
                 disabled={formHaveErrors}
               >
                 SAVE
               </button>
+              }
               {productId && <button className={'add-to-basket-button'} onClick={handleReset}>
                 RESET
               </button>}

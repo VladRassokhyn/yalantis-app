@@ -47,3 +47,8 @@ input:disabled {
     background-color: #efefef;
     font-style: italic;
 }
+
+.preloader {
+    width: 40px;
+    background-color: transparent;
+}
