@@ -100,7 +100,7 @@ export const productsSlice = createSlice({
     },
     statusResets(state, action) {
       const status = action.payload;
-      state[status] = '';
+      state[status] = RequestStatuses.IDLE;
     },
   },
 
