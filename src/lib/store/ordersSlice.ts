@@ -4,26 +4,26 @@ import {
   createSlice,
 } from '@reduxjs/toolkit';
 import { TInitialOrders, TNewOrder, TOrder } from '../types';
-import { clientAPI } from '../api/api';
+import { ordersAPI } from '../api/ordersAPI';
 import { RootState } from './store';
 
 export const postNewOrder = createAsyncThunk(
   'orders/postNewOrder',
   async (order: TNewOrder) => {
-    const res = await clientAPI.postOrder(order);
+    const res = await ordersAPI.postOrder(order);
     return res.data;
   }
 );
 
 export const getOrders = createAsyncThunk('orders/getOrders', async () => {
-  const res = await clientAPI.getOrders();
+  const res = await ordersAPI.getOrders();
   return res.data;
 });
 
 export const getOrder = createAsyncThunk(
   'orders/getOrder',
   async (id: string) => {
-    const res = await clientAPI.getOrder(id);
+    const res = await ordersAPI.getOrder(id);
     return res.data;
   }
 );

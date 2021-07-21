@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { clientAPI } from '../api/api';
+import { productsAPI } from '../api/productsAPI';
 import { TSingleProductState } from '../types';
 import { RootState } from './store';
 
 export const getSingleProduct = createAsyncThunk(
   'singleProduct/getSingleProduct',
   async (id: string) => {
-    const res = await clientAPI.getProduct(id);
+    const res = await productsAPI.getProduct(id);
     return res.data;
   }
 );

@@ -3,7 +3,7 @@ import {
   createEntityAdapter,
   createSlice,
 } from '@reduxjs/toolkit';
-import { clientAPI } from '../api/api';
+import { productsAPI } from '../api/productsAPI';
 import {
   IProduct,
   IInitialProducts,
@@ -16,34 +16,34 @@ import { RootState } from './store';
 export const getProducts = createAsyncThunk(
   'products/getProducts',
   async (args: TReqProductsArgs) => {
-    const res = await clientAPI.getProducts(args);
+    const res = await productsAPI.getProducts(args);
     return res.data;
   }
 );
 
 export const getOrigins = createAsyncThunk('products/getOrigins', async () => {
-  const res = await clientAPI.getOrigins();
+  const res = await productsAPI.getOrigins();
   return res.data.items;
 });
 
 export const postProduct = createAsyncThunk(
   'products/postProduct',
   async (product: TProductPostPayload) => {
-    const res = await clientAPI.postNewProduct(product);
+    const res = await productsAPI.postNewProduct(product);
     return res.data;
   }
 );
 export const updateProduct = createAsyncThunk(
   'products/patchProduct',
   async (args: { product: TProductPostPayload; id: string }) => {
-    const res = await clientAPI.updateProduct(args.id, args.product);
+    const res = await productsAPI.updateProduct(args.id, args.product);
     return res.data;
   }
 );
 export const deleteProduct = createAsyncThunk(
   'products/deleteProduct',
   async (id: string) => {
-    await clientAPI.deleteProduct(id);
+    await productsAPI.deleteProduct(id);
   }
 );
 
