@@ -40,12 +40,13 @@ export const OrderButton: React.FC = () => {
 
   return (
     <>
-      {postStatus !== 'loading' && (
-        <button className={'add-to-basket-button'} onClick={handleClick}>
-          ORDER
-        </button>
-      )}
-      {postStatus === 'loading' && <Preloader />}
+      {
+        postStatus === 'loading'
+          ? <Preloader/>
+          : <button className={'add-to-basket-button'} onClick={handleClick}>
+            ORDER
+          </button>
+      }
     </>
   );
 };
