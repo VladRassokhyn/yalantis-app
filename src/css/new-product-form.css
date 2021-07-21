@@ -94,9 +94,9 @@
 
 .add-new-product__buttons {
     margin-top: 50px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .add-new-product__select {
@@ -112,3 +112,10 @@
     height: 30px;
 }
 
+.field-error-title {
+    font-weight: 600;
+    margin-left: 30px;
+    font-size: 10pt;
+    color: red;
+    font-family: Roboto, sans-serif;
+}

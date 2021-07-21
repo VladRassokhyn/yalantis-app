@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import {
   postProduct,
   statusResets,
-  updateProduct,
+  updateProduct
 } from '../lib/store/productsSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -24,35 +24,35 @@ type TProps = {
 };
 
 const schema = yup.object().shape({
-  name: yup.string().required().min(3).max(20),
-  price: yup.number().required().positive().min(1),
-  origin: yup.string().required(),
+  name: yup.string().required('Required').min(3, 'Min length is 3').max(20, 'Max length is 20'),
+  price: yup.number().required('Required').positive().min(1, 'Can not be lower then 1'),
+  origin: yup.string().required('Required')
 });
 
 export const NewProductForm: React.FC<TProps> = ({
-  updateStatus,
-  origins,
-  handleModal,
-  newProductStatus,
-  name,
-  price,
-  origin,
-  productId,
-}) => {
-  const { register, handleSubmit, formState, reset, control } = useForm({
+                                                   updateStatus,
+                                                   origins,
+                                                   handleModal,
+                                                   newProductStatus,
+                                                   name,
+                                                   price,
+                                                   origin,
+                                                   productId
+                                                 }) => {
+  const { register, handleSubmit, formState: { errors }, reset, control } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       name: name,
       price: price,
-      origin: origin,
-    },
+      origin: origin
+    }
   });
 
   const originOptions = React.useMemo(
     () =>
       origins.map((origin: TOrigin) => ({
         value: origin.value,
-        label: origin.displayName,
+        label: origin.displayName
       })),
     [origins]
   );
@@ -65,7 +65,7 @@ export const NewProductForm: React.FC<TProps> = ({
       reset({
         name: name,
         price: price,
-        origin: origin,
+        origin: origin
       }),
     [reset]
   );
@@ -74,7 +74,7 @@ export const NewProductForm: React.FC<TProps> = ({
     const product = {
       name: data.name,
       price: +data.price,
-      origin: data.origin,
+      origin: data.origin
     };
     if (productId) {
       dispatch(updateProduct({ id: productId, product }));
@@ -84,38 +84,11 @@ export const NewProductForm: React.FC<TProps> = ({
   };
 
   React.useEffect(() => {
-    if (formState.errors.name) {
-      dispatch(
-        notificationAdded({
-          type: NotificationTypes.ERROR,
-          label: `Error: ${formState.errors.name.message}`,
-        })
-      );
-    }
-    if (formState.errors.price) {
-      dispatch(
-        notificationAdded({
-          type: NotificationTypes.ERROR,
-          label: `Error: ${formState.errors.price.message}`,
-        })
-      );
-    }
-    if (formState.errors.origin) {
-      dispatch(
-        notificationAdded({
-          type: NotificationTypes.ERROR,
-          label: `Error: ${formState.errors.origin.message}`,
-        })
-      );
-    }
-  }, [formState.errors, dispatch]);
-
-  React.useEffect(() => {
     if (newProductStatus === RequestStatuses.SUCCESS || updateStatus === RequestStatuses.SUCCESS) {
       dispatch(
         notificationAdded({
           type: NotificationTypes.SUCCESS,
-          label: `Saved`,
+          label: `Saved`
         })
       );
       dispatch(statusResets('newProductStatus'));
@@ -128,22 +101,35 @@ export const NewProductForm: React.FC<TProps> = ({
     <div className={'add-new-product__wrapper'}>
       <h1 className={'add-new-product__header'}>Add new product</h1>
       <div className={'add-new-product__content'}>
-        <div className={'add-new-product__photo'}>
-          <h1>Product Photo</h1>
-        </div>
         <div className={'add-new-product__info'}>
           <h1>Product information</h1>
 
           <fieldset disabled={disabled}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className={'add-new-product__inputs'}>
-                <label>Name</label>
-                <input {...register('name', { required: true })} />
+                  <label>
+                    Name
+                    {errors.name && <span className={'field-error-title'}>{errors.name.message}</span>}
 
-                <label>Price</label>
-                <input {...register('price', { required: true })} />
+                  </label>
+                  <input
+                    {...register('name')}
+                  />
 
-                <label>Origin</label>
+                <label>
+                  Price
+                  {errors.price && <span className={'field-error-title'}>{errors.price.message}</span>}
+
+                </label>
+                <input
+                  {...register('price')}
+                />
+
+                <label>
+                  Origin
+                  {errors.origin && <span className={'field-error-title'}>{errors.origin.message}</span>}
+
+                </label>
 
                 <Controller
                   control={control}
@@ -152,7 +138,7 @@ export const NewProductForm: React.FC<TProps> = ({
                   render={({ field }) => (
                     <Select
                       menuPlacement={'top'}
-                      className={'add-new-product__select'}
+                      className={`add-new-product__select`}
                       classNamePrefix={'react-select'}
                       inputRef={field.ref}
                       options={originOptions}
@@ -172,9 +158,9 @@ export const NewProductForm: React.FC<TProps> = ({
               >
                 SAVE
               </button>
-              <button className={'add-to-basket-button'} onClick={handleReset}>
+              {productId && <button className={'add-to-basket-button'} onClick={handleReset}>
                 RESET
-              </button>
+              </button>}
               <button className={'add-to-basket-button'} onClick={handleModal}>
                 CANCEL
               </button>
