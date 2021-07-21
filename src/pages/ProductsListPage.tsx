@@ -15,7 +15,7 @@ import {
 import { useSelector } from '../lib/hooks/useSelector';
 import { ListMenu } from '../components/ListMenu';
 import { Paginator } from '../common/Paginator';
-import { useLocation } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
 import {
   selectProductsIds,
@@ -24,7 +24,7 @@ import {
 import { RequestStatuses } from '../lib/types';
 
 export const ProductsListPage = () => {
-  const isProductPage = useLocation().pathname === ROUTE_PATHS.PRODUCTS.BASE();
+  const isProductPage = useRouteMatch(ROUTE_PATHS.PRODUCTS.BASE());
 
   const dispatch = useDispatch();
 
@@ -59,6 +59,7 @@ export const ProductsListPage = () => {
           editable: !isProductPage,
         })
       );
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [

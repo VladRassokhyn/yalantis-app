@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import basket from '../static/basket.svg';
 import { ROUTE_PATHS } from '../lib/router/paths';
 import { useSelector } from '../lib/hooks/useSelector';
@@ -9,7 +9,7 @@ import { NewProductForm } from './NewProductForm';
 import { selectProductsOptions } from '../lib/store/selectors';
 
 export const Header = () => {
-  const isBasketPage = useLocation().pathname === ROUTE_PATHS.BASKET.BASE();
+  const isBasketPage = useRouteMatch(ROUTE_PATHS.BASKET.BASE());
 
   const { totalCount } = useSelector(selectBasketOptions);
 
