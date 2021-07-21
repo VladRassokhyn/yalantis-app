@@ -60,6 +60,8 @@ export const NewProductForm: React.FC<TProps> = ({
   const disabled = newProductStatus === RequestStatuses.LOADING;
   const dispatch = useDispatch();
 
+  const formHaveErrors = !!(errors.name || errors.price || errors.origin)
+
   const handleReset = React.useCallback(
     () =>
       reset({
@@ -155,6 +157,7 @@ export const NewProductForm: React.FC<TProps> = ({
               <button
                 className={'add-to-basket-button'}
                 onClick={handleSubmit(onSubmit)}
+                disabled={formHaveErrors}
               >
                 SAVE
               </button>
