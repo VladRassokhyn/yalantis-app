@@ -5,6 +5,7 @@ import { EntityId } from '@reduxjs/toolkit';
 import { useSelector } from '../../lib/hooks/useSelector';
 import { selectById } from '../../lib/store/notoficationSlice';
 import classNames from 'classnames';
+import { NotificationTypes } from '../../lib/types';
 
 type TProps = {
   notificationId: EntityId;
@@ -26,11 +27,11 @@ export const Notification: React.FC<TProps> = ({
   const notifiClassNames = classNames({
     'notification-wrapper': true,
     'delete-notification': willDeleted,
-    'notification-error': notification.type === 'error',
-    'notification-success': notification.type === 'success',
+    'notification-error': notification.type === NotificationTypes.ERROR,
+    'notification-success': notification.type === NotificationTypes.SUCCESS,
   });
 
-  const img = notification.type === 'success' ? ok : x;
+  const img = notification.type === NotificationTypes.SUCCESS ? ok : x;
   const handlerClick = React.useCallback(() => {
     setWillDeleted(true);
   }, [willDeleted]);

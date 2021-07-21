@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from '../../lib/hooks/useSelector';
 import {
   deleteProduct,
-  selectById,
   selectProductsOptions,
   statusResets,
 } from '../../lib/store/productsSlice';
@@ -10,13 +9,11 @@ import { useDispatch } from 'react-redux';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useHistory } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../lib/router/paths';
+import { NotificationTypes } from '../../lib/types';
 
 export const DeleteProductButton: React.FC<{ productId: string }> = ({
   productId,
 }) => {
-  const product = useSelector((state) => selectById(state, productId));
-  if (!product) return null;
-
   const history = useHistory();
 
   const { deleteStatus } = useSelector(selectProductsOptions);
@@ -30,7 +27,7 @@ export const DeleteProductButton: React.FC<{ productId: string }> = ({
     if (deleteStatus === 'success') {
       dispatch(
         notificationAdded({
-          type: 'success',
+          type: NotificationTypes.SUCCESS,
           label: 'Product deleted !',
         })
       );

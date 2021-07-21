@@ -11,6 +11,7 @@ import { Preloader } from '../../common/Preloader';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useHistory } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../lib/router/paths';
+import { NotificationTypes } from '../../lib/types';
 
 export const OrderButton: React.FC = () => {
   const toOrder = useSelector(selectAll);
@@ -27,7 +28,7 @@ export const OrderButton: React.FC = () => {
     if (postStatus === 'success') {
       dispatch(
         notificationAdded({
-          type: 'success',
+          type: NotificationTypes.SUCCESS,
           label: 'Order created!',
         })
       );

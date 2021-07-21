@@ -3,11 +3,16 @@ import { EntityState } from '@reduxjs/toolkit';
 export type FixThisTypeLeter = any
 
 export type TNotification = {
-  type: string;
+  type: NotificationTypes;
   isActive: boolean;
   id: string;
   label: string;
 };
+
+export enum NotificationTypes {
+  SUCCESS =  'success',
+  ERROR = 'error'
+}
 
 export interface IProduct {
   isEditable: boolean;

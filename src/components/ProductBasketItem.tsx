@@ -13,12 +13,13 @@ import { useDispatch } from 'react-redux';
 import trash from '../static/trash.svg';
 import { Counter } from '../common/Counter';
 import { EntityId } from '@reduxjs/toolkit';
+import { NotificationTypes } from '../lib/types';
 
 const validate = (count: number, dispatch: Dispatch<{}>) => {
   if (count === 0) {
     dispatch(
       notificationAdded({
-        type: 'error',
+        type: NotificationTypes.ERROR,
         label: `Can\`t be lower then 1`,
       })
     );
@@ -26,7 +27,7 @@ const validate = (count: number, dispatch: Dispatch<{}>) => {
   } else if (count.toString().length > 3) {
     dispatch(
       notificationAdded({
-        type: 'error',
+        type: NotificationTypes.ERROR,
         label: `Maximum counts is 999`,
       })
     );

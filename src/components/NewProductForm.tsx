@@ -1,6 +1,6 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { TOrigin, TProductPostPayload } from '../lib/types';
+import { NotificationTypes, TOrigin, TProductPostPayload } from '../lib/types';
 import { useDispatch } from 'react-redux';
 import {
   postProduct,
@@ -87,7 +87,7 @@ export const NewProductForm: React.FC<TProps> = ({
     if (formState.errors.name) {
       dispatch(
         notificationAdded({
-          type: 'error',
+          type: NotificationTypes.ERROR,
           label: `Error: ${formState.errors.name.message}`,
         })
       );
@@ -95,7 +95,7 @@ export const NewProductForm: React.FC<TProps> = ({
     if (formState.errors.price) {
       dispatch(
         notificationAdded({
-          type: 'error',
+          type: NotificationTypes.ERROR,
           label: `Error: ${formState.errors.price.message}`,
         })
       );
@@ -103,7 +103,7 @@ export const NewProductForm: React.FC<TProps> = ({
     if (formState.errors.origin) {
       dispatch(
         notificationAdded({
-          type: 'error',
+          type: NotificationTypes.ERROR,
           label: `Error: ${formState.errors.origin.message}`,
         })
       );
@@ -114,7 +114,7 @@ export const NewProductForm: React.FC<TProps> = ({
     if (newProductStatus === 'success' || updateStatus === 'success') {
       dispatch(
         notificationAdded({
-          type: 'success',
+          type: NotificationTypes.SUCCESS,
           label: `Saved`,
         })
       );

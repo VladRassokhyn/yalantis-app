@@ -4,6 +4,7 @@ import { selectById } from '../../lib/store/productsSlice';
 import { useDispatch } from 'react-redux';
 import { addedToBasket } from '../../lib/store/basketSlice';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
+import { NotificationTypes } from '../../lib/types';
 
 export const AddToBasketButton: React.FC<{ productId: string }> = ({
   productId,
@@ -18,7 +19,7 @@ export const AddToBasketButton: React.FC<{ productId: string }> = ({
     dispatch(addedToBasket(product));
     dispatch(
       notificationAdded({
-        type: 'success',
+        type: NotificationTypes.SUCCESS,
         label: `${product.name} added to basket !`,
       })
     );
