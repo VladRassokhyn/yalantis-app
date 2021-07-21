@@ -33,7 +33,7 @@ export const ProductListItem: React.FC<{ itemId: EntityId }> = ({ itemId }) => {
           {isProductPage ? (
             <AddToBasketButton productId={product.id} />
           ) : (
-            <EditProductButton productId={product.id} />
+            <EditProductButton product={product} />
           )}
         </h2>
       </div>

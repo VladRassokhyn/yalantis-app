@@ -21,7 +21,7 @@ export const Product: React.FC<TProps> = ({
       <AddToBasketButton productId={product.id}>ADD</AddToBasketButton>
     ) : (
       <div className={'product-buttons'}>
-        <EditProductButton productId={product.id} />
+        <EditProductButton product={product} />
         <DeleteProductButton productId={product.id}>DELETE</DeleteProductButton>
       </div>
     );

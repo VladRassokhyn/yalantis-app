@@ -6,12 +6,11 @@ import {
 } from '../../lib/store/productsSlice';
 import { useModal } from '../../lib/hooks/useModal';
 import { NewProductForm } from '../NewProductForm';
+import { IProduct } from '../../lib/types';
 
-export const EditProductButton: React.FC<{ productId: string }> = ({
-  productId,
+export const EditProductButton: React.FC<{ product: IProduct }> = ({
+ product,
 }) => {
-  const product = useSelector((state) => selectById(state, productId));
-  if (!product) return null;
   const { origins, newProductStatus, updateStatus } = useSelector(
     selectProductsOptions
   );
@@ -32,7 +31,7 @@ export const EditProductButton: React.FC<{ productId: string }> = ({
           name={product.name}
           price={product.price}
           origin={product.origin}
-          productId={productId}
+          productId={product.id}
         />
       </Modal>
     </>
