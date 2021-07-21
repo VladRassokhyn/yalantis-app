@@ -1,20 +1,20 @@
 import React from 'react';
 import { useSelector } from '../../lib/hooks/useSelector';
-import { basketCleared, selectAll } from '../../lib/store/basketSlice';
+import { basketCleared } from '../../lib/store/basketSlice';
 import { useDispatch } from 'react-redux';
 import {
   postNewOrder,
   postStatusResets,
-  selectOrdersOptions,
 } from '../../lib/store/ordersSlice';
 import { Preloader } from '../../common/Preloader';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useHistory } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../lib/router/paths';
 import { NotificationTypes } from '../../lib/types';
+import { selectOrdersOptions, selectToOrderItems } from '../../lib/store/selectors';
 
 export const OrderButton: React.FC = () => {
-  const toOrder = useSelector(selectAll);
+  const toOrder = useSelector(selectToOrderItems);
   const { postStatus } = useSelector(selectOrdersOptions);
   const dispatch = useDispatch();
   const history = useHistory();

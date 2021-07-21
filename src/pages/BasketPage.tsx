@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSelector } from '../lib/hooks/useSelector';
-import { selectBasketOptions, selectIds } from '../lib/store/basketSlice';
+import { selectBasketOptions } from '../lib/store/selectors';
 import { List } from '../components/List';
 import { ProductBasketItem } from '../components/ProductBasketItem';
 import { OrderButton } from '../components/Buttons/OrderButton';
+import { selectBasketItemsIds } from '../lib/store/selectors';
 
 export const BasketPage = () => {
   const { totalCount, totalPrice } = useSelector(selectBasketOptions);
-  const basketItemsIds = useSelector(selectIds);
+  const basketItemsIds = useSelector(selectBasketItemsIds);
 
   return (
     <div className={'basket-wrapper'}>

@@ -3,10 +3,10 @@ import { Notification } from './Notification';
 import { useSelector } from '../../lib/hooks/useSelector';
 import {
   notificationRemoved,
-  selectNotificationIds,
 } from '../../lib/store/notoficationSlice';
 import { useDispatch } from 'react-redux';
 import ReactDOM from 'react-dom';
+import { selectNotificationIds } from '../../lib/store/selectors';
 
 export const Notificator = () => {
   const parent = document.querySelector('#notificator');

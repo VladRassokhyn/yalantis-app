@@ -1,9 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { TNotification } from '../types';
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { RootState } from './store';
 
-const notificationAdapter = createEntityAdapter<TNotification>({});
+export const notificationAdapter = createEntityAdapter<TNotification>({});
 
 export const notificationSlice = createSlice({
   name: 'notification',
@@ -29,7 +28,4 @@ export const notificationReducer = notificationSlice.reducer;
 export const { notificationAdded, notificationRemoved } =
   notificationSlice.actions;
 
-export const { selectById } = notificationAdapter.getSelectors();
 
-export const selectNotificationIds = (state: RootState) =>
-  state.notification.ids;

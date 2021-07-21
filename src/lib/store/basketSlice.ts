@@ -1,9 +1,8 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { IBasket, IProduct, TInitialBasket, TNewOrderPiece } from '../types';
-import { RootState } from './store';
 
-const basketAdapter = createEntityAdapter<IBasket>();
-const toOrderAdapter = createEntityAdapter<TNewOrderPiece>({
+export const basketAdapter = createEntityAdapter<IBasket>();
+export const toOrderAdapter = createEntityAdapter<TNewOrderPiece>({
   selectId: (order) => order.productId,
 });
 
@@ -73,16 +72,3 @@ export const {
   changedItemCount,
   basketCleared,
 } = basketSlice.actions;
-
-export const { selectIds, selectById } = basketAdapter.getSelectors<RootState>(
-  (state) => state.basket.items
-);
-
-export const { selectAll } = toOrderAdapter.getSelectors<RootState>(
-  (state) => state.basket.toOrder
-);
-
-export const selectBasketOptions = (state: RootState) => ({
-  totalPrice: state.basket.totalPrice,
-  totalCount: state.basket.totalCount,
-});

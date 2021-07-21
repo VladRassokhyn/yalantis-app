@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from '../../lib/hooks/useSelector';
-import { selectById } from '../../lib/store/productsSlice';
+import { selectProductById } from '../../lib/store/selectors';
 import { useDispatch } from 'react-redux';
 import { addedToBasket } from '../../lib/store/basketSlice';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
@@ -11,7 +11,7 @@ export const AddToBasketButton: React.FC<{ productId: string }> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const product = useSelector((state) => selectById(state, productId));
+  const product = useSelector((state) => selectProductById(state, productId));
 
   if (!product) return null;
 

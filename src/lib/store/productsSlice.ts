@@ -11,7 +11,6 @@ import {
   TProductPostPayload,
   TReqProductsArgs,
 } from '../types';
-import { RootState } from './store';
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
@@ -47,7 +46,7 @@ export const deleteProduct = createAsyncThunk(
   }
 );
 
-const productsAdapter = createEntityAdapter<IProduct>();
+export const productsAdapter = createEntityAdapter<IProduct>();
 
 export const initialState: IInitialProducts = {
   status: '',
@@ -178,9 +177,6 @@ export const productsSlice = createSlice({
 
 export const productsReducer = productsSlice.reducer;
 
-export const { selectById, selectIds } =
-  productsAdapter.getSelectors<RootState>((state) => state.products.items);
-
 export const {
   currentPageChanged,
   currentPerPageChanged,
@@ -190,18 +186,3 @@ export const {
   statusResets,
 } = productsSlice.actions;
 
-export const selectProductsOptions = (state: RootState) => ({
-  page: state.products.page,
-  perPage: state.products.perPage,
-  totalItems: state.products.totalItems,
-  status: state.products.status,
-  statusOrigins: state.products.statusOrigins,
-  newProductStatus: state.products.newProductStatus,
-  origins: state.products.origins,
-  filterOrigins: state.products.filterOrigins,
-  minPrice: state.products.minPrice,
-  maxPrice: state.products.maxPrice,
-  filterPrice: state.products.filterPrice,
-  deleteStatus: state.products.deleteStatus,
-  updateStatus: state.products.updateStatus,
-});

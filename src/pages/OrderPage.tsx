@@ -1,12 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from '../lib/hooks/useSelector';
-import { getOrder, selectOrdersOptions } from '../lib/store/ordersSlice';
+import { getOrder } from '../lib/store/ordersSlice';
 import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import { OrderPiece } from '../components/OrderPiece';
 import { ProductPrototype } from '../common/ProductPrototype';
 import { useOrderTotals } from '../lib/hooks/useOrdersTotal';
+import { selectOrdersOptions } from '../lib/store/selectors';
 
 export const OrderPage = () => {
   const params = useParams<{ orderId: string }>();

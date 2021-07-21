@@ -1,9 +1,8 @@
 import React from 'react';
 import { useSelector } from '../../lib/hooks/useSelector';
 import {
-  selectById,
   selectProductsOptions,
-} from '../../lib/store/productsSlice';
+} from '../../lib/store/selectors';
 import { useModal } from '../../lib/hooks/useModal';
 import { NewProductForm } from '../NewProductForm';
 import { IProduct } from '../../lib/types';

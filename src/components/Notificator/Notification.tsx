@@ -3,7 +3,7 @@ import ok from '../../static/ok.svg';
 import x from '../../static/x.svg';
 import { EntityId } from '@reduxjs/toolkit';
 import { useSelector } from '../../lib/hooks/useSelector';
-import { selectById } from '../../lib/store/notoficationSlice';
+import { selectNotificationById } from '../../lib/store/selectors';
 import classNames from 'classnames';
 import { NotificationTypes } from '../../lib/types';
 
@@ -19,7 +19,7 @@ export const Notification: React.FC<TProps> = ({
   const [willDeleted, setWillDeleted] = React.useState(false);
 
   const notification = useSelector((state) =>
-    selectById(state.notification, notificationId)
+    selectNotificationById(state, notificationId)
   );
 
   if (!notification) return null;

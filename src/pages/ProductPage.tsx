@@ -5,11 +5,10 @@ import { Product } from '../components/Product';
 import { ProductPrototype } from '../common/ProductPrototype';
 import {
   getSingleProduct,
-  selectSingleProduct,
 } from '../lib/store/singleProductSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../lib/hooks/useSelector';
-import { selectProductsOptions } from '../lib/store/productsSlice';
+import { selectProductsOptions, selectSingleProduct } from '../lib/store/selectors';
 
 export const ProductPage = () => {
   const { product, status } = useSelector(selectSingleProduct);

@@ -5,7 +5,6 @@ import {
 } from '@reduxjs/toolkit';
 import { TInitialOrders, TNewOrder, TOrder } from '../types';
 import { ordersAPI } from '../api/ordersAPI';
-import { RootState } from './store';
 
 export const postNewOrder = createAsyncThunk(
   'orders/postNewOrder',
@@ -28,7 +27,7 @@ export const getOrder = createAsyncThunk(
   }
 );
 
-const ordersAdapter = createEntityAdapter<TOrder>();
+export const ordersAdapter = createEntityAdapter<TOrder>();
 
 const initialState: TInitialOrders = {
   postStatus: '',
@@ -94,13 +93,3 @@ export const ordersReducer = ordersSlice.reducer;
 
 export const { postStatusResets } = ordersSlice.actions;
 
-export const { selectById, selectIds } = ordersAdapter.getSelectors<RootState>(
-  (state) => state.orders.orders
-);
-
-export const selectOrdersOptions = (state: RootState) => ({
-  postStatus: state.orders.postStatus,
-  getOrdersStatus: state.orders.getOrdersStatus,
-  singleOrder: state.orders.singleOrder,
-  singleOrderStatus: state.orders.singleOrderStatus,
-});

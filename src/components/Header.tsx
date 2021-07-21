@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import basket from '../static/basket.svg';
 import { ROUTE_PATHS } from '../lib/router/paths';
 import { useSelector } from '../lib/hooks/useSelector';
-import { selectBasketOptions } from '../lib/store/basketSlice';
+import { selectBasketOptions } from '../lib/store/selectors';
 import { useModal } from '../lib/hooks/useModal';
 import { NewProductForm } from './NewProductForm';
-import { selectProductsOptions } from '../lib/store/productsSlice';
+import { selectProductsOptions } from '../lib/store/selectors';
 
 export const Header = () => {
   const isBasketPage = useLocation().pathname === ROUTE_PATHS.BASKET.BASE();

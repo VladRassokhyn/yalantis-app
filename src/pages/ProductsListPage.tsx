@@ -4,9 +4,7 @@ import { ProductListItem } from '../components/ProductListItem';
 import { ListPrototype } from '../common/ListPrototype';
 import { useDispatch } from 'react-redux';
 import {
-  selectProductsOptions,
   getProducts,
-  selectIds,
   currentPageChanged,
   currentPerPageChanged,
   originsChanged,
@@ -19,13 +17,14 @@ import { ListMenu } from '../components/ListMenu';
 import { Paginator } from '../common/Paginator';
 import { useLocation } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
+import { selectProductsIds, selectProductsOptions } from '../lib/store/selectors';
 
 export const ProductsListPage = () => {
   const isProductPage = useLocation().pathname === ROUTE_PATHS.PRODUCTS.BASE();
 
   const dispatch = useDispatch();
 
-  const productsIds = useSelector(selectIds);
+  const productsIds = useSelector(selectProductsIds);
 
   const {
     page,

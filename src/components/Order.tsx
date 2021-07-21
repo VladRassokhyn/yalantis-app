@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from '../lib/hooks/useSelector';
-import { selectById } from '../lib/store/ordersSlice';
+import { selectOrderById } from '../lib/store/selectors';
 import { format } from 'date-fns';
 import { EntityId } from '@reduxjs/toolkit';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { ROUTE_PATHS } from '../lib/router/paths';
 import { useOrderTotals } from '../lib/hooks/useOrdersTotal';
 
 export const Order: React.FC<{ orderId: EntityId }> = ({ orderId }) => {
-  const order = useSelector((state) => selectById(state, orderId));
+  const order = useSelector((state) => selectOrderById(state, orderId));
   if (!order) return null;
   const [orderTotalCount, orderTotalPrice] = useOrderTotals(order.pieces);
 
