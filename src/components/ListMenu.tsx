@@ -13,7 +13,6 @@ type TProps = {
   changePriceFn: (min: number, max: number) => void;
   maxPrice: number;
   minPrice: number;
-  filterPrice: { min: number; max: number };
 };
 
 const theme = (theme: FixThisTypeLeter) => ({
@@ -42,11 +41,10 @@ export const ListMenu = (props: TProps) => {
     changePriceFn,
     maxPrice,
     minPrice,
-    filterPrice,
   } = props;
 
+
   const handleChange = (e: FixThisTypeLeter) => {
-    console.log(e);
     if (e.name === 'perPage') {
       changePerPageFn(e.value);
     } else {
@@ -96,9 +94,8 @@ export const ListMenu = (props: TProps) => {
       <div className={'list-menu-price'}>
         <h1>Price</h1>
         <SliderRange
-          min={minPrice}
-          max={maxPrice}
-          filterRange={filterPrice}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
           changePriceFn={changePriceFn}
         />
       </div>

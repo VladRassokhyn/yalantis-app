@@ -55,13 +55,9 @@ export interface IInitialProducts extends S {
   items: EntityState<IProduct>;
   error: null;
   origins: TOrigin[];
-  filterOrigins: TOrigin[] | null;
+  filterOrigins: string[] | null;
   minPrice: number;
   maxPrice: number;
-  filterPrice: {
-    min: number;
-    max: number;
-  };
 }
 
 export type TInitialOrders = {
@@ -99,12 +95,12 @@ export type TNewOrder = {
   };
 };
 
-export type TReqProductsArgs = {
-  page: number;
-  perPage: number;
-  origins: string[];
-  minPrice: number;
-  maxPrice: number;
+export interface TReqProductsArgs extends S {
+  page?: number;
+  perPage?: number;
+  origins?: string[];
+  minPrice?: number;
+  maxPrice?: number;
   editable: boolean;
 };
 

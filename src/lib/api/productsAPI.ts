@@ -1,28 +1,19 @@
-import axios from 'axios';
 import {
-  ResponseGetOrder,
-  ResponseGetOrders,
   ResponseGetOrigins,
   ResponseGetProduct,
   ResponseGetProducts,
-  ResponsePostNewOrder,
-  TNewOrder,
   TProductPostPayload,
   TReqProductsArgs,
 } from '../types';
 import { axiosInstance } from './axiosInstance';
 import { APP_ENDPOINTS } from './endpoints';
+import { makeRequestUrl } from './queryParams';
 
 export const productsAPI = {
   getProducts: async (args: TReqProductsArgs): Promise<ResponseGetProducts> => {
+    const filters = makeRequestUrl(args)
     return await axiosInstance.get(
-      `${APP_ENDPOINTS.PRODUCTS.GET}` +
-        `?page=${args.page}` +
-        `&perPage=${args.perPage}` +
-        `&origins=${args.origins}` +
-        `&minPrice=${args.minPrice}` +
-        `&maxPrice=${args.maxPrice}` +
-        `&editable=${args.editable}`
+      `${APP_ENDPOINTS.PRODUCTS.GET}${filters}`
     );
   },
 

@@ -56,19 +56,15 @@ export const initialState: IInitialProducts = {
   updateStatus: RequestStatuses.IDLE,
   deleteStatus: RequestStatuses.IDLE,
   page: 1,
-  perPage: 10,
+  perPage: 50,
   totalItems: 1,
   items: productsAdapter.getInitialState(),
   error: null,
   newProductError: null,
   origins: [],
   filterOrigins: null,
-  minPrice: 0,
+  minPrice: 1,
   maxPrice: 1000,
-  filterPrice: {
-    min: 0,
-    max: 1000,
-  },
 };
 
 export const productsSlice = createSlice({
@@ -86,24 +82,28 @@ export const productsSlice = createSlice({
       state.page = 1;
       state.filterOrigins = [];
       action.payload.forEach((origin: TOrigin) => {
-        state.filterOrigins && state.filterOrigins.push(origin);
+        state.filterOrigins && state.filterOrigins.push(origin.value);
       });
     },
     priceFilterChanged(state, action) {
       state.page = 1;
-      state.filterPrice.min = action.payload.min;
-      state.filterPrice.max = action.payload.max;
-    },
-    allFiltersResets(state) {
-      state.filterOrigins = null;
-      state.perPage = 10;
-      state.page = 1;
-      state.filterPrice = { min: 0, max: 1000 };
+      state.minPrice = action.payload.min;
+      state.maxPrice = action.payload.max;
     },
     statusResets(state, action) {
       const status = action.payload;
       state[status] = RequestStatuses.IDLE;
     },
+    filtersSetsFromUrl(state, action) {
+      Object.keys(action.payload).forEach(param => {
+        if (param === 'origins') {
+          state.filterOrigins = [];
+          state.filterOrigins.push(action.payload[param])
+        } else {
+          state[param] = action.payload[param]
+        }
+      })
+    }
   },
 
   extraReducers: {
@@ -184,6 +184,6 @@ export const {
   currentPerPageChanged,
   originsChanged,
   priceFilterChanged,
-  allFiltersResets,
+  filtersSetsFromUrl,
   statusResets,
 } = productsSlice.actions;

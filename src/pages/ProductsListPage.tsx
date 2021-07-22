@@ -9,22 +9,25 @@ import {
   currentPerPageChanged,
   originsChanged,
   priceFilterChanged,
-  allFiltersResets,
   getOrigins,
+  filtersSetsFromUrl
 } from '../lib/store/productsSlice';
 import { useSelector } from '../lib/hooks/useSelector';
 import { ListMenu } from '../components/ListMenu';
 import { Paginator } from '../common/Paginator';
-import { useRouteMatch } from 'react-router-dom';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
 import {
   selectProductsIds,
-  selectProductsOptions,
+  selectProductsOptions
 } from '../lib/store/selectors';
 import { RequestStatuses } from '../lib/types';
+import { getQueryParameters, updateQueryParams } from '../lib/api/queryParams';
 
 export const ProductsListPage = () => {
   const isProductPage = useRouteMatch(ROUTE_PATHS.PRODUCTS.BASE());
+
+  const location = useLocation();
 
   const dispatch = useDispatch();
 
@@ -40,48 +43,34 @@ export const ProductsListPage = () => {
     filterOrigins,
     minPrice,
     maxPrice,
-    filterPrice,
     newProductStatus,
-    updateStatus,
+    updateStatus
   } = useSelector(selectProductsOptions);
-
-  React.useEffect(() => {
-    if (newProductStatus === RequestStatuses.IDLE) {
-      dispatch(
-        getProducts({
-          page,
-          perPage,
-          origins: filterOrigins
-            ? filterOrigins.map((o) => o.value)
-            : origins.map((o) => o.value),
-          minPrice: filterPrice.min,
-          maxPrice: filterPrice.max,
-          editable: !isProductPage,
-        })
-      );
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [
-    page,
-    perPage,
-    origins,
-    filterOrigins,
-    filterPrice,
-    newProductStatus,
-    updateStatus,
-    dispatch,
-  ]);
 
   React.useEffect(() => {
     dispatch(getOrigins());
   }, [dispatch]);
 
   React.useEffect(() => {
-    return () => {
-      dispatch(allFiltersResets());
-    };
+    if (newProductStatus === RequestStatuses.IDLE) {
+      const queryParams = getQueryParameters(location.search);
+      dispatch(filtersSetsFromUrl({...queryParams, editable: !isProductPage}));
+    }
   }, [dispatch]);
+
+  React.useEffect(() => {
+    dispatch(getProducts({
+      page,
+      perPage,
+      maxPrice,
+      minPrice,
+      filterOrigins,
+      editable: !isProductPage
+    }));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [dispatch, newProductStatus, updateStatus, page, perPage, maxPrice, minPrice, filterOrigins]);
+
+  updateQueryParams({ page, perPage, minPrice, maxPrice, filterOrigins });
 
   return (
     <div>
@@ -91,7 +80,6 @@ export const ProductsListPage = () => {
         origins={origins}
         minPrice={minPrice}
         maxPrice={maxPrice}
-        filterPrice={filterPrice}
         changePerPageFn={(perPage: number) =>
           dispatch(currentPerPageChanged(perPage))
         }
@@ -103,9 +91,9 @@ export const ProductsListPage = () => {
         }
       />
 
-      {status === RequestStatuses.LOADING && <ListPrototype />}
+      {status === RequestStatuses.LOADING && <ListPrototype/>}
       {status === RequestStatuses.SUCCESS && (
-        <List listArray={productsIds} ItemComponent={ProductListItem} />
+        <List listArray={productsIds} ItemComponent={ProductListItem}/>
       )}
 
       <Paginator
@@ -117,3 +105,4 @@ export const ProductsListPage = () => {
     </div>
   );
 };
+
