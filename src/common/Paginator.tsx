@@ -5,7 +5,7 @@ type TProps = {
   currentPage: number;
   perPage: number;
   totalItems: number;
-  changer: any;
+  changer: (page: number) => void;
 };
 
 const getPages = (pagesCount: number, currentPage: number, pages: string[]) => {
@@ -27,17 +27,19 @@ const getPages = (pagesCount: number, currentPage: number, pages: string[]) => {
     }
   }
 
+  if (pages.length === 0) pages = [];
+
   if (+pages[0] !== 1) pages.unshift('prev');
 
   if (+pages[4] > 4) pages.push('next');
 };
 
 export const Paginator: React.FC<TProps> = ({
-                                              currentPage,
-                                              perPage,
-                                              totalItems,
-                                              changer,
-                                            }) => {
+  currentPage,
+  perPage,
+  totalItems,
+  changer,
+}) => {
   const pagesCount: number = React.useMemo(
     () => Math.ceil(totalItems / perPage),
     [totalItems, perPage]

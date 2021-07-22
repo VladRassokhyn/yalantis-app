@@ -4,6 +4,8 @@ import { ProductPage } from '../../pages/ProductPage';
 import { BasketPage } from '../../pages/BasketPage';
 import { Route } from 'react-router-dom';
 import { ROUTE_PATHS } from './paths';
+import { OrdersPage } from '../../pages/OrdersPage';
+import { OrderPage } from '../../pages/OrderPage';
 
 type TRoute = {
   path: string;
@@ -16,6 +18,21 @@ export const routes: TRoute[] = [
   {
     path: ROUTE_PATHS.PRODUCTS.BASE(),
     component: ProductsListPage,
+    exact: true,
+  },
+  {
+    path: ROUTE_PATHS.MY_PRODUCTS.BASE(),
+    component: ProductsListPage,
+    exact: true,
+  },
+  {
+    path: ROUTE_PATHS.ORDERS.BASE(),
+    component: OrdersPage,
+    exact: true,
+  },
+  {
+    path: ROUTE_PATHS.ORDERS.BY_ID(),
+    component: OrderPage,
     exact: true,
   },
   {

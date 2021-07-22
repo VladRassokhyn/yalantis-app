@@ -7,6 +7,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     user-select: none;
+    overflow: scroll;
 }
 
 code {
@@ -38,3 +39,16 @@ h5 {
     text-align: center;
 }
 
+select:disabled {
+    background-color: #efefef;
+    font-style: italic;
+}
+input:disabled {
+    background-color: #efefef;
+    font-style: italic;
+}
+
+.preloader {
+    width: 40px;
+    background-color: transparent;
+}

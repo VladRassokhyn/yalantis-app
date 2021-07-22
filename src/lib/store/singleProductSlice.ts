@@ -1,18 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { clientAPI } from '../api/api';
-import { TSingleProductState } from '../types';
-import { RootState } from './store';
+import { productsAPI } from '../api/productsAPI';
+import { RequestStatuses, TSingleProductState } from '../types';
 
 export const getSingleProduct = createAsyncThunk(
   'singleProduct/getSingleProduct',
   async (id: string) => {
-    const res = await clientAPI.getProduct(id);
+    const res = await productsAPI.getProduct(id);
     return res.data;
   }
 );
 
 export const initialState: TSingleProductState = {
-  status: '',
+  status: RequestStatuses.IDLE,
   error: '',
   product: {
     isEditable: false,
@@ -33,24 +32,19 @@ export const singleProductSlice = createSlice({
 
   extraReducers: {
     [getSingleProduct.pending.toString()]: (state) => {
-      state.status = 'loading';
+      state.status = RequestStatuses.LOADING;
     },
 
     [getSingleProduct.fulfilled.toString()]: (state, action) => {
-      state.status = 'success';
+      state.status = RequestStatuses.SUCCESS;
       state.product = action.payload;
     },
 
     [getSingleProduct.rejected.toString()]: (state, action) => {
-      state.status = 'error';
+      state.status = RequestStatuses.ERROR;
       state.error = action.err;
     },
   },
 });
 
 export const singleProductReducer = singleProductSlice.reducer;
-
-export const selectSingleProduct = (state: RootState) => ({
-  product: state.singleProduct.product,
-  status: state.singleProduct.status,
-});

@@ -1,9 +1,11 @@
 import React from 'react';
 import ok from '../../static/ok.svg';
+import x from '../../static/x.svg';
 import { EntityId } from '@reduxjs/toolkit';
-import { useSelector } from '../../lib/hooks';
-import { selectById } from '../../lib/store/notoficationSlice';
+import { useSelector } from '../../lib/hooks/useSelector';
+import { selectNotificationById } from '../../lib/store/selectors';
 import classNames from 'classnames';
+import { NotificationTypes } from '../../lib/types';
 
 type TProps = {
   notificationId: EntityId;
@@ -11,13 +13,13 @@ type TProps = {
 };
 
 export const Notification: React.FC<TProps> = ({
-                                                 notificationId,
-                                                 deleteFn,
-                                               }) => {
+  notificationId,
+  deleteFn,
+}) => {
   const [willDeleted, setWillDeleted] = React.useState(false);
 
   const notification = useSelector((state) =>
-    selectById(state.notification, notificationId)
+    selectNotificationById(state, notificationId)
   );
 
   if (!notification) return null;
@@ -25,9 +27,11 @@ export const Notification: React.FC<TProps> = ({
   const notifiClassNames = classNames({
     'notification-wrapper': true,
     'delete-notification': willDeleted,
-    [`${notification.type}`]: true,
+    'notification-error': notification.type === NotificationTypes.ERROR,
+    'notification-success': notification.type === NotificationTypes.SUCCESS,
   });
 
+  const img = notification.type === NotificationTypes.SUCCESS ? ok : x;
   const handlerClick = React.useCallback(() => {
     setWillDeleted(true);
   }, [willDeleted]);
@@ -50,7 +54,7 @@ export const Notification: React.FC<TProps> = ({
 
   return (
     <div onClick={handlerClick} className={notifiClassNames}>
-      <img src={ok} alt={''} />
+      <img src={img} alt={''} />
       <h1>{notification.label}</h1>
     </div>
   );

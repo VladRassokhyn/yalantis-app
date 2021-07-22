@@ -4,48 +4,78 @@ import { ProductListItem } from '../components/ProductListItem';
 import { ListPrototype } from '../common/ListPrototype';
 import { useDispatch } from 'react-redux';
 import {
-  selectProductsOptions,
   getProducts,
-  selectIds,
   currentPageChanged,
   currentPerPageChanged,
   originsChanged,
   priceFilterChanged,
   allFiltersResets,
+  getOrigins,
 } from '../lib/store/productsSlice';
-import { useSelector } from '../lib/hooks';
+import { useSelector } from '../lib/hooks/useSelector';
 import { ListMenu } from '../components/ListMenu';
 import { Paginator } from '../common/Paginator';
+import { useRouteMatch } from 'react-router-dom';
+import { ROUTE_PATHS } from '../lib/router/paths';
+import {
+  selectProductsIds,
+  selectProductsOptions,
+} from '../lib/store/selectors';
+import { RequestStatuses } from '../lib/types';
 
 export const ProductsListPage = () => {
+  const isProductPage = useRouteMatch(ROUTE_PATHS.PRODUCTS.BASE());
+
   const dispatch = useDispatch();
 
-  const productsIds = useSelector(selectIds);
+  const productsIds = useSelector(selectProductsIds);
 
   const {
     page,
     perPage,
     totalItems,
     status,
+    statusOrigins,
     origins,
     filterOrigins,
     minPrice,
     maxPrice,
     filterPrice,
+    newProductStatus,
+    updateStatus,
   } = useSelector(selectProductsOptions);
 
   React.useEffect(() => {
-    dispatch(
-      getProducts({
-        page,
-        perPage,
-        origins: filterOrigins ? filterOrigins : origins,
-        minPrice: filterPrice.min,
-        maxPrice: filterPrice.max,
-      })
-    );
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [page, perPage, origins, filterOrigins, filterPrice, dispatch]);
+    if (newProductStatus === RequestStatuses.IDLE) {
+      dispatch(
+        getProducts({
+          page,
+          perPage,
+          origins: filterOrigins
+            ? filterOrigins.map((o) => o.value)
+            : origins.map((o) => o.value),
+          minPrice: filterPrice.min,
+          maxPrice: filterPrice.max,
+          editable: !isProductPage,
+        })
+      );
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [
+    page,
+    perPage,
+    origins,
+    filterOrigins,
+    filterPrice,
+    newProductStatus,
+    updateStatus,
+    dispatch,
+  ]);
+
+  React.useEffect(() => {
+    dispatch(getOrigins());
+  }, [dispatch]);
 
   React.useEffect(() => {
     return () => {
@@ -56,6 +86,7 @@ export const ProductsListPage = () => {
   return (
     <div>
       <ListMenu
+        statusOrigins={statusOrigins}
         perPage={perPage}
         origins={origins}
         minPrice={minPrice}
@@ -72,8 +103,8 @@ export const ProductsListPage = () => {
         }
       />
 
-      {status === 'loading' && <ListPrototype />}
-      {status === 'success' && (
+      {status === RequestStatuses.LOADING && <ListPrototype />}
+      {status === RequestStatuses.SUCCESS && (
         <List listArray={productsIds} ItemComponent={ProductListItem} />
       )}
 

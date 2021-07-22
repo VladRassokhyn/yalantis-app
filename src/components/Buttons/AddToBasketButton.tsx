@@ -1,16 +1,17 @@
 import React from 'react';
-import { useSelector } from '../lib/hooks';
-import { selectById } from '../lib/store/productsSlice';
+import { useSelector } from '../../lib/hooks/useSelector';
+import { selectProductById } from '../../lib/store/selectors';
 import { useDispatch } from 'react-redux';
-import { addedToBasket } from '../lib/store/basketSlice';
-import { notificationAdded } from '../lib/store/notoficationSlice';
+import { addedToBasket } from '../../lib/store/basketSlice';
+import { notificationAdded } from '../../lib/store/notoficationSlice';
+import { NotificationTypes } from '../../lib/types';
 
 export const AddToBasketButton: React.FC<{ productId: string }> = ({
-                                                                     productId,
-                                                                   }) => {
+  productId,
+}) => {
   const dispatch = useDispatch();
 
-  const product = useSelector((state) => selectById(state, productId));
+  const product = useSelector((state) => selectProductById(state, productId));
 
   if (!product) return null;
 
@@ -18,7 +19,7 @@ export const AddToBasketButton: React.FC<{ productId: string }> = ({
     dispatch(addedToBasket(product));
     dispatch(
       notificationAdded({
-        type: 'notification-success',
+        type: NotificationTypes.SUCCESS,
         label: `${product.name} added to basket !`,
       })
     );

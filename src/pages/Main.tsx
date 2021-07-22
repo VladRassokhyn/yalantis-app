@@ -6,13 +6,12 @@ import { Notificator } from '../components/Notificator/Notificator';
 
 export const Main = () => (
   <div>
-      <Header />
-      <Notificator />
-      <Switch>
-        {routes.map((route, i) => (
-          <Routes key={i} {...route} />
-        ))}
-      </Switch>
-    </div>
-  );
-
+    <Header />
+    <Notificator />
+    <Switch>
+      {routes.map((route, i) => (
+        <Routes key={i} {...route} />
+      ))}
+    </Switch>
+  </div>
+);

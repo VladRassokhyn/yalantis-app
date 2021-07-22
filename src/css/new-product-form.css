@@ -1,0 +1,121 @@
+.add-new-product__wrapper {
+    height: calc(70vh - 50px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.add-new-product__header {
+    display: block;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: 24pt;
+    color: #f6481c;
+    font-weight: 600;
+    font-family: Arial, sans-serif;
+}
+
+.add-new-product__info {
+    width: 100%;
+    min-height: 350px;
+    padding-left: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.add-new-product__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-new-product__photo {
+    padding: 25px;
+    border-radius: 10px;
+    border: 3px solid #efefef;
+}
+
+.add-new-product__photo h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    font-size: 24pt;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: Arial, sans-serif;
+    transition: linear .3s;
+}
+
+.add-new-product__photo h1:hover {
+    background-color: #efefef;
+    cursor: pointer;
+}
+
+.add-new-product__info input, select {
+    margin-bottom: 20px;
+    height: 30px;
+    border: 0;
+    border-bottom: 2px solid #3f4e5d;
+    font-size: 14pt;
+    font-family: Roboto, sans-serif;
+    transition: linear .3s;
+}
+
+.add-new-product__info label {
+    font-family: Roboto, sans-serif;
+    letter-spacing: 2px;
+    color: rgba(0, 0, 0, .54);
+    font-size: 10pt;
+}
+.add-new-product__info h1 {
+    font-size: 24pt;
+    font-weight: 600;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.add-new-product__info input:hover {
+    border-bottom: 2px solid #f6481c;
+}
+
+.add-new-product__inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-new-product__error-field {
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+.add-new-product__buttons {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.add-new-product__select {
+    margin-top: 10px;
+    height: 30px;
+}
+
+.react-select__control {
+    height: 30px;
+}
+
+.react-select__value-container {
+    height: 30px;
+}
+
+.field-error-title {
+    font-weight: 600;
+    margin-left: 30px;
+    font-size: 10pt;
+    color: red;
+    font-family: Roboto, sans-serif;
+}

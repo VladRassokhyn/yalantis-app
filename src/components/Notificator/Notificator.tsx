@@ -1,17 +1,19 @@
 import React from 'react';
 import { Notification } from './Notification';
-import { useSelector } from '../../lib/hooks';
-import {
-  notificationRemoved,
-  selectNotificationIds,
-} from '../../lib/store/notoficationSlice';
+import { useSelector } from '../../lib/hooks/useSelector';
+import { notificationRemoved } from '../../lib/store/notoficationSlice';
 import { useDispatch } from 'react-redux';
+import ReactDOM from 'react-dom';
+import { selectNotificationIds } from '../../lib/store/selectors';
 
 export const Notificator = () => {
+  const parent = document.querySelector('#notificator');
+  if (!parent) return null;
+
   const dispatch = useDispatch();
   const notificationIds = useSelector(selectNotificationIds);
 
-  return (
+  return ReactDOM.createPortal(
     <div className={'notificator-wrapper'}>
       {notificationIds
         .map((notificationId) => {
@@ -24,6 +26,7 @@ export const Notificator = () => {
           );
         })
         .reverse()}
-    </div>
+    </div>,
+    parent
   );
 };

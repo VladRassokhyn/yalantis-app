@@ -1,7 +1,9 @@
 import React from 'react';
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
-import { AddToBasketButton } from './AddToBasketButton';
+import { AddToBasketButton } from './Buttons/AddToBasketButton';
 import { IProduct } from '../lib/types';
+import { EditProductButton } from './Buttons/EditProductButton';
+import { DeleteProductButton } from './Buttons/DeleteProductButton';
 
 type TProps = {
   product: IProduct;
@@ -14,6 +16,17 @@ export const Product: React.FC<TProps> = ({
   createdAt,
   updatedAt,
 }) => {
+  const buttons = React.useMemo(() => {
+    return !product.isEditable ? (
+      <AddToBasketButton productId={product.id}>ADD</AddToBasketButton>
+    ) : (
+      <div className={'product-buttons'}>
+        <EditProductButton product={product} />
+        <DeleteProductButton productId={product.id}>DELETE</DeleteProductButton>
+      </div>
+    );
+  }, [product.isEditable]);
+
   return (
     <div className={'product-wrapper'}>
       <div className={'product-container'}>
@@ -34,7 +47,7 @@ export const Product: React.FC<TProps> = ({
             </h2>
             <div className={'product-price-container'}>
               <h1>{product.price}$</h1>
-              <AddToBasketButton productId={product.id}>ADD</AddToBasketButton>
+              {buttons}
             </div>
           </div>
         </div>

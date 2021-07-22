@@ -2,7 +2,7 @@ import React from 'react';
 
 type TProps = {
   count: number;
-  changerFn: any;
+  changerFn: (count: number) => void;
 };
 
 export const Counter: React.FC<TProps> = ({ count, changerFn }) => {

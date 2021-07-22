@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import defaultProductPhoto from '../static/defaultProductPhoto.svg';
 import { Link } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
-import { useSelector } from '../lib/hooks';
-import {
-  changedItemCount,
-  deletedFromBasket,
-  selectById,
-} from '../lib/store/basketSlice';
+import { useSelector } from '../lib/hooks/useSelector';
+import { changedItemCount, deletedFromBasket } from '../lib/store/basketSlice';
 import { notificationAdded } from '../lib/store/notoficationSlice';
 import { useDispatch } from 'react-redux';
 import trash from '../static/trash.svg';
 import { Counter } from '../common/Counter';
+import { EntityId } from '@reduxjs/toolkit';
+import { NotificationTypes } from '../lib/types';
+import { selectBasketItemsById } from '../lib/store/selectors';
 
-const validate = (count: number, dispatch: any) => {
+const validate = (count: number, dispatch: Dispatch<{}>) => {
   if (count === 0) {
     dispatch(
       notificationAdded({
-        type: 'notification-error',
+        type: NotificationTypes.ERROR,
         label: `Can\`t be lower then 1`,
       })
     );
@@ -25,7 +24,7 @@ const validate = (count: number, dispatch: any) => {
   } else if (count.toString().length > 3) {
     dispatch(
       notificationAdded({
-        type: 'notification-error',
+        type: NotificationTypes.ERROR,
         label: `Maximum counts is 999`,
       })
     );
@@ -35,8 +34,10 @@ const validate = (count: number, dispatch: any) => {
   }
 };
 
-export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
-  const product = useSelector((state) => selectById(state, itemId));
+export const ProductBasketItem: React.FC<{ itemId: EntityId }> = ({
+  itemId,
+}) => {
+  const product = useSelector((state) => selectBasketItemsById(state, itemId));
   if (!product) return null;
 
   const dispatch = useDispatch();
@@ -47,13 +48,16 @@ export const ProductBasketItem: React.FC<{ itemId: string }> = ({ itemId }) => {
     }
   }, [product.count, dispatch]);
 
-  const changerFn = (count: number) => {
-    dispatch(changedItemCount({ id: itemId, count }));
-  };
+  const changerFn = React.useCallback(
+    (count: number) => {
+      dispatch(changedItemCount({ id: itemId, count }));
+    },
+    [itemId]
+  );
 
-  const handlerDelete = () => {
+  const handlerDelete = React.useCallback(() => {
     dispatch(deletedFromBasket({ id: itemId }));
-  };
+  }, [itemId]);
 
   return (
     <div className={'basket-item-wrapper'}>
