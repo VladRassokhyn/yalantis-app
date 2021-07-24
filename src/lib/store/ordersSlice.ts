@@ -18,14 +18,14 @@ export const getOrders = createAsyncThunk('orders/getOrders', async () => {
   const res = await ordersAPI.getOrders();
   return res.data;
 });
-
+/*
 export const getOrder = createAsyncThunk(
   'orders/getOrder',
   async (id: string) => {
     const res = await ordersAPI.getOrder(id);
     return res.data;
   }
-);
+);*/
 
 export const ordersAdapter = createEntityAdapter<TOrder>();
 
@@ -42,9 +42,19 @@ const ordersSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {
-    postStatusResets: (state) => {
+    postStatusResets(state) {
       state.postStatus = RequestStatuses.IDLE;
     },
+    getOrder(state, action) {
+      state.postStatus = RequestStatuses.LOADING;
+    },
+    setOrder(state, action) {
+      state.postStatus = RequestStatuses.SUCCESS;
+      state.singleOrder = action.payload
+    },
+    setError(state, action) {
+      state.error = action.payload.error
+    }
   },
   extraReducers: {
     [postNewOrder.pending.toString()]: (state) => {
@@ -72,7 +82,7 @@ const ordersSlice = createSlice({
       state.getOrdersStatus = RequestStatuses.ERROR;
       state.error = action.err;
     },
-
+/*
     [getOrder.pending.toString()]: (state) => {
       state.singleOrderStatus = RequestStatuses.LOADING;
     },
@@ -85,10 +95,10 @@ const ordersSlice = createSlice({
     [getOrder.rejected.toString()]: (state, action) => {
       state.singleOrderStatus = RequestStatuses.ERROR;
       state.error = action.err;
-    },
+    },*/
   },
 });
 
 export const ordersReducer = ordersSlice.reducer;
 
-export const { postStatusResets } = ordersSlice.actions;
+export const { postStatusResets, setOrder, getOrder, setError } = ordersSlice.actions;

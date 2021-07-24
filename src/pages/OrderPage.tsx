@@ -16,7 +16,7 @@ export const OrderPage = () => {
 
   React.useEffect(() => {
     if (params.orderId) {
-      dispatch(getOrder(params.orderId));
+      dispatch(getOrder({orderId: params.orderId}));
     }
   }, [params]);
 
