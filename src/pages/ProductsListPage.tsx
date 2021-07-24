@@ -14,8 +14,6 @@ import {
 import { useSelector } from '../lib/hooks/useSelector';
 import { ListMenu } from '../components/ListMenu';
 import { Paginator } from '../common';
-import { useRouteMatch } from 'react-router-dom';
-import { ROUTE_PATHS } from '../lib/router/paths';
 import {
   selectProductsIds,
   selectProductsOptions,
@@ -23,8 +21,6 @@ import {
 import { RequestStatuses } from '../lib/types';
 
 export const ProductsListPage = () => {
-  const isProductPage = useRouteMatch(ROUTE_PATHS.PRODUCTS.BASE());
-
   const dispatch = useDispatch();
 
   const productsIds = useSelector(selectProductsIds);
@@ -45,11 +41,7 @@ export const ProductsListPage = () => {
 
   React.useEffect(() => {
     if (newProductStatus === RequestStatuses.IDLE) {
-      dispatch(
-        getProducts({
-          editable: !isProductPage,
-        })
-      );
+      dispatch(getProducts({}));
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     return () => {

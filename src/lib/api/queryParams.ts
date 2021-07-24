@@ -25,28 +25,24 @@ type filterOptions = {
 };
 
 export const updateQueryParams = (options: filterOptions) => {
-
   const query: Params = {
     page: options.page,
     perPage: options.perPage,
     minPrice: options.minPrice,
     maxPrice: options.maxPrice,
-    origins: options.origins ? options.origins.map(o => o.value) : null
+    origins: options.origins ? options.origins.map((o) => o.value) : null,
   };
-
-  console.log(options.origins, query.origins)
-  console.log(query)
 
   const currentParams = getQueryParameters(location.search);
 
   Object.keys(query).forEach((param) => {
-    let current = currentParams[param]
+    let current = currentParams[param];
     if (current) {
       if (!query[param]) {
         query[param] = current;
       }
       if (param === 'origins' && !query[param]) {
-        query[param] = current.split(',')
+        query[param] = current.split(',');
       }
     }
   });
@@ -79,7 +75,7 @@ export const updateQueryParams = (options: filterOptions) => {
   if (!query.maxPrice) query.maxPrice = 1000;
   if (!query.origins) query.origins = [];
 
-  query.editable = location.pathname === ROUTE_PATHS.MY_PRODUCTS.BASE()
+  query.editable = location.pathname === ROUTE_PATHS.MY_PRODUCTS.BASE();
 
   return query;
 };

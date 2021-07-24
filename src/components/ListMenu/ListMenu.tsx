@@ -48,7 +48,10 @@ export const ListMenu = (props: TProps) => {
 
   const [changedValue, setChangedValue] =
     React.useState<FixThisTypeLeter>(null);
-  const { debouncedValue, isDebounced } = useDebounce<FixThisTypeLeter>(changedValue, 1000);
+  const { debouncedValue, isDebounced } = useDebounce<FixThisTypeLeter>(
+    changedValue,
+    1000
+  );
 
   const handleChange = (e: FixThisTypeLeter) => {
     setChangedValue(e);
@@ -77,7 +80,8 @@ export const ListMenu = (props: TProps) => {
     return option;
   });
 
-  if (statusOrigins !== RequestStatuses.SUCCESS || isDebounced) return <ListMenuPrototype />;
+  if (statusOrigins !== RequestStatuses.SUCCESS || isDebounced)
+    return <ListMenuPrototype />;
 
   return (
     <div className={'list-menu-wrapper'}>
