@@ -6,6 +6,7 @@ import {
 import { RequestStatuses, TInitialOrders, TNewOrder, TOrder } from '../types';
 import { ordersAPI } from '../api/ordersAPI';
 
+/*
 export const postNewOrder = createAsyncThunk(
   'orders/postNewOrder',
   async (order: TNewOrder) => {
@@ -13,6 +14,7 @@ export const postNewOrder = createAsyncThunk(
     return res.data;
   }
 );
+*/
 
 export const getOrders = createAsyncThunk('orders/getOrders', async () => {
   const res = await ordersAPI.getOrders();
@@ -52,11 +54,17 @@ const ordersSlice = createSlice({
       state.postStatus = RequestStatuses.SUCCESS;
       state.singleOrder = action.payload
     },
+    postNewOrder(state, action) {
+      state.postStatus = RequestStatuses.LOADING;
+    },
+    postNewOrderSuccess(state) {
+      state.postStatus = RequestStatuses.SUCCESS;
+    },
     setError(state, action) {
       state.error = action.payload.error
     }
   },
-  extraReducers: {
+  extraReducers: {/*
     [postNewOrder.pending.toString()]: (state) => {
       state.postStatus = RequestStatuses.LOADING;
     },
@@ -68,7 +76,7 @@ const ordersSlice = createSlice({
     [postNewOrder.rejected.toString()]: (state, action) => {
       state.postStatus = RequestStatuses.ERROR;
       state.error = action.err;
-    },
+    },*/
     [getOrders.pending.toString()]: (state) => {
       state.getOrdersStatus = RequestStatuses.LOADING;
     },
@@ -101,4 +109,4 @@ const ordersSlice = createSlice({
 
 export const ordersReducer = ordersSlice.reducer;
 
-export const { postStatusResets, setOrder, getOrder, setError } = ordersSlice.actions;
+export const { postStatusResets, setOrder, getOrder, setError , postNewOrder, postNewOrderSuccess} = ordersSlice.actions;

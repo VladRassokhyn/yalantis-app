@@ -1,8 +1,16 @@
 import { SagaIterator } from 'redux-saga';
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { getOrder, setError, setOrder } from '../ordersSlice';
+import { getOrder, setError, setOrder, postNewOrder, postNewOrderSuccess } from '../ordersSlice';
 import { ordersAPI } from '../../api/ordersAPI';
 
+function* postNewOrderWorker(action: any): SagaIterator {
+  try {
+    yield call(ordersAPI.postOrder, action.payload.order);
+    yield put({type: postNewOrderSuccess.type})
+  } catch (err) {
+    yield put({ type: setError.type, payload: err });
+  }
+}
 
 function* getOrderWorker(action: any): SagaIterator {
   try {
@@ -13,6 +21,7 @@ function* getOrderWorker(action: any): SagaIterator {
   }
 }
 
-export function* getOrderWatcher() {
+export function* ordersWatcher() {
   yield takeEvery(getOrder.type, getOrderWorker);
+  yield takeEvery(postNewOrder.type, postNewOrderWorker)
 }

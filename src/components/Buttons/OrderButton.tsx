@@ -21,7 +21,7 @@ export const OrderButton: React.FC = () => {
 
   const handleClick = React.useCallback(() => {
     const order = { order: { pieces: toOrder } };
-    dispatch(postNewOrder(order));
+    dispatch(postNewOrder({order}));
   }, []);
 
   React.useEffect(() => {
