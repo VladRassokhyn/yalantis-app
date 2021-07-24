@@ -8,11 +8,12 @@ type TProps = {
   perPage: number;
   statusOrigins: string;
   origins: TOrigin[];
-  changePerPageFn: (perPage: number) => void;
+  changePerPageFn: (value: { perPage: number }) => void;
   changeOriginsFn: (origins: string[]) => void;
-  changePriceFn: (min: number, max: number) => void;
+  changePriceFn: (minPrice: number, maxPrice: number) => void;
   maxPrice: number;
   minPrice: number;
+  filterOrigins: string[]
 };
 
 const theme = (theme: FixThisTypeLeter) => ({
@@ -21,14 +22,14 @@ const theme = (theme: FixThisTypeLeter) => ({
   colors: {
     ...theme.colors,
     primary25: 'rgba(246,72,28,0.2)',
-    primary: '#f6481c',
-  },
+    primary: '#f6481c'
+  }
 });
 
 const perPageOptions = [
   { name: 'perPage', value: 10, label: 10 },
   { name: 'perPage', value: 25, label: 25 },
-  { name: 'perPage', value: 50, label: 50 },
+  { name: 'perPage', value: 50, label: 50 }
 ];
 
 export const ListMenu = (props: TProps) => {
@@ -41,27 +42,32 @@ export const ListMenu = (props: TProps) => {
     changePriceFn,
     maxPrice,
     minPrice,
+    filterOrigins
   } = props;
 
 
   const handleChange = (e: FixThisTypeLeter) => {
     if (e.name === 'perPage') {
-      changePerPageFn(e.value);
+      changePerPageFn({ perPage: e.value });
     } else {
       changeOriginsFn(e);
     }
   };
 
-  const originOptions = React.useMemo(
-    () =>
-      origins.map((origin: TOrigin) => ({
-        value: origin.value,
-        label: origin.displayName,
-      })),
-    [origins]
-  );
+  let filterOriginOptions: any[] = [];
 
-  if (statusOrigins !== RequestStatuses.SUCCESS) return <ListMenuPrototype />;
+  const originOptions = origins.map((origin: TOrigin) => {
+      const option = {
+        value: origin.value,
+        label: origin.displayName
+      }
+      if (filterOrigins.includes(origin.value)){
+        filterOriginOptions.push(option)
+      }
+      return option
+    })
+
+  if (statusOrigins !== RequestStatuses.SUCCESS) return <ListMenuPrototype/>;
 
   return (
     <div className={'list-menu-wrapper'}>
@@ -73,6 +79,7 @@ export const ListMenu = (props: TProps) => {
           isMulti
           isClearable={true}
           onChange={handleChange}
+          defaultValue={filterOriginOptions}
           options={originOptions}
           theme={theme}
         />

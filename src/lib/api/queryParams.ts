@@ -1,5 +1,3 @@
-import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
 import { TReqProductsArgs } from '../types';
 
 interface S {
@@ -11,7 +9,7 @@ interface Params extends S {
   perPage: number
   minPrice: number
   maxPrice: number
-  origins: string[] | null
+  origins: string
 }
 
 type filterOptions = {
@@ -19,48 +17,68 @@ type filterOptions = {
   perPage: number,
   minPrice: number,
   maxPrice: number,
-  filterOrigins: string[] | null
+  origins: {
+    value: string
+    label: string
+  }[]
 }
 
-export const updateQueryParams = ({page, perPage, minPrice, maxPrice, filterOrigins}: filterOptions) => {
-  const location = useLocation();
-  const history = useHistory();
+export const updateQueryParams = (options: filterOptions) => {
+
+  let origins = '';
+  options.origins && options.origins.forEach(origin => {
+    origins += origin.value + ','
+  })
+
 
   const query: Params = {
-    page,
-    perPage,
-    minPrice,
-    maxPrice,
-    origins: filterOrigins
+    page: options.page,
+    perPage: options.perPage,
+    minPrice: options.minPrice,
+    maxPrice: options.maxPrice,
+    origins
   };
 
+  const currentParams = getQueryParameters(location.search);
+
+  Object.keys(query).forEach(param => {
+    if (!query[param] && currentParams[param]) {
+      query[param] = currentParams[param];
+    }
+  });
+
+  console.log(options, query)
   let search = '';
   let j = 0;
   let separator = '?';
 
   Object.keys(query).forEach(key => {
+
     if (query[key] && query[key].length !== 0) {
 
       if (j !== 0) {
         separator = '&';
       }
-        if (Array.isArray(query[key])){
-          search += `${separator}${key}=${query[key] + ''}`;
-          console.log(filterOrigins, query[key])
-        } else {
-          search += `${separator}${key}=${query[key]}`;
-        }
+      if (Array.isArray(query[key])) {
+        search += `${separator}${key}=${query[key] + ''}`;
+      } else {
+        search += `${separator}${key}=${query[key]}`;
+      }
       j++;
     }
   });
 
-  const queryString = `${location.pathname}${search}`;
+  if (location.search !== search) {
+    history.pushState(null, '', search);
+  }
 
-  React.useEffect(() => {
-    if (location.pathname !== queryString) {
-      history.replace(queryString);
-    }
-  }, [page, perPage, maxPrice, minPrice, filterOrigins]);
+  if(!query.page) query.page = 1
+  if(!query.perPage) query.perPage = 50
+  if(!query.minPrice) query.minPrice = 1
+  if(!query.maxPrice) query.maxPrice = 1000
+  if(!query.origins) query.origins = ''
+
+  return query
 };
 
 export const getQueryParameters = (search: string) => {
@@ -79,9 +97,8 @@ export const getQueryParameters = (search: string) => {
 
   }
 
-  console.log(currentParameters)
   return currentParameters;
-}
+};
 
 export const makeRequestUrl = (params: TReqProductsArgs) => {
   let requestUrl = '';
@@ -95,7 +112,7 @@ export const makeRequestUrl = (params: TReqProductsArgs) => {
         separator = '&';
       }
 
-      if (Array.isArray(params[key])){
+      if (Array.isArray(params[key])) {
         requestUrl += `${separator}${key}=${params[key] + ''}`;
       } else {
         requestUrl += `${separator}${key}=${params[key]}`;
@@ -104,5 +121,5 @@ export const makeRequestUrl = (params: TReqProductsArgs) => {
     }
   });
 
-  return requestUrl
-}
+  return requestUrl;
+};

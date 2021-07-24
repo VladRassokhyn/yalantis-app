@@ -43,6 +43,7 @@ interface S {
 }
 
 export interface IInitialProducts extends S {
+  initialised: boolean
   status: RequestStatuses;
   statusOrigins: RequestStatuses;
   newProductStatus: RequestStatuses;
@@ -55,7 +56,7 @@ export interface IInitialProducts extends S {
   items: EntityState<IProduct>;
   error: null;
   origins: TOrigin[];
-  filterOrigins: string[] | null;
+  filterOrigins: string[];
   minPrice: number;
   maxPrice: number;
 }

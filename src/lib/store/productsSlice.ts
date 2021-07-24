@@ -13,7 +13,7 @@ import {
   RequestStatuses,
 } from '../types';
 
-export const getProducts = createAsyncThunk(
+/*export const getProducts = createAsyncThunk(
   'products/getProducts',
   async (args: TReqProductsArgs) => {
     const res = await productsAPI.getProducts(args);
@@ -25,7 +25,7 @@ export const getOrigins = createAsyncThunk('products/getOrigins', async () => {
   const res = await productsAPI.getOrigins();
   return res.data.items;
 });
-
+*/
 export const postProduct = createAsyncThunk(
   'products/postProduct',
   async (product: TProductPostPayload) => {
@@ -50,6 +50,7 @@ export const deleteProduct = createAsyncThunk(
 export const productsAdapter = createEntityAdapter<IProduct>();
 
 export const initialState: IInitialProducts = {
+  initialised: false,
   status: RequestStatuses.IDLE,
   statusOrigins: RequestStatuses.IDLE,
   newProductStatus: RequestStatuses.IDLE,
@@ -62,7 +63,7 @@ export const initialState: IInitialProducts = {
   error: null,
   newProductError: null,
   origins: [],
-  filterOrigins: null,
+  filterOrigins: [],
   minPrice: 1,
   maxPrice: 1000,
 };
@@ -76,12 +77,12 @@ export const productsSlice = createSlice({
     },
     currentPerPageChanged(state, action) {
       state.page = 1;
-      state.perPage = action.payload;
+      state.perPage = action.payload.perPage;
     },
     originsChanged(state, action) {
       state.page = 1;
       state.filterOrigins = [];
-      action.payload.forEach((origin: TOrigin) => {
+      action.payload.origins.forEach((origin: TOrigin) => {
         state.filterOrigins && state.filterOrigins.push(origin.value);
       });
     },
@@ -94,19 +95,46 @@ export const productsSlice = createSlice({
       const status = action.payload;
       state[status] = RequestStatuses.IDLE;
     },
-    filtersSetsFromUrl(state, action) {
-      Object.keys(action.payload).forEach(param => {
-        if (param === 'origins') {
-          state.filterOrigins = [];
-          state.filterOrigins.push(action.payload[param])
-        } else {
-          state[param] = action.payload[param]
+    getProducts(state, action) {
+      state.status = RequestStatuses.LOADING;
+    },
+    setProducts(state, action) {
+      state.status = RequestStatuses.SUCCESS;
+      state.totalItems = action.payload.totalItems;
+      productsAdapter.setAll(state.items, action.payload.items);
+    },
+    setFilters(state, action) {
+      state.page = +action.payload.page
+      state.perPage = +action.payload.perPage
+      state.minPrice = +action.payload.minPrice
+      state.maxPrice = +action.payload.maxPrice
+      action.payload.origins.split(',').map((origin: string) => {
+        if (origin !== '') {
+          state.filterOrigins.push(origin)
         }
       })
-    }
+    },
+    clearFilters(state) {
+      state.page = 1;
+      state.perPage = 50;
+      state.minPrice = 1;
+      state.maxPrice = 1000;
+      state.filterOrigins = [];
+    },
+    getOrigins(state) {
+      state.statusOrigins = RequestStatuses.LOADING;
+    },
+    setOrigins(state, action) {
+      state.statusOrigins = RequestStatuses.SUCCESS;
+      state.origins = action.payload;
+    },
+    setError(state, action) {
+      state.error = action.payload
+    },
   },
 
   extraReducers: {
+    /*
     [getProducts.pending.toString()]: (state) => {
       state.status = RequestStatuses.LOADING;
     },
@@ -135,6 +163,7 @@ export const productsSlice = createSlice({
       state.statusOrigins = RequestStatuses.ERROR;
       state.error = action.err;
     },
+    */
 
     [postProduct.pending.toString()]: (state) => {
       state.newProductStatus = RequestStatuses.LOADING;
@@ -184,6 +213,11 @@ export const {
   currentPerPageChanged,
   originsChanged,
   priceFilterChanged,
-  filtersSetsFromUrl,
   statusResets,
+  setProducts,
+  setError,
+  getProducts,
+  setOrigins,
+  setFilters,
+  clearFilters
 } = productsSlice.actions;

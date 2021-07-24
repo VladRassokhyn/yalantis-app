@@ -11,10 +11,11 @@ export const SliderRange: React.FC<TProps> = ({
   maxPrice,
   changePriceFn,
 }) => {
-  const min = 0;
+  const min = 1;
   const max = 1000
   const [minVal, setMinVal] = React.useState(minPrice);
   const [maxVal, setMaxVal] = React.useState(maxPrice);
+  const [changed, setChanged] = React.useState(false)
   const minValRef = React.useRef(minPrice);
   const maxValRef = React.useRef(maxPrice);
   const range = React.useRef<HTMLDivElement>(null);
@@ -27,10 +28,12 @@ export const SliderRange: React.FC<TProps> = ({
 
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      setChanged(true)
       if (e.target.name === 'min') {
         const value = Math.min(+e.target.value, +maxVal - 1);
         setMinVal(value);
         minValRef.current = value;
+
       }
       if (e.target.name === 'max') {
         const value = Math.max(+e.target.value, +minVal + 1);
@@ -67,10 +70,12 @@ export const SliderRange: React.FC<TProps> = ({
   }, [maxVal, getPercent]);
 
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      changePriceFn(minValRef.current, maxValRef.current);
-    }, 1000);
-    return () => clearTimeout(timer);
+    if (changed) {
+      const timer = setTimeout(() => {
+        changePriceFn(minValRef.current, maxValRef.current);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
   }, [minVal, maxVal]);
 
   return (

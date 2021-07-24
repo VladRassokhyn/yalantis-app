@@ -10,8 +10,8 @@ import { APP_ENDPOINTS } from './endpoints';
 import { makeRequestUrl } from './queryParams';
 
 export const productsAPI = {
-  getProducts: async (args: TReqProductsArgs): Promise<ResponseGetProducts> => {
-    const filters = makeRequestUrl(args)
+  getProducts: async (args?: TReqProductsArgs): Promise<ResponseGetProducts> => {
+    const filters = makeRequestUrl(args!)
     return await axiosInstance.get(
       `${APP_ENDPOINTS.PRODUCTS.GET}${filters}`
     );
