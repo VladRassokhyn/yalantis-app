@@ -10,7 +10,7 @@ interface Params extends S {
   perPage: number;
   minPrice: number;
   maxPrice: number;
-  origins: string;
+  origins: string[];
 }
 
 type filterOptions = {
@@ -25,10 +25,10 @@ type filterOptions = {
 };
 
 export const updateQueryParams = (options: filterOptions) => {
-  let origins = '';
+  let origins: string[] = [];
   options.origins &&
     options.origins.forEach((origin) => {
-      origins += origin.value + ',';
+      origins.push(origin.value);
     });
 
   const query: Params = {
@@ -42,6 +42,7 @@ export const updateQueryParams = (options: filterOptions) => {
   const currentParams = getQueryParameters(location.search);
 
   Object.keys(query).forEach((param) => {
+    console.log(param, ': ', query[param])
     if (!query[param] && currentParams[param]) {
       query[param] = currentParams[param];
     }
@@ -73,7 +74,7 @@ export const updateQueryParams = (options: filterOptions) => {
   if (!query.perPage) query.perPage = 50;
   if (!query.minPrice) query.minPrice = 1;
   if (!query.maxPrice) query.maxPrice = 1000;
-  if (!query.origins) query.origins = '';
+  if (!query.origins) query.origins = [];
 
   query.editable = location.pathname === ROUTE_PATHS.MY_PRODUCTS.BASE()
 

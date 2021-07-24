@@ -89,7 +89,7 @@ export const ListMenu = (props: TProps) => {
           isMulti
           isClearable={true}
           onChange={handleChange}
-          defaultValue={filterOriginOptions}
+          value={filterOriginOptions}
           options={originOptions}
           theme={theme}
         />

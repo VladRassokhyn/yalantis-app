@@ -111,7 +111,7 @@ export const productsSlice = createSlice({
       state.perPage = +action.payload.perPage;
       state.minPrice = +action.payload.minPrice;
       state.maxPrice = +action.payload.maxPrice;
-      action.payload.origins.split(',').map((origin: string) => {
+      action.payload.origins.map((origin: string) => {
         if (origin !== '') {
           state.filterOrigins.push(origin);
         }

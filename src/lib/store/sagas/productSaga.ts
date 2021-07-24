@@ -14,6 +14,7 @@ import {
 } from '../productsSlice';
 import { updateQueryParams } from '../../api/queryParams';
 import { FixThisTypeLeter } from '../../types';
+
 function* getProductsWorker(action: FixThisTypeLeter): SagaIterator {
   try {
     action.payload = updateQueryParams(action.payload);
