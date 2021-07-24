@@ -62,7 +62,8 @@ export const ListMenu = (props: TProps) => {
       console.log('here')
       if (changedValue.name === 'perPage') {
         changePerPageFn({ perPage: changedValue.value });
-      } else {
+      }
+      if(changedValue.name !== 'slider'){
         changeOriginsFn(changedValue);
       }
     }
@@ -116,6 +117,7 @@ export const ListMenu = (props: TProps) => {
       <div className={'list-menu-price'}>
         <h1>Price</h1>
         <SliderRange
+          setChangedValue={setChangedValue}
           minPrice={minPrice}
           maxPrice={maxPrice}
           changePriceFn={changePriceFn}

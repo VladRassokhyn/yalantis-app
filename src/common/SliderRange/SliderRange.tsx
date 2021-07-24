@@ -4,12 +4,14 @@ interface TProps {
   minPrice: number;
   maxPrice: number;
   changePriceFn: (min: number, max: number) => void;
+  setChangedValue: (value: any) => void
 }
 
 export const SliderRange: React.FC<TProps> = ({
   minPrice,
   maxPrice,
   changePriceFn,
+  setChangedValue
 }) => {
   const min = 1;
   const max = 1000;
@@ -68,6 +70,7 @@ export const SliderRange: React.FC<TProps> = ({
   React.useEffect(() => {
     if (changed) {
       const timer = setTimeout(() => {
+        setChangedValue({name: 'slider'})
         changePriceFn(minValRef.current, maxValRef.current);
       }, 1000);
       return () => clearTimeout(timer);
