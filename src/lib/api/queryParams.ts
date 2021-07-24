@@ -1,4 +1,5 @@
 import { TReqProductsArgs } from '../types';
+import { ROUTE_PATHS } from '../router/paths';
 
 interface S {
   [p: string]: any;
@@ -73,6 +74,8 @@ export const updateQueryParams = (options: filterOptions) => {
   if (!query.minPrice) query.minPrice = 1;
   if (!query.maxPrice) query.maxPrice = 1000;
   if (!query.origins) query.origins = '';
+
+  query.editable = location.pathname === ROUTE_PATHS.MY_PRODUCTS.BASE()
 
   return query;
 };
