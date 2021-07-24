@@ -10,7 +10,7 @@ interface Params extends S {
   perPage: number;
   minPrice: number;
   maxPrice: number;
-  origins: string[];
+  origins: string[] | null;
 }
 
 type filterOptions = {
@@ -25,26 +25,29 @@ type filterOptions = {
 };
 
 export const updateQueryParams = (options: filterOptions) => {
-  let origins: string[] = [];
-  options.origins &&
-    options.origins.forEach((origin) => {
-      origins.push(origin.value);
-    });
 
   const query: Params = {
     page: options.page,
     perPage: options.perPage,
     minPrice: options.minPrice,
     maxPrice: options.maxPrice,
-    origins,
+    origins: options.origins ? options.origins.map(o => o.value) : null
   };
+
+  console.log(options.origins, query.origins)
+  console.log(query)
 
   const currentParams = getQueryParameters(location.search);
 
   Object.keys(query).forEach((param) => {
-    console.log(param, ': ', query[param])
-    if (!query[param] && currentParams[param]) {
-      query[param] = currentParams[param];
+    let current = currentParams[param]
+    if (current) {
+      if (!query[param]) {
+        query[param] = current;
+      }
+      if (param === 'origins' && !query[param]) {
+        query[param] = current.split(',')
+      }
     }
   });
 

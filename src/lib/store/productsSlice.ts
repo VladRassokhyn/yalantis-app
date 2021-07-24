@@ -111,11 +111,13 @@ export const productsSlice = createSlice({
       state.perPage = +action.payload.perPage;
       state.minPrice = +action.payload.minPrice;
       state.maxPrice = +action.payload.maxPrice;
-      action.payload.origins.map((origin: string) => {
-        if (origin !== '') {
-          state.filterOrigins.push(origin);
-        }
-      });
+      if (typeof action.payload.origins === 'string') {
+        action.payload.origins.split(',').map((origin: string) => {
+          if (origin !== '') {
+            state.filterOrigins.push(origin);
+          }
+        });
+      }
     },
     clearFilters(state) {
       state.page = 1;
