@@ -13,7 +13,6 @@ import {
   RequestStatuses,
 } from '../types';
 
-
 // Change logic according to HM#4
 
 /*
@@ -108,15 +107,15 @@ export const productsSlice = createSlice({
       productsAdapter.setAll(state.items, action.payload.items);
     },
     setFilters(state, action) {
-      state.page = +action.payload.page
-      state.perPage = +action.payload.perPage
-      state.minPrice = +action.payload.minPrice
-      state.maxPrice = +action.payload.maxPrice
+      state.page = +action.payload.page;
+      state.perPage = +action.payload.perPage;
+      state.minPrice = +action.payload.minPrice;
+      state.maxPrice = +action.payload.maxPrice;
       action.payload.origins.split(',').map((origin: string) => {
         if (origin !== '') {
-          state.filterOrigins.push(origin)
+          state.filterOrigins.push(origin);
         }
-      })
+      });
     },
     clearFilters(state) {
       state.page = 1;
@@ -133,7 +132,7 @@ export const productsSlice = createSlice({
       state.origins = action.payload;
     },
     setError(state, action) {
-      state.error = action.payload
+      state.error = action.payload;
     },
   },
 
@@ -224,5 +223,5 @@ export const {
   getProducts,
   setOrigins,
   setFilters,
-  clearFilters
+  clearFilters,
 } = productsSlice.actions;

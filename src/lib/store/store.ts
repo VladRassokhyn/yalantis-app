@@ -4,12 +4,11 @@ import { notificationReducer } from './notoficationSlice';
 import { ordersReducer } from './ordersSlice';
 import { productsReducer } from './productsSlice';
 import { singleProductReducer } from './singleProductSlice';
-import createSagaMiddleware from 'redux-saga'
-import { rootSaga } from './sagas/rootSaga'
+import createSagaMiddleware from 'redux-saga';
+import { rootSaga } from './sagas/rootSaga';
 
-const sagaMiddleware = createSagaMiddleware()
-const middleware = [...getDefaultMiddleware(), sagaMiddleware]
-
+const sagaMiddleware = createSagaMiddleware();
+const middleware = [...getDefaultMiddleware(), sagaMiddleware];
 
 export const store = configureStore({
   reducer: {
@@ -19,9 +18,9 @@ export const store = configureStore({
     singleProduct: singleProductReducer,
     orders: ordersReducer,
   },
-  middleware
+  middleware,
 });
 
-sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(rootSaga);
 
 export type RootState = ReturnType<typeof store.getState>;

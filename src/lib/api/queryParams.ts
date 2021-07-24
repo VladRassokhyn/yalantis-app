@@ -1,47 +1,46 @@
 import { TReqProductsArgs } from '../types';
 
 interface S {
-  [p: string]: any
+  [p: string]: any;
 }
 
 interface Params extends S {
-  page: number
-  perPage: number
-  minPrice: number
-  maxPrice: number
-  origins: string
+  page: number;
+  perPage: number;
+  minPrice: number;
+  maxPrice: number;
+  origins: string;
 }
 
 type filterOptions = {
-  page: number,
-  perPage: number,
-  minPrice: number,
-  maxPrice: number,
+  page: number;
+  perPage: number;
+  minPrice: number;
+  maxPrice: number;
   origins: {
-    value: string
-    label: string
-  }[]
-}
+    value: string;
+    label: string;
+  }[];
+};
 
 export const updateQueryParams = (options: filterOptions) => {
-
   let origins = '';
-  options.origins && options.origins.forEach(origin => {
-    origins += origin.value + ','
-  })
-
+  options.origins &&
+    options.origins.forEach((origin) => {
+      origins += origin.value + ',';
+    });
 
   const query: Params = {
     page: options.page,
     perPage: options.perPage,
     minPrice: options.minPrice,
     maxPrice: options.maxPrice,
-    origins
+    origins,
   };
 
   const currentParams = getQueryParameters(location.search);
 
-  Object.keys(query).forEach(param => {
+  Object.keys(query).forEach((param) => {
     if (!query[param] && currentParams[param]) {
       query[param] = currentParams[param];
     }
@@ -51,10 +50,8 @@ export const updateQueryParams = (options: filterOptions) => {
   let j = 0;
   let separator = '?';
 
-  Object.keys(query).forEach(key => {
-
+  Object.keys(query).forEach((key) => {
     if (query[key] && query[key].length !== 0) {
-
       if (j !== 0) {
         separator = '&';
       }
@@ -71,13 +68,13 @@ export const updateQueryParams = (options: filterOptions) => {
     history.pushState(null, '', search);
   }
 
-  if(!query.page) query.page = 1
-  if(!query.perPage) query.perPage = 50
-  if(!query.minPrice) query.minPrice = 1
-  if(!query.maxPrice) query.maxPrice = 1000
-  if(!query.origins) query.origins = ''
+  if (!query.page) query.page = 1;
+  if (!query.perPage) query.perPage = 50;
+  if (!query.minPrice) query.minPrice = 1;
+  if (!query.maxPrice) query.maxPrice = 1000;
+  if (!query.origins) query.origins = '';
 
-  return query
+  return query;
 };
 
 export const getQueryParameters = (search: string) => {
@@ -86,14 +83,12 @@ export const getQueryParameters = (search: string) => {
   let currentParameters: TReqProductsArgs = {} as TReqProductsArgs;
 
   if (Object.keys(parameters).length) {
-
     parameters = parameters.split('&');
 
     for (let i = 0; i < parameters.length; i++) {
       let parameter = parameters[i].split('=');
       currentParameters[parameter[0]] = parameter[1];
     }
-
   }
 
   return currentParameters;
@@ -104,9 +99,8 @@ export const makeRequestUrl = (params: TReqProductsArgs) => {
   let j = 0;
   let separator = '?';
 
-  Object.keys(params).forEach(key => {
+  Object.keys(params).forEach((key) => {
     if (params[key] && params[key].length !== 0) {
-
       if (j !== 0) {
         separator = '&';
       }

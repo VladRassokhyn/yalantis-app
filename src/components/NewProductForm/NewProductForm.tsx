@@ -5,18 +5,18 @@ import {
   RequestStatuses,
   TOrigin,
   TProductPostPayload,
-} from '../lib/types';
+} from '../../lib/types';
 import { useDispatch } from 'react-redux';
 import {
   postProduct,
   statusResets,
   updateProduct,
-} from '../lib/store/productsSlice';
+} from '../../lib/store/productsSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { notificationAdded } from '../lib/store/notoficationSlice';
+import { notificationAdded } from '../../lib/store/notoficationSlice';
 import Select from 'react-select';
-import { Preloader } from '../common/Preloader';
+import { Preloader } from '../../common/Preloader';
 
 type TProps = {
   origins: TOrigin[];

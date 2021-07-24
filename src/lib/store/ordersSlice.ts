@@ -1,7 +1,7 @@
 import {
   createAsyncThunk,
   createEntityAdapter,
-  createSlice
+  createSlice,
 } from '@reduxjs/toolkit';
 import { RequestStatuses, TInitialOrders, TNewOrder, TOrder } from '../types';
 import { ordersAPI } from '../api/ordersAPI';
@@ -30,7 +30,6 @@ export const postNewOrder = createAsyncThunk(
 );
 */
 
-
 export const ordersAdapter = createEntityAdapter<TOrder>();
 
 const initialState: TInitialOrders = {
@@ -39,7 +38,7 @@ const initialState: TInitialOrders = {
   singleOrderStatus: RequestStatuses.IDLE,
   error: '',
   orders: ordersAdapter.getInitialState(),
-  singleOrder: null
+  singleOrder: null,
 };
 
 const ordersSlice = createSlice({
@@ -64,7 +63,7 @@ const ordersSlice = createSlice({
     },
     setError(state, action) {
       state.error = action.payload.error;
-    }
+    },
   },
   extraReducers: {
     [getOrders.pending.toString()]: (state) => {
@@ -79,7 +78,7 @@ const ordersSlice = createSlice({
     [getOrders.rejected.toString()]: (state, action) => {
       state.getOrdersStatus = RequestStatuses.ERROR;
       state.error = action.err;
-    }
+    },
 
     // Change logic according to HM#4
 
@@ -110,9 +109,16 @@ const ordersSlice = createSlice({
       state.error = action.err;
     },
     */
-  }
+  },
 });
 
 export const ordersReducer = ordersSlice.reducer;
 
-export const { postStatusResets, setOrder, getOrder, setError, postNewOrder, postNewOrderSuccess } = ordersSlice.actions;
+export const {
+  postStatusResets,
+  setOrder,
+  getOrder,
+  setError,
+  postNewOrder,
+  postNewOrderSuccess,
+} = ordersSlice.actions;

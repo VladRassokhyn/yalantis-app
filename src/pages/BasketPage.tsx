@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from '../lib/hooks/useSelector';
 import { selectBasketOptions } from '../lib/store/selectors';
-import { List } from '../components/List';
-import { ProductBasketItem } from '../components/ProductBasketItem';
+import { List } from '../components/List/List';
+import { ProductBasketItem } from '../components/List/ProductBasketItem';
 import { OrderButton } from '../components/Buttons/OrderButton';
 import { selectBasketItemsIds } from '../lib/store/selectors';
 

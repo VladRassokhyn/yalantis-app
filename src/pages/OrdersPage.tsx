@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from '../lib/hooks/useSelector';
 import { getOrders } from '../lib/store/ordersSlice';
 import { useDispatch } from 'react-redux';
-import { Order } from '../components/Order';
-import { ProductPrototype } from '../common/ProductPrototype';
+import { Order } from '../components/Order/Order';
+import { ProductPrototype } from '../common/PagesPrototypes/ProductPrototype';
 import { selectOrderIds, selectOrdersOptions } from '../lib/store/selectors';
 import { RequestStatuses } from '../lib/types';
 

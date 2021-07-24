@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import { Routes, routes } from '../lib/router/routes';
-import { Header } from '../components/Header';
+import { Header } from '../components/Header/Header';
 import { Notificator } from '../components/Notificator/Notificator';
 
 export const Main = () => (

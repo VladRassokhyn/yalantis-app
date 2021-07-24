@@ -10,16 +10,17 @@ import {
   currentPerPageChanged,
   currentPageChanged,
   originsChanged,
-  priceFilterChanged
+  priceFilterChanged,
 } from '../productsSlice';
 import { updateQueryParams } from '../../api/queryParams';
-function* getProductsWorker(action: any): SagaIterator {
+import { FixThisTypeLeter } from '../../types';
+function* getProductsWorker(action: FixThisTypeLeter): SagaIterator {
   try {
     action.payload = updateQueryParams(action.payload);
 
     const products = yield call(productsAPI.getProducts, action.payload);
     const origins = yield call(productsAPI.getOrigins);
-    yield put({ type: setFilters.type, payload: {...action.payload} });
+    yield put({ type: setFilters.type, payload: { ...action.payload } });
     yield put({ type: setProducts.type, payload: products.data });
     yield put({ type: setOrigins.type, payload: origins.data.items });
   } catch (err) {

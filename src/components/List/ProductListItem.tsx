@@ -1,12 +1,12 @@
 import React from 'react';
-import { AddToBasketButton } from './Buttons/AddToBasketButton';
-import defaultProductPhoto from '../static/defaultProductPhoto.svg';
+import { AddToBasketButton } from '../Buttons/AddToBasketButton';
+import defaultProductPhoto from '../../static/defaultProductPhoto.svg';
 import { Link, useLocation } from 'react-router-dom';
-import { ROUTE_PATHS } from '../lib/router/paths';
-import { selectProductById } from '../lib/store/selectors';
+import { ROUTE_PATHS } from '../../lib/router/paths';
+import { selectProductById } from '../../lib/store/selectors';
 import { EntityId } from '@reduxjs/toolkit';
-import { useSelector } from '../lib/hooks/useSelector';
-import { EditProductButton } from './Buttons/EditProductButton';
+import { useSelector } from '../../lib/hooks/useSelector';
+import { EditProductButton } from '../Buttons/EditProductButton';
 
 export const ProductListItem: React.FC<{ itemId: EntityId }> = ({ itemId }) => {
   const product = useSelector((state) => selectProductById(state, itemId));

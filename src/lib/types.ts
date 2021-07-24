@@ -43,7 +43,7 @@ interface S {
 }
 
 export interface IInitialProducts extends S {
-  initialised: boolean
+  initialised: boolean;
   status: RequestStatuses;
   statusOrigins: RequestStatuses;
   newProductStatus: RequestStatuses;
@@ -103,7 +103,7 @@ export interface TReqProductsArgs extends S {
   minPrice?: number;
   maxPrice?: number;
   editable: boolean;
-};
+}
 
 export interface IBasket extends IProduct {
   count: number;

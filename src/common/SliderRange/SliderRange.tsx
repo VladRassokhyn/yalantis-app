@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface TProps {
-  minPrice: number,
-  maxPrice: number,
+  minPrice: number;
+  maxPrice: number;
   changePriceFn: (min: number, max: number) => void;
 }
 
@@ -12,14 +12,13 @@ export const SliderRange: React.FC<TProps> = ({
   changePriceFn,
 }) => {
   const min = 1;
-  const max = 1000
+  const max = 1000;
   const [minVal, setMinVal] = React.useState(minPrice);
   const [maxVal, setMaxVal] = React.useState(maxPrice);
-  const [changed, setChanged] = React.useState(false)
+  const [changed, setChanged] = React.useState(false);
   const minValRef = React.useRef(minPrice);
   const maxValRef = React.useRef(maxPrice);
   const range = React.useRef<HTMLDivElement>(null);
-
 
   const getPercent = React.useCallback(
     (value: number) => Math.round(((value - min) / (max - min)) * 100),
@@ -28,17 +27,14 @@ export const SliderRange: React.FC<TProps> = ({
 
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setChanged(true)
+      setChanged(true);
       if (e.target.name === 'min') {
         const value = Math.min(+e.target.value, +maxVal - 1);
         setMinVal(value);
         minValRef.current = value;
-
       }
       if (e.target.name === 'max') {
         const value = Math.max(+e.target.value, +minVal + 1);
-
-        console.log(maxVal, maxPrice, value)
         setMaxVal(value);
         if (maxVal > 999) {
           maxValRef.current = 1000;

@@ -1,9 +1,9 @@
 import React from 'react';
 import Select from 'react-select';
-import { ListMenuPrototype } from '../common/ListMenuPrototype';
-import { SliderRange } from '../common/SliderRange';
-import { useDebounce } from '../lib/hooks/useDebounce';
-import { FixThisTypeLeter, RequestStatuses, TOrigin } from '../lib/types';
+import { ListMenuPrototype } from '../../common/PagesPrototypes/ListMenuPrototype';
+import { SliderRange } from '../../common/SliderRange/SliderRange';
+import { useDebounce } from '../../lib/hooks/useDebounce';
+import { FixThisTypeLeter, RequestStatuses, TOrigin } from '../../lib/types';
 
 type TProps = {
   perPage: number;
@@ -14,7 +14,7 @@ type TProps = {
   changePriceFn: (minPrice: number, maxPrice: number) => void;
   maxPrice: number;
   minPrice: number;
-  filterOrigins: string[]
+  filterOrigins: string[];
 };
 
 const theme = (theme: FixThisTypeLeter) => ({
@@ -23,14 +23,14 @@ const theme = (theme: FixThisTypeLeter) => ({
   colors: {
     ...theme.colors,
     primary25: 'rgba(246,72,28,0.2)',
-    primary: '#f6481c'
-  }
+    primary: '#f6481c',
+  },
 });
 
 const perPageOptions = [
   { name: 'perPage', value: 10, label: 10 },
   { name: 'perPage', value: 25, label: 25 },
-  { name: 'perPage', value: 50, label: 50 }
+  { name: 'perPage', value: 50, label: 50 },
 ];
 
 export const ListMenu = (props: TProps) => {
@@ -43,33 +43,33 @@ export const ListMenu = (props: TProps) => {
     changePriceFn,
     maxPrice,
     minPrice,
-    filterOrigins
+    filterOrigins,
   } = props;
 
-  const [changedValue, setChangedValue] = React.useState<any>(null)
-  const debounce = useDebounce<any>(changedValue, 1000);
+  const [changedValue, setChangedValue] =
+    React.useState<FixThisTypeLeter>(null);
+  const debounce = useDebounce<FixThisTypeLeter>(changedValue, 1000);
 
   const handleChange = (e: FixThisTypeLeter) => {
-      setChangedValue(e)
+    setChangedValue(e);
   };
 
   React.useEffect(() => {
-    console.log('delay')
-    if(changedValue) {
+    if (changedValue) {
       if (changedValue.name === 'perPage') {
         changePerPageFn({ perPage: changedValue.value });
       } else {
         changeOriginsFn(changedValue);
       }
     }
-  }, [debounce])
+  }, [debounce]);
 
-  let filterOriginOptions: any[] = [];
+  let filterOriginOptions: { value: string; label: string }[] = [];
 
   const originOptions = origins.map((origin: TOrigin) => {
     const option = {
       value: origin.value,
-      label: origin.displayName
+      label: origin.displayName,
     };
     if (filterOrigins.includes(origin.value)) {
       filterOriginOptions.push(option);
@@ -77,7 +77,7 @@ export const ListMenu = (props: TProps) => {
     return option;
   });
 
-  if (statusOrigins !== RequestStatuses.SUCCESS) return <ListMenuPrototype/>;
+  if (statusOrigins !== RequestStatuses.SUCCESS) return <ListMenuPrototype />;
 
   return (
     <div className={'list-menu-wrapper'}>
