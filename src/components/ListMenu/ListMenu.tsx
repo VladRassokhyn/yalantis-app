@@ -58,12 +58,15 @@ export const ListMenu = (props: TProps) => {
   };
 
   React.useEffect(() => {
+    console.log(changedValue)
     if (changedValue) {
-      console.log('here')
       if (changedValue.name === 'perPage') {
         changePerPageFn({ perPage: changedValue.value });
       }
-      if(changedValue.name !== 'slider'){
+      if(changedValue.name === 'slider'){
+        //
+      }
+      if(Array.isArray(changedValue)){
         changeOriginsFn(changedValue);
       }
     }
@@ -90,6 +93,7 @@ export const ListMenu = (props: TProps) => {
       <div className={'react-select-wrapper'}>
         <h1>Origins</h1>
         <Select
+          name={'origins'}
           className="react-select-container__origins"
           classNamePrefix="react-select"
           isMulti
