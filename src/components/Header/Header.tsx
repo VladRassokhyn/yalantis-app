@@ -5,7 +5,7 @@ import { ROUTE_PATHS } from '../../lib/router/paths';
 import { useSelector } from '../../lib/hooks/useSelector';
 import { selectBasketOptions } from '../../lib/store/selectors';
 import { useModal } from '../../lib/hooks/useModal';
-import { NewProductForm } from '../NewProductForm/NewProductForm';
+import { NewProductForm } from '../NewProductForm';
 import { selectProductsOptions } from '../../lib/store/selectors';
 
 export const Header = () => {

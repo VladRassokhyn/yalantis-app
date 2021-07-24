@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
-import { ListMenuPrototype } from '../../common/PagesPrototypes/ListMenuPrototype';
-import { SliderRange } from '../../common/SliderRange/SliderRange';
+import { ListMenuPrototype } from '../../common';
+import { SliderRange } from '../../common';
 import { useDebounce } from '../../lib/hooks/useDebounce';
 import { FixThisTypeLeter, RequestStatuses, TOrigin } from '../../lib/types';
 

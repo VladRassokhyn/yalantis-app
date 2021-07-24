@@ -1,7 +1,7 @@
 import React from 'react';
-import { List } from '../components/List/List';
-import { ProductListItem } from '../components/List/ProductListItem';
-import { ListPrototype } from '../common/PagesPrototypes/ListPrototype';
+import { List } from '../components/List';
+import { ProductListItem } from '../components/List';
+import { ListPrototype } from '../common';
 import { useDispatch } from 'react-redux';
 import {
   getProducts,
@@ -12,8 +12,8 @@ import {
   clearFilters,
 } from '../lib/store/productsSlice';
 import { useSelector } from '../lib/hooks/useSelector';
-import { ListMenu } from '../components/ListMenu/ListMenu';
-import { Paginator } from '../common/Paginator/Paginator';
+import { ListMenu } from '../components/ListMenu';
+import { Paginator } from '../common';
 import { useRouteMatch } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
 import {

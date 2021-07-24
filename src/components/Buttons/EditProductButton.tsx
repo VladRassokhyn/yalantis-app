@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from '../../lib/hooks/useSelector';
 import { selectProductsOptions } from '../../lib/store/selectors';
 import { useModal } from '../../lib/hooks/useModal';
-import { NewProductForm } from '../NewProductForm/NewProductForm';
+import { NewProductForm } from '../NewProductForm';
 import { IProduct } from '../../lib/types';
 
 export const EditProductButton: React.FC<{ product: IProduct }> = ({

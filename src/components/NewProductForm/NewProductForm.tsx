@@ -16,7 +16,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 import Select from 'react-select';
-import { Preloader } from '../../common/Preloader';
+import { Preloader } from '../../common';
 
 type TProps = {
   origins: TOrigin[];

@@ -3,7 +3,7 @@ import { useSelector } from '../../lib/hooks/useSelector';
 import { basketCleared } from '../../lib/store/basketSlice';
 import { useDispatch } from 'react-redux';
 import { postNewOrder, postStatusResets } from '../../lib/store/ordersSlice';
-import { Preloader } from '../../common/Preloader';
+import { Preloader } from '../../common';
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useHistory } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../lib/router/paths';

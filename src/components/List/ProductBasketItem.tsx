@@ -10,7 +10,7 @@ import {
 import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useDispatch } from 'react-redux';
 import trash from '../../static/trash.svg';
-import { Counter } from '../../common/Counter';
+import { Counter } from '../../common';
 import { EntityId } from '@reduxjs/toolkit';
 import { NotificationTypes } from '../../lib/types';
 import { selectBasketItemsById } from '../../lib/store/selectors';
