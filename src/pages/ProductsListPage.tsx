@@ -14,7 +14,7 @@ import {
 import { useSelector } from '../lib/hooks/useSelector';
 import { ListMenu } from '../components/ListMenu';
 import { Paginator } from '../common/Paginator';
-import { useLocation, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { ROUTE_PATHS } from '../lib/router/paths';
 import {
   selectProductsIds,
@@ -24,8 +24,6 @@ import { RequestStatuses } from '../lib/types';
 
 export const ProductsListPage = () => {
   const isProductPage = useRouteMatch(ROUTE_PATHS.PRODUCTS.BASE());
-
-  const location = useLocation();
 
   const dispatch = useDispatch();
 
@@ -44,16 +42,6 @@ export const ProductsListPage = () => {
     updateStatus,
     filterOrigins
   } = useSelector(selectProductsOptions);
-/*
-
-  React.useEffect(() => {
-    dispatch(getOrigins());
-    const queryParams = getQueryParameters(location.search);
-    dispatch(filtersSetsFromUrl({ ...queryParams, editable: !isProductPage }));
-  }, [dispatch]);
-
-  updateQueryParams({ page, perPage, minPrice, maxPrice, filterOrigins });
-*/
 
   React.useEffect(() => {
     if (newProductStatus === RequestStatuses.IDLE) {

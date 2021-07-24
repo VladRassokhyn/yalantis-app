@@ -13,7 +13,11 @@ import {
   RequestStatuses,
 } from '../types';
 
-/*export const getProducts = createAsyncThunk(
+
+// Change logic according to HM#4
+
+/*
+export const getProducts = createAsyncThunk(
   'products/getProducts',
   async (args: TReqProductsArgs) => {
     const res = await productsAPI.getProducts(args);
@@ -134,6 +138,7 @@ export const productsSlice = createSlice({
   },
 
   extraReducers: {
+    // Change logic according to HM#4
     /*
     [getProducts.pending.toString()]: (state) => {
       state.status = RequestStatuses.LOADING;

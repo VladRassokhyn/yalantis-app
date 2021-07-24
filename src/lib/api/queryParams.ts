@@ -47,7 +47,6 @@ export const updateQueryParams = (options: filterOptions) => {
     }
   });
 
-  console.log(options, query)
   let search = '';
   let j = 0;
   let separator = '?';

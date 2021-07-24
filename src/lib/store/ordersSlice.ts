@@ -1,12 +1,26 @@
 import {
   createAsyncThunk,
   createEntityAdapter,
-  createSlice,
+  createSlice
 } from '@reduxjs/toolkit';
 import { RequestStatuses, TInitialOrders, TNewOrder, TOrder } from '../types';
 import { ordersAPI } from '../api/ordersAPI';
 
+export const getOrders = createAsyncThunk('orders/getOrders', async () => {
+  const res = await ordersAPI.getOrders();
+  return res.data;
+});
+
+// Change logic according to HM#4
+
 /*
+export const getOrder = createAsyncThunk(
+  'orders/getOrder',
+  async (id: string) => {
+    const res = await ordersAPI.getOrder(id);
+    return res.data;
+  }
+);
 export const postNewOrder = createAsyncThunk(
   'orders/postNewOrder',
   async (order: TNewOrder) => {
@@ -16,18 +30,6 @@ export const postNewOrder = createAsyncThunk(
 );
 */
 
-export const getOrders = createAsyncThunk('orders/getOrders', async () => {
-  const res = await ordersAPI.getOrders();
-  return res.data;
-});
-/*
-export const getOrder = createAsyncThunk(
-  'orders/getOrder',
-  async (id: string) => {
-    const res = await ordersAPI.getOrder(id);
-    return res.data;
-  }
-);*/
 
 export const ordersAdapter = createEntityAdapter<TOrder>();
 
@@ -37,7 +39,7 @@ const initialState: TInitialOrders = {
   singleOrderStatus: RequestStatuses.IDLE,
   error: '',
   orders: ordersAdapter.getInitialState(),
-  singleOrder: null,
+  singleOrder: null
 };
 
 const ordersSlice = createSlice({
@@ -52,7 +54,7 @@ const ordersSlice = createSlice({
     },
     setOrder(state, action) {
       state.postStatus = RequestStatuses.SUCCESS;
-      state.singleOrder = action.payload
+      state.singleOrder = action.payload;
     },
     postNewOrder(state, action) {
       state.postStatus = RequestStatuses.LOADING;
@@ -61,22 +63,10 @@ const ordersSlice = createSlice({
       state.postStatus = RequestStatuses.SUCCESS;
     },
     setError(state, action) {
-      state.error = action.payload.error
+      state.error = action.payload.error;
     }
   },
-  extraReducers: {/*
-    [postNewOrder.pending.toString()]: (state) => {
-      state.postStatus = RequestStatuses.LOADING;
-    },
-
-    [postNewOrder.fulfilled.toString()]: (state) => {
-      state.postStatus = RequestStatuses.SUCCESS;
-    },
-
-    [postNewOrder.rejected.toString()]: (state, action) => {
-      state.postStatus = RequestStatuses.ERROR;
-      state.error = action.err;
-    },*/
+  extraReducers: {
     [getOrders.pending.toString()]: (state) => {
       state.getOrdersStatus = RequestStatuses.LOADING;
     },
@@ -89,8 +79,23 @@ const ordersSlice = createSlice({
     [getOrders.rejected.toString()]: (state, action) => {
       state.getOrdersStatus = RequestStatuses.ERROR;
       state.error = action.err;
+    }
+
+    // Change logic according to HM#4
+
+    /*
+    [postNewOrder.pending.toString()]: (state) => {
+      state.postStatus = RequestStatuses.LOADING;
     },
-/*
+
+    [postNewOrder.fulfilled.toString()]: (state) => {
+      state.postStatus = RequestStatuses.SUCCESS;
+    },
+
+    [postNewOrder.rejected.toString()]: (state, action) => {
+      state.postStatus = RequestStatuses.ERROR;
+      state.error = action.err;
+    },
     [getOrder.pending.toString()]: (state) => {
       state.singleOrderStatus = RequestStatuses.LOADING;
     },
@@ -103,10 +108,11 @@ const ordersSlice = createSlice({
     [getOrder.rejected.toString()]: (state, action) => {
       state.singleOrderStatus = RequestStatuses.ERROR;
       state.error = action.err;
-    },*/
-  },
+    },
+    */
+  }
 });
 
 export const ordersReducer = ordersSlice.reducer;
 
-export const { postStatusResets, setOrder, getOrder, setError , postNewOrder, postNewOrderSuccess} = ordersSlice.actions;
+export const { postStatusResets, setOrder, getOrder, setError, postNewOrder, postNewOrderSuccess } = ordersSlice.actions;

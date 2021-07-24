@@ -2,6 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import { ListMenuPrototype } from '../common/ListMenuPrototype';
 import { SliderRange } from '../common/SliderRange';
+import { useDebounce } from '../lib/hooks/useDebounce';
 import { FixThisTypeLeter, RequestStatuses, TOrigin } from '../lib/types';
 
 type TProps = {
@@ -45,27 +46,36 @@ export const ListMenu = (props: TProps) => {
     filterOrigins
   } = props;
 
+  const [changedValue, setChangedValue] = React.useState<any>(null)
+  const debounce = useDebounce<any>(changedValue, 1000);
 
   const handleChange = (e: FixThisTypeLeter) => {
-    if (e.name === 'perPage') {
-      changePerPageFn({ perPage: e.value });
-    } else {
-      changeOriginsFn(e);
-    }
+      setChangedValue(e)
   };
+
+  React.useEffect(() => {
+    console.log('delay')
+    if(changedValue) {
+      if (changedValue.name === 'perPage') {
+        changePerPageFn({ perPage: changedValue.value });
+      } else {
+        changeOriginsFn(changedValue);
+      }
+    }
+  }, [debounce])
 
   let filterOriginOptions: any[] = [];
 
   const originOptions = origins.map((origin: TOrigin) => {
-      const option = {
-        value: origin.value,
-        label: origin.displayName
-      }
-      if (filterOrigins.includes(origin.value)){
-        filterOriginOptions.push(option)
-      }
-      return option
-    })
+    const option = {
+      value: origin.value,
+      label: origin.displayName
+    };
+    if (filterOrigins.includes(origin.value)) {
+      filterOriginOptions.push(option);
+    }
+    return option;
+  });
 
   if (statusOrigins !== RequestStatuses.SUCCESS) return <ListMenuPrototype/>;
 
