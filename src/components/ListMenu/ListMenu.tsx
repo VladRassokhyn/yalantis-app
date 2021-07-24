@@ -50,7 +50,7 @@ export const ListMenu = (props: TProps) => {
     React.useState<FixThisTypeLeter>(null);
   const { debouncedValue, isDebounced } = useDebounce<FixThisTypeLeter>(
     changedValue,
-    1000
+    500
   );
 
   const handleChange = (e: FixThisTypeLeter) => {
@@ -59,6 +59,7 @@ export const ListMenu = (props: TProps) => {
 
   React.useEffect(() => {
     if (changedValue) {
+      console.log('here')
       if (changedValue.name === 'perPage') {
         changePerPageFn({ perPage: changedValue.value });
       } else {
