@@ -47,23 +47,7 @@ export const updateQueryParams = (options: filterOptions) => {
     }
   });
 
-  let search = '';
-  let j = 0;
-  let separator = '?';
-
-  Object.keys(query).forEach((key) => {
-    if (query[key] && query[key].length !== 0) {
-      if (j !== 0) {
-        separator = '&';
-      }
-      if (Array.isArray(query[key])) {
-        search += `${separator}${key}=${query[key] + ''}`;
-      } else {
-        search += `${separator}${key}=${query[key]}`;
-      }
-      j++;
-    }
-  });
+  const search = makeRequestUrl(query as TReqProductsArgs)
 
   if (location.search !== search) {
     history.pushState(null, '', search);
