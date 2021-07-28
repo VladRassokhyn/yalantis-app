@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDebounce } from '../../lib/hooks/useDebounce';
 
 interface TProps {
   minPrice: number;
@@ -8,11 +9,11 @@ interface TProps {
 }
 
 export const SliderRange: React.FC<TProps> = ({
-  minPrice,
-  maxPrice,
-  changePriceFn,
-  setChangedValue
-}) => {
+                                                minPrice,
+                                                maxPrice,
+                                                changePriceFn,
+                                                setChangedValue
+                                              }) => {
   const min = 1;
   const max = 1000;
   const [minVal, setMinVal] = React.useState(minPrice);
@@ -21,6 +22,7 @@ export const SliderRange: React.FC<TProps> = ({
   const minValRef = React.useRef(minPrice);
   const maxValRef = React.useRef(maxPrice);
   const range = React.useRef<HTMLDivElement>(null);
+  const { debouncedValue, isDebounced } = useDebounce(changed, 1000);
 
   const getPercent = React.useCallback(
     (value: number) => Math.round(((value - min) / (max - min)) * 100),
@@ -68,14 +70,11 @@ export const SliderRange: React.FC<TProps> = ({
   }, [maxVal, getPercent]);
 
   React.useEffect(() => {
-    if (changed) {
-      const timer = setTimeout(() => {
-        setChangedValue({name: 'slider'})
-        changePriceFn(minValRef.current, maxValRef.current);
-      }, 1000);
-      return () => clearTimeout(timer);
+    if (changed && !isDebounced) {
+      setChangedValue({ name: 'slider' });
+      changePriceFn(minValRef.current, maxValRef.current);
     }
-  }, [minVal, maxVal]);
+  }, [debouncedValue]);
 
   return (
     <div className="price-range-wrapper">
@@ -100,8 +99,8 @@ export const SliderRange: React.FC<TProps> = ({
       />
 
       <div className="slider">
-        <div className="slider__track" />
-        <div ref={range} className="slider__range" />
+        <div className="slider__track"/>
+        <div ref={range} className="slider__range"/>
         <div className={'slider__left-input-box'}>
           <label>From $</label>
           <input

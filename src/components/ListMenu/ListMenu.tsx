@@ -58,13 +58,9 @@ export const ListMenu = (props: TProps) => {
   };
 
   React.useEffect(() => {
-    console.log(changedValue)
     if (changedValue) {
       if (changedValue.name === 'perPage') {
         changePerPageFn({ perPage: changedValue.value });
-      }
-      if(changedValue.name === 'slider'){
-        //
       }
       if(Array.isArray(changedValue)){
         changeOriginsFn(changedValue);
