@@ -62,7 +62,7 @@ export const ListMenu = (props: TProps) => {
       if (changedValue.name === 'perPage') {
         changePerPageFn({ perPage: changedValue.value });
       }
-      if(Array.isArray(changedValue)){
+      if (Array.isArray(changedValue)) {
         changeOriginsFn(changedValue);
       }
     }

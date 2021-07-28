@@ -5,15 +5,15 @@ interface TProps {
   minPrice: number;
   maxPrice: number;
   changePriceFn: (min: number, max: number) => void;
-  setChangedValue: (value: any) => void
+  setChangedValue: (value: any) => void;
 }
 
 export const SliderRange: React.FC<TProps> = ({
-                                                minPrice,
-                                                maxPrice,
-                                                changePriceFn,
-                                                setChangedValue
-                                              }) => {
+  minPrice,
+  maxPrice,
+  changePriceFn,
+  setChangedValue,
+}) => {
   const min = 1;
   const max = 1000;
   const [minVal, setMinVal] = React.useState(minPrice);
@@ -99,8 +99,8 @@ export const SliderRange: React.FC<TProps> = ({
       />
 
       <div className="slider">
-        <div className="slider__track"/>
-        <div ref={range} className="slider__range"/>
+        <div className="slider__track" />
+        <div ref={range} className="slider__range" />
         <div className={'slider__left-input-box'}>
           <label>From $</label>
           <input

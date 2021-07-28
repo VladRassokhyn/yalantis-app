@@ -47,7 +47,7 @@ export const updateQueryParams = (options: filterOptions) => {
     }
   });
 
-  const search = makeRequestUrl(query as TReqProductsArgs)
+  const search = makeRequestUrl(query as TReqProductsArgs);
 
   if (location.search !== search) {
     history.pushState(null, '', search);
