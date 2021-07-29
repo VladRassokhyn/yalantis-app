@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from '../components/List';
-import { ProductListItem } from '../components/ProductListItem';
-import { ListPrototype } from '../common/ListPrototype';
+import { ProductListItem } from '../components/List';
+import { ListPrototype } from '../common';
 import { useDispatch } from 'react-redux';
 import {
   getProducts,
@@ -9,14 +9,11 @@ import {
   currentPerPageChanged,
   originsChanged,
   priceFilterChanged,
-  allFiltersResets,
-  getOrigins,
+  clearFilters,
 } from '../lib/store/productsSlice';
 import { useSelector } from '../lib/hooks/useSelector';
 import { ListMenu } from '../components/ListMenu';
-import { Paginator } from '../common/Paginator';
-import { useRouteMatch } from 'react-router-dom';
-import { ROUTE_PATHS } from '../lib/router/paths';
+import { Paginator } from '../common';
 import {
   selectProductsIds,
   selectProductsOptions,
@@ -24,8 +21,6 @@ import {
 import { RequestStatuses } from '../lib/types';
 
 export const ProductsListPage = () => {
-  const isProductPage = useRouteMatch(ROUTE_PATHS.PRODUCTS.BASE());
-
   const dispatch = useDispatch();
 
   const productsIds = useSelector(selectProductsIds);
@@ -37,69 +32,40 @@ export const ProductsListPage = () => {
     status,
     statusOrigins,
     origins,
-    filterOrigins,
     minPrice,
     maxPrice,
-    filterPrice,
     newProductStatus,
     updateStatus,
+    filterOrigins,
   } = useSelector(selectProductsOptions);
 
   React.useEffect(() => {
     if (newProductStatus === RequestStatuses.IDLE) {
-      dispatch(
-        getProducts({
-          page,
-          perPage,
-          origins: filterOrigins
-            ? filterOrigins.map((o) => o.value)
-            : origins.map((o) => o.value),
-          minPrice: filterPrice.min,
-          maxPrice: filterPrice.max,
-          editable: !isProductPage,
-        })
-      );
-
+      dispatch(getProducts({}));
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [
-    page,
-    perPage,
-    origins,
-    filterOrigins,
-    filterPrice,
-    newProductStatus,
-    updateStatus,
-    dispatch,
-  ]);
-
-  React.useEffect(() => {
-    dispatch(getOrigins());
-  }, [dispatch]);
-
-  React.useEffect(() => {
     return () => {
-      dispatch(allFiltersResets());
+      dispatch(clearFilters());
     };
-  }, [dispatch]);
+  }, [dispatch, newProductStatus, updateStatus]);
 
   return (
     <div>
       <ListMenu
+        filterOrigins={filterOrigins}
         statusOrigins={statusOrigins}
         perPage={perPage}
         origins={origins}
         minPrice={minPrice}
         maxPrice={maxPrice}
-        filterPrice={filterPrice}
-        changePerPageFn={(perPage: number) =>
-          dispatch(currentPerPageChanged(perPage))
+        changePerPageFn={(value: { perPage: number }) =>
+          dispatch(currentPerPageChanged(value))
         }
         changeOriginsFn={(origins: string[]) =>
-          dispatch(originsChanged(origins))
+          dispatch(originsChanged({ origins }))
         }
-        changePriceFn={(min: number, max: number) =>
-          dispatch(priceFilterChanged({ min, max }))
+        changePriceFn={(minPrice: number, maxPrice: number) =>
+          dispatch(priceFilterChanged({ minPrice, maxPrice }))
         }
       />
 
@@ -109,7 +75,7 @@ export const ProductsListPage = () => {
       )}
 
       <Paginator
-        changer={(page: number) => dispatch(currentPageChanged(page))}
+        changer={(page: number) => dispatch(currentPageChanged({ page }))}
         currentPage={page}
         perPage={perPage}
         totalItems={totalItems}

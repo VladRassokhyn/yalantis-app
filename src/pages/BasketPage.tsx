@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from '../lib/hooks/useSelector';
 import { selectBasketOptions } from '../lib/store/selectors';
 import { List } from '../components/List';
-import { ProductBasketItem } from '../components/ProductBasketItem';
-import { OrderButton } from '../components/Buttons/OrderButton';
+import { ProductBasketItem } from '../components/List';
+import { OrderButton } from '../components/Buttons';
 import { selectBasketItemsIds } from '../lib/store/selectors';
 
 export const BasketPage = () => {

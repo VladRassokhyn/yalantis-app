@@ -4,8 +4,8 @@ import { useSelector } from '../lib/hooks/useSelector';
 import { getOrder } from '../lib/store/ordersSlice';
 import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
-import { OrderPiece } from '../components/OrderPiece';
-import { ProductPrototype } from '../common/ProductPrototype';
+import { OrderListItem } from '../components/Order';
+import { ProductPrototype } from '../common';
 import { useOrderTotals } from '../lib/hooks/useOrdersTotal';
 import { selectOrdersOptions } from '../lib/store/selectors';
 import { RequestStatuses } from '../lib/types';
@@ -16,7 +16,7 @@ export const OrderPage = () => {
 
   React.useEffect(() => {
     if (params.orderId) {
-      dispatch(getOrder(params.orderId));
+      dispatch(getOrder({ orderId: params.orderId }));
     }
   }, [params]);
 
@@ -32,7 +32,7 @@ export const OrderPage = () => {
 
   const pieces = singleOrder.pieces.map((piece) => {
     return (
-      <OrderPiece
+      <OrderListItem
         key={piece.product.id}
         product={piece.product}
         count={piece.count}

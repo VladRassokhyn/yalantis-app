@@ -1,23 +1,28 @@
 import React from 'react';
+import { useDebounce } from '../../lib/hooks/useDebounce';
 
 interface TProps {
-  min: number;
-  max: number;
-  filterRange: { min: number; max: number };
+  minPrice: number;
+  maxPrice: number;
   changePriceFn: (min: number, max: number) => void;
+  setChangedValue: (value: any) => void;
 }
 
 export const SliderRange: React.FC<TProps> = ({
-  min,
-  max,
-  filterRange,
+  minPrice,
+  maxPrice,
   changePriceFn,
+  setChangedValue,
 }) => {
-  const [minVal, setMinVal] = React.useState(min);
-  const [maxVal, setMaxVal] = React.useState(max);
-  const minValRef = React.useRef(filterRange.min);
-  const maxValRef = React.useRef(filterRange.max);
+  const min = 1;
+  const max = 1000;
+  const [minVal, setMinVal] = React.useState(minPrice);
+  const [maxVal, setMaxVal] = React.useState(maxPrice);
+  const [changed, setChanged] = React.useState(false);
+  const minValRef = React.useRef(minPrice);
+  const maxValRef = React.useRef(maxPrice);
   const range = React.useRef<HTMLDivElement>(null);
+  const { debouncedValue, isDebounced } = useDebounce(changed, 1000);
 
   const getPercent = React.useCallback(
     (value: number) => Math.round(((value - min) / (max - min)) * 100),
@@ -26,13 +31,14 @@ export const SliderRange: React.FC<TProps> = ({
 
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      setChanged(true);
       if (e.target.name === 'min') {
-        const value = Math.min(+e.target.value, maxVal - 1);
+        const value = Math.min(+e.target.value, +maxVal - 1);
         setMinVal(value);
         minValRef.current = value;
       }
       if (e.target.name === 'max') {
-        const value = Math.max(+e.target.value, minVal + 1);
+        const value = Math.max(+e.target.value, +minVal + 1);
         setMaxVal(value);
         if (maxVal > 999) {
           maxValRef.current = 1000;
@@ -64,11 +70,11 @@ export const SliderRange: React.FC<TProps> = ({
   }, [maxVal, getPercent]);
 
   React.useEffect(() => {
-    const timer = setTimeout(() => {
+    if (changed && !isDebounced) {
+      setChangedValue({ name: 'slider' });
       changePriceFn(minValRef.current, maxValRef.current);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [minVal, maxVal]);
+    }
+  }, [debouncedValue]);
 
   return (
     <div className="price-range-wrapper">

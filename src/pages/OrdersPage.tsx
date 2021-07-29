@@ -3,7 +3,7 @@ import { useSelector } from '../lib/hooks/useSelector';
 import { getOrders } from '../lib/store/ordersSlice';
 import { useDispatch } from 'react-redux';
 import { Order } from '../components/Order';
-import { ProductPrototype } from '../common/ProductPrototype';
+import { ProductPrototype } from '../common';
 import { selectOrderIds, selectOrdersOptions } from '../lib/store/selectors';
 import { RequestStatuses } from '../lib/types';
 

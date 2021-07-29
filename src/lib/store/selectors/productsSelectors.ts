@@ -18,4 +18,5 @@ export const selectProductsOptions = (state: RootState) => ({
   filterPrice: state.products.filterPrice,
   deleteStatus: state.products.deleteStatus,
   updateStatus: state.products.updateStatus,
+  initialised: state.products.initialised,
 });

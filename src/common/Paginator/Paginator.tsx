@@ -1,5 +1,5 @@
 import React from 'react';
-import paginatorNext from '../static/paginatorNext.svg';
+import paginatorNext from '../../static/paginatorNext.svg';
 
 type TProps = {
   currentPage: number;
@@ -46,10 +46,9 @@ export const Paginator: React.FC<TProps> = ({
   );
   const pages: string[] = [];
 
-  const handleNext = React.useCallback(
-    () => changer(currentPage + 1),
-    [currentPage]
-  );
+  const handleNext = React.useCallback(() => {
+    changer(currentPage + 1);
+  }, [currentPage]);
 
   const handlePrev = React.useCallback(
     () => changer(currentPage - 1),

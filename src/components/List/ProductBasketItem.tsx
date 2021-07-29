@@ -1,16 +1,19 @@
 import React, { Dispatch } from 'react';
-import defaultProductPhoto from '../static/defaultProductPhoto.svg';
+import defaultProductPhoto from '../../static/defaultProductPhoto.svg';
 import { Link } from 'react-router-dom';
-import { ROUTE_PATHS } from '../lib/router/paths';
-import { useSelector } from '../lib/hooks/useSelector';
-import { changedItemCount, deletedFromBasket } from '../lib/store/basketSlice';
-import { notificationAdded } from '../lib/store/notoficationSlice';
+import { ROUTE_PATHS } from '../../lib/router/paths';
+import { useSelector } from '../../lib/hooks/useSelector';
+import {
+  changedItemCount,
+  deletedFromBasket,
+} from '../../lib/store/basketSlice';
+import { notificationAdded } from '../../lib/store/notoficationSlice';
 import { useDispatch } from 'react-redux';
-import trash from '../static/trash.svg';
-import { Counter } from '../common/Counter';
+import trash from '../../static/trash.svg';
+import { Counter } from '../../common';
 import { EntityId } from '@reduxjs/toolkit';
-import { NotificationTypes } from '../lib/types';
-import { selectBasketItemsById } from '../lib/store/selectors';
+import { NotificationTypes } from '../../lib/types';
+import { selectBasketItemsById } from '../../lib/store/selectors';
 
 const validate = (count: number, dispatch: Dispatch<{}>) => {
   if (count === 0) {

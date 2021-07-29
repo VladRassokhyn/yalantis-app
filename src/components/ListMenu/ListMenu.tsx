@@ -1,19 +1,20 @@
 import React from 'react';
 import Select from 'react-select';
-import { ListMenuPrototype } from '../common/ListMenuPrototype';
-import { SliderRange } from '../common/SliderRange';
-import { FixThisTypeLeter, RequestStatuses, TOrigin } from '../lib/types';
+import { ListMenuPrototype } from '../../common';
+import { SliderRange } from '../../common';
+import { useDebounce } from '../../lib/hooks/useDebounce';
+import { FixThisTypeLeter, RequestStatuses, TOrigin } from '../../lib/types';
 
 type TProps = {
   perPage: number;
   statusOrigins: string;
   origins: TOrigin[];
-  changePerPageFn: (perPage: number) => void;
+  changePerPageFn: (value: { perPage: number }) => void;
   changeOriginsFn: (origins: string[]) => void;
-  changePriceFn: (min: number, max: number) => void;
+  changePriceFn: (minPrice: number, maxPrice: number) => void;
   maxPrice: number;
   minPrice: number;
-  filterPrice: { min: number; max: number };
+  filterOrigins: string[];
 };
 
 const theme = (theme: FixThisTypeLeter) => ({
@@ -42,39 +43,59 @@ export const ListMenu = (props: TProps) => {
     changePriceFn,
     maxPrice,
     minPrice,
-    filterPrice,
+    filterOrigins,
   } = props;
 
-  const handleChange = (e: FixThisTypeLeter) => {
-    console.log(e);
-    if (e.name === 'perPage') {
-      changePerPageFn(e.value);
-    } else {
-      changeOriginsFn(e);
-    }
-  };
-
-  const originOptions = React.useMemo(
-    () =>
-      origins.map((origin: TOrigin) => ({
-        value: origin.value,
-        label: origin.displayName,
-      })),
-    [origins]
+  const [changedValue, setChangedValue] =
+    React.useState<FixThisTypeLeter>(null);
+  const { debouncedValue, isDebounced } = useDebounce<FixThisTypeLeter>(
+    changedValue,
+    500
   );
 
-  if (statusOrigins !== RequestStatuses.SUCCESS) return <ListMenuPrototype />;
+  const handleChange = (e: FixThisTypeLeter) => {
+    setChangedValue(e);
+  };
+
+  React.useEffect(() => {
+    if (changedValue) {
+      if (changedValue.name === 'perPage') {
+        changePerPageFn({ perPage: changedValue.value });
+      }
+      if (Array.isArray(changedValue)) {
+        changeOriginsFn(changedValue);
+      }
+    }
+  }, [debouncedValue]);
+
+  let filterOriginOptions: { value: string; label: string }[] = [];
+
+  const originOptions = origins.map((origin: TOrigin) => {
+    const option = {
+      value: origin.value,
+      label: origin.displayName,
+    };
+    if (filterOrigins.includes(origin.value)) {
+      filterOriginOptions.push(option);
+    }
+    return option;
+  });
+
+  if (statusOrigins !== RequestStatuses.SUCCESS || isDebounced)
+    return <ListMenuPrototype />;
 
   return (
     <div className={'list-menu-wrapper'}>
       <div className={'react-select-wrapper'}>
         <h1>Origins</h1>
         <Select
+          name={'origins'}
           className="react-select-container__origins"
           classNamePrefix="react-select"
           isMulti
           isClearable={true}
           onChange={handleChange}
+          value={filterOriginOptions}
           options={originOptions}
           theme={theme}
         />
@@ -96,9 +117,9 @@ export const ListMenu = (props: TProps) => {
       <div className={'list-menu-price'}>
         <h1>Price</h1>
         <SliderRange
-          min={minPrice}
-          max={maxPrice}
-          filterRange={filterPrice}
+          setChangedValue={setChangedValue}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
           changePriceFn={changePriceFn}
         />
       </div>

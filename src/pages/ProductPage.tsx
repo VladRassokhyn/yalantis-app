@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Product } from '../components/Product';
-import { ProductPrototype } from '../common/ProductPrototype';
+import { ProductPrototype } from '../common';
 import { getSingleProduct } from '../lib/store/singleProductSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../lib/hooks/useSelector';

@@ -13,6 +13,9 @@ import {
   RequestStatuses,
 } from '../types';
 
+// Change logic according to HM#4
+
+/*
 export const getProducts = createAsyncThunk(
   'products/getProducts',
   async (args: TReqProductsArgs) => {
@@ -25,7 +28,7 @@ export const getOrigins = createAsyncThunk('products/getOrigins', async () => {
   const res = await productsAPI.getOrigins();
   return res.data.items;
 });
-
+*/
 export const postProduct = createAsyncThunk(
   'products/postProduct',
   async (product: TProductPostPayload) => {
@@ -50,25 +53,22 @@ export const deleteProduct = createAsyncThunk(
 export const productsAdapter = createEntityAdapter<IProduct>();
 
 export const initialState: IInitialProducts = {
+  initialised: false,
   status: RequestStatuses.IDLE,
   statusOrigins: RequestStatuses.IDLE,
   newProductStatus: RequestStatuses.IDLE,
   updateStatus: RequestStatuses.IDLE,
   deleteStatus: RequestStatuses.IDLE,
   page: 1,
-  perPage: 10,
+  perPage: 50,
   totalItems: 1,
   items: productsAdapter.getInitialState(),
   error: null,
   newProductError: null,
   origins: [],
-  filterOrigins: null,
-  minPrice: 0,
+  filterOrigins: [],
+  minPrice: 1,
   maxPrice: 1000,
-  filterPrice: {
-    min: 0,
-    max: 1000,
-  },
 };
 
 export const productsSlice = createSlice({
@@ -80,33 +80,67 @@ export const productsSlice = createSlice({
     },
     currentPerPageChanged(state, action) {
       state.page = 1;
-      state.perPage = action.payload;
+      state.perPage = action.payload.perPage;
     },
     originsChanged(state, action) {
       state.page = 1;
       state.filterOrigins = [];
-      action.payload.forEach((origin: TOrigin) => {
-        state.filterOrigins && state.filterOrigins.push(origin);
+      action.payload.origins.forEach((origin: TOrigin) => {
+        state.filterOrigins && state.filterOrigins.push(origin.value);
       });
     },
     priceFilterChanged(state, action) {
       state.page = 1;
-      state.filterPrice.min = action.payload.min;
-      state.filterPrice.max = action.payload.max;
-    },
-    allFiltersResets(state) {
-      state.filterOrigins = null;
-      state.perPage = 10;
-      state.page = 1;
-      state.filterPrice = { min: 0, max: 1000 };
+      state.minPrice = action.payload.min;
+      state.maxPrice = action.payload.max;
     },
     statusResets(state, action) {
       const status = action.payload;
       state[status] = RequestStatuses.IDLE;
     },
+    getProducts(state, action) {
+      state.status = RequestStatuses.LOADING;
+    },
+    setProducts(state, action) {
+      state.status = RequestStatuses.SUCCESS;
+      state.totalItems = action.payload.totalItems;
+      productsAdapter.setAll(state.items, action.payload.items);
+    },
+    setFilters(state, action) {
+      state.page = +action.payload.page;
+      state.perPage = +action.payload.perPage;
+      state.minPrice = +action.payload.minPrice;
+      state.maxPrice = +action.payload.maxPrice;
+      if (typeof action.payload.origins === 'string') {
+        action.payload.origins.split(',').map((origin: string) => {
+          if (origin !== '') {
+            state.filterOrigins.push(origin);
+          }
+        });
+      }
+    },
+    clearFilters(state) {
+      state.page = 1;
+      state.perPage = 50;
+      state.minPrice = 1;
+      state.maxPrice = 1000;
+      state.filterOrigins = [];
+    },
+    getOrigins(state) {
+      state.statusOrigins = RequestStatuses.LOADING;
+    },
+    setOrigins(state, action) {
+      state.statusOrigins = RequestStatuses.SUCCESS;
+      state.origins = action.payload;
+    },
+    setError(state, action) {
+      state.error = action.payload;
+    },
   },
 
   extraReducers: {
+    // Change logic according to HM#4
+    /*
     [getProducts.pending.toString()]: (state) => {
       state.status = RequestStatuses.LOADING;
     },
@@ -135,6 +169,7 @@ export const productsSlice = createSlice({
       state.statusOrigins = RequestStatuses.ERROR;
       state.error = action.err;
     },
+    */
 
     [postProduct.pending.toString()]: (state) => {
       state.newProductStatus = RequestStatuses.LOADING;
@@ -184,6 +219,11 @@ export const {
   currentPerPageChanged,
   originsChanged,
   priceFilterChanged,
-  allFiltersResets,
   statusResets,
+  setProducts,
+  setError,
+  getProducts,
+  setOrigins,
+  setFilters,
+  clearFilters,
 } = productsSlice.actions;

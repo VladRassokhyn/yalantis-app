@@ -1,13 +1,13 @@
 import React from 'react';
-import defaultProductPhoto from '../static/defaultProductPhoto.svg';
-import { IProduct } from '../lib/types';
+import defaultProductPhoto from '../../static/defaultProductPhoto.svg';
+import { IProduct } from '../../lib/types';
 
 type TProps = {
   product: IProduct;
   count: number;
 };
 
-export const OrderPiece: React.FC<TProps> = ({ product, count }) => {
+export const OrderListItem: React.FC<TProps> = ({ product, count }) => {
   return (
     <div className={'basket-item-wrapper'}>
       <img src={defaultProductPhoto} alt={'image'} />
